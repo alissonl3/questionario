@@ -62,7 +62,7 @@ if($usuarioSelecionado->getLiberado() != null && $usuarioSelecionado->getLiberad
          <br />
 
          
-         <script type="text/javascript">
+<script type="text/javascript">
 $(document).ready(function (){
     
     $("#semgraficos").hide();
@@ -116,55 +116,82 @@ $(document).ready(function (){
             <?php 
       
             
-            $simia5  = $dao->buscarCountResposta("ia5 = 'Sim'") ;
-            $naoia5 =  $dao->buscarCountResposta("ia5 = 'Não'");
+            $simia5  = $dao->buscarCountResposta("ia5 = 'Sim' and idUsuario = ". $usuarioSelecionado->getId()) ;
+            $naoia5 =  $dao->buscarCountResposta("ia5 = 'Não' and idUsuario = ". $usuarioSelecionado->getId());
                     
-            $simia6  = $dao->buscarCountResposta("ia6 = 'Sim'");   
-            $naoia6  = $dao->buscarCountResposta("ia6 = 'Não'");
+            $simia6  = $dao->buscarCountResposta("ia6 = 'Sim' and idUsuario = ". $usuarioSelecionado->getId());   
+            $naoia6  = $dao->buscarCountResposta("ia6 = 'Não' and idUsuario = ". $usuarioSelecionado->getId());
             
-            $ia21  = $dao->buscarCountResposta("ia2 = 'O nome da Instituição de Ensino onde estudou'");  
-            $ia22  = $dao->buscarCountResposta("ia2 = 'As respostas ao teste de seleção, ao qual foi submetido'"); 
-            $ia23  = $dao->buscarCountResposta("ia2 = 'A formação teórica'"); 
-            $ia24  = $dao->buscarCountResposta("ia2 = 'A experiência prática'"); 
-            $ia25  = $dao->buscarCountResposta("ia2 = 'Visão sistámica'"); 
+            $ia21  = $dao->buscarCountResposta("ia2 = 'O nome da Instituição de Ensino onde estudou' and idUsuario = ". $usuarioSelecionado->getId());  
+            $ia22  = $dao->buscarCountResposta("ia2 = 'As respostas ao teste de seleção, ao qual foi submetido' and idUsuario = ". $usuarioSelecionado->getId()); 
+            $ia23  = $dao->buscarCountResposta("ia2 = 'A formação teórica' and idUsuario = ". $usuarioSelecionado->getId()); 
+            $ia24  = $dao->buscarCountResposta("ia2 = 'A experiência prática' and idUsuario = ". $usuarioSelecionado->getId()); 
+            $ia25  = $dao->buscarCountResposta("ia2 = 'Visão sistámica' and idUsuario = ". $usuarioSelecionado->getId()); 
             
-            $simip3  = $dao->buscarCountResposta("ip3 = 'Sim'");   
-            $naoip3  = $dao->buscarCountResposta("ip3 = 'Não'");
+            $simip3  = $dao->buscarCountResposta("ip3 = 'Sim' and idUsuario = ". $usuarioSelecionado->getId());   
+            $naoip3  = $dao->buscarCountResposta("ip3 = 'Não' and idUsuario = ". $usuarioSelecionado->getId());
             
-            $ia31  = $dao->buscarCountResposta("ia3 = 'Maior embasamento conceitual'");  
-            $ia32  = $dao->buscarCountResposta("ia3 = 'Maior embasamento técnico'"); 
-            $ia33  = $dao->buscarCountResposta("ia3 = 'Maior embasamento prático'"); 
-            $ia34  = $dao->buscarCountResposta("ia3 = 'Maior aproximação com as necessidades da indússtria'"); 
-            $ia35  = $dao->buscarCountResposta("ia3 = 'Maior capacidade de liderança'");
+            $ia31  = $dao->buscarCountResposta("ia3 = 'Maior embasamento conceitual' and idUsuario = ". $usuarioSelecionado->getId());  
+            $ia32  = $dao->buscarCountResposta("ia3 = 'Maior embasamento técnico' and idUsuario = ". $usuarioSelecionado->getId()); 
+            $ia33  = $dao->buscarCountResposta("ia3 = 'Maior embasamento prático' and idUsuario = ". $usuarioSelecionado->getId()); 
+            $ia34  = $dao->buscarCountResposta("ia3 = 'Maior aproximação com as necessidades da indússtria' and idUsuario = ". $usuarioSelecionado->getId()); 
+            $ia35  = $dao->buscarCountResposta("ia3 = 'Maior capacidade de liderança' and idUsuario = ". $usuarioSelecionado->getId());
            
-            $ic71  = $dao->buscarCountResposta("ic7 = 'Muito Satisfatório'");  
-            $ic72  = $dao->buscarCountResposta("ic7 = 'Satisfatório'"); 
-            $ic73  = $dao->buscarCountResposta("ic7 = 'Insatisfatório'"); 
-            $ic74  = $dao->buscarCountResposta("ic7 = 'Não sei responder'"); 
+            $ic71  = $dao->buscarCountResposta("ic7 = 'Muito Satisfatório' and idUsuario = ". $usuarioSelecionado->getId());  
+            $ic72  = $dao->buscarCountResposta("ic7 = 'Satisfatório' and idUsuario = ". $usuarioSelecionado->getId()); 
+            $ic73  = $dao->buscarCountResposta("ic7 = 'Insatisfatório' and idUsuario = ". $usuarioSelecionado->getId()); 
+            $ic74  = $dao->buscarCountResposta("ic7 = 'Não sei responder' and idUsuario = ". $usuarioSelecionado->getId()); 
             
-            $ic91  = $dao->buscarCountResposta("ic9 = 'A obtenção de diploma de nível técnico'");  
-            $ic92  = $dao->buscarCountResposta("ic9 = 'A aquisição de cultura geral'"); 
-            $ic93  = $dao->buscarCountResposta("ic9 = 'A aquisiçaoo de formação profissional e teórica'"); 
-            $ic94  = $dao->buscarCountResposta("ic9 = 'Melhores perspectivas de ganhos materiais'");
+            $ic91  = $dao->buscarCountResposta("ic9 = 'A obtenção de diploma de nível técnico' and idUsuario = ". $usuarioSelecionado->getId());  
+            $ic92  = $dao->buscarCountResposta("ic9 = 'A aquisição de cultura geral' and idUsuario = ". $usuarioSelecionado->getId()); 
+            $ic93  = $dao->buscarCountResposta("ic9 = 'A aquisiçaoo de formação profissional e teórica' and idUsuario = ". $usuarioSelecionado->getId()); 
+            $ic94  = $dao->buscarCountResposta("ic9 = 'Melhores perspectivas de ganhos materiais' and idUsuario = ". $usuarioSelecionado->getId());
             
-            $ic101  = $dao->buscarCountResposta("ic10 = 'Encontrar emprego na área'");  
-            $ic102  = $dao->buscarCountResposta("ic10 = 'Adequação salarial'"); 
-            $ic103  = $dao->buscarCountResposta("ic10 = 'Continuar na mesma empresa'"); 
-            $ic104  = $dao->buscarCountResposta("ic10 = 'Ser promovido'");
-            $ic105  = $dao->buscarCountResposta("ic10 = 'Adaptação ao ambiente de trabalho'");  
-            $ic106  = $dao->buscarCountResposta("ic10 = 'Tempo para se dedicar a uma qualificação'");
+            $ic101  = $dao->buscarCountResposta("ic10 = 'Encontrar emprego na área' and idUsuario = ". $usuarioSelecionado->getId());  
+            $ic102  = $dao->buscarCountResposta("ic10 = 'Adequação salarial' and idUsuario = ". $usuarioSelecionado->getId()); 
+            $ic103  = $dao->buscarCountResposta("ic10 = 'Continuar na mesma empresa' and idUsuario = ". $usuarioSelecionado->getId()); 
+            $ic104  = $dao->buscarCountResposta("ic10 = 'Ser promovido' and idUsuario = ". $usuarioSelecionado->getId());
+            $ic105  = $dao->buscarCountResposta("ic10 = 'Adaptação ao ambiente de trabalho' and idUsuario = ". $usuarioSelecionado->getId());  
+            $ic106  = $dao->buscarCountResposta("ic10 = 'Tempo para se dedicar a uma qualificação' and idUsuario = ". $usuarioSelecionado->getId());
 
+        
             
+            if($simia5 != 0)
+            {
+             echo   '<script type="text/javascript">
+                    $(document).ready(function (){
+
+                        $("#graficosChart").hide();
+                        $("#semGraficosChart").show();
+
+                    });
+                    </script>';
+                
+            }
+            else
+            {
+                echo   '<script type="text/javascript">
+                    $(document).ready(function (){
+
+                        $("#graficosChart").show();
+                        $("#semGraficosChart").hide();
+
+
+                    });
+                    </script>';
+                
+            }
+                
             
             ?>
                
-          
+
 
          
         <!-- DIV PARA VOLTAR NO TOPO -->
         <div id="voltarTopo"></div>
         
-        <div class="jumbotron" style=" background: white;">
+        <div id="graficosChart" class="jumbotron" style=" background: white;">
             <center>
                
             <label>Você voltaria a estudar no IFPR para fazer outros cursos?</label>
@@ -498,6 +525,13 @@ $(document).ready(function (){
      
             
          </div>
+        
+        <div id="semGraficosChart" class="jumbotron" style=" background: white;">
+            
+            <div style='color: red;'><center><h3>O usuário <?php echo $usuarioSelecionado->getNome() ?> ainda não respondeu o formulário</h3></center></div>
+            
+        </div>
+        
     </div>  
     </div> 
              
@@ -611,7 +645,7 @@ $(document).ready(function (){
           }
           else{
               
-              echo "<center><h3>O usuário ".$usuarioSelecionado->getNome()." ainda não respondeu o formulário</h3></center>";
+              echo "<div style='color: red;'><center><h3>O usuário ".$usuarioSelecionado->getNome()." ainda não respondeu o formulário</h3></center></div>";
           }
           
           ?>
