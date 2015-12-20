@@ -36,15 +36,51 @@
 
 </script>
 
+
+<script type="text/javascript">
+$(document).ready(function (){
+    
+    $("#cadastroAdm").hide();
+    $("#cadastroAluno").show();
+
+    
+    $("#linkAluno").click(function (){
+        $("#cadastroAluno").show();
+        $("#cadastroAdm").hide();
+
+    });
+    
+    $("#linkAdm").click(function (){
+        $("#cadastroAluno").hide();
+        $("#cadastroAdm").show();
+    });
+    
+    
+    
+ 
+});
+</script>
+
            
     <!-- Pagina do conteudo -->
     <div class="row" style="margin-top: 7%; margin-bottom: 5%;">
     <div class="col-md-2 col-sm-2 col-xs-2"></div>
     <div class="col-md-8 col-sm-8 col-xs-8" >
-        
-        <div class="jumbotron" style=" background: white; border: 2px #e7e7e7 solid; ">
+
+        <div  class="jumbotron" style=" background: white; border: 2px #e7e7e7 solid; ">
+            
+              <div id="opcoes">              
+               <ul class="nav nav-tabs nav-justified">
+                   <li role="presentation"><a id="linkAluno" href="#"><span class="glyphicon glyphicon-pencil"> </span>  Aluno</a></li>
+                   <li role="presentation"><a id="linkAdm" href="#"><span class="glyphicon glyphicon-pencil"> </span>  Administrador</a></li>
+                </ul>
+              </div>
+            <br />
+            <br />
+            
+        <div id="cadastroAluno">   
             <fieldset>
-                <legend>Cadastrar</legend>
+                <legend>Cadastrar Aluno</legend>
                 <h5 style="color: graytext; color: red;">
                     * Campos obrigatórios
                 </h5>
@@ -52,6 +88,47 @@
                 <div id="msg"></div>
                 <br />
                 <form id="frmCadastro" method="POST" role="form" onsubmit="cadastrar(); return false;" >
+                    <div class="form-group">
+                        <label  for="nome">*Nome:</label>
+                        <input type="text" placeholder="Insere o seu nome" required="true" class="form-control" name="nome" />
+                    </div>
+                    <div class="form-group">
+                        <label  for="nome">*Cpf:</label>
+                        <input type="text" placeholder="Insere o seu cpf" required="true" class="form-control" name="cpf" />
+                    </div>
+                    <div class="form-group">
+                        <label  for="email">*Email:</label>
+                        <input type="email" placeholder="Insere o seu email" required="true" class="form-control" name="email" />
+                    </div>
+                    <div class="form-group">
+                        <label  for="telefone">*Telefone:</label>
+                        <input type="tel" placeholder="Insere o seu telefone" required="true" class="form-control" name="telefone" />
+                    </div>
+                    <center>
+                        <div class="btn-group">
+                        <button type="submit" class="btn btn-success btn-lg">
+                             <span class="glyphicon glyphicon-ok"></span>
+                            Cadastrar</button>
+                        <button type="reset" class="btn btn-danger btn-lg">
+                             <span class="glyphicon glyphicon-remove"></span>
+                            Cancelar</button>
+                        </div>
+                    </center>
+        </form>
+                </fieldset>
+        </div>
+        
+        
+        <div id="cadastroAdm">
+            <fieldset>
+                <legend>Cadastrar Administrador</legend>
+                <h5 style="color: graytext; color: red;">
+                    * Campos obrigatórios
+                </h5>
+                <br />
+                <div id="msgAdm"></div>
+                <br />
+                <form id="frmCadastroAdm" method="POST" role="form" onsubmit="cadastrar(); return false;" >
                     <div class="form-group">
                         <label  for="nome">*Nome:</label>
                         <input type="text" placeholder="Insere o seu nome" required="true" class="form-control" name="nome" />
@@ -88,6 +165,7 @@
        
         
     </div>
+    </div> 
     <div class="col-md-2 col-sm-2 col-xs-2"></div>
     </div>  
     

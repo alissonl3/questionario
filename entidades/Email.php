@@ -1,0 +1,24 @@
+<?php
+ 
+class Email{
+    
+    function Email(){}
+    
+    private $id;
+    private $dataEnvio;
+    private $idUsuario;
+ 
+    
+    public function getId() { return $this->id; } 
+    public function setId($id) { $this->id = $id; }
+    
+    public function getDataEnvio() { return $this->dataEnvio; } 
+    public function setDataEnvio($dataEnvio) { $this->dataEnvio = $dataEnvio; }
+    
+    public function getIdUsuario() { return $this->idUsuario; } 
+    public function setIdUsuario($idUsuario) { $this->idUsuario = $idUsuario; }
+    
+   
+
+}
+

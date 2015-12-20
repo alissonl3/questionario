@@ -79,6 +79,8 @@ $listaUsuarios = $daoUsuario->buscarTodos();
     <thead>
       <tr>
         <th>Nome</th>
+        <th>Envio</th>
+        <th>Situação</th>
         <th>Ação</th>
       </tr>
     </thead>
@@ -90,6 +92,12 @@ $listaUsuarios = $daoUsuario->buscarTodos();
         echo '<tr>';
             echo '<td>';
                 echo  $usuario->getNome();
+            echo '</td>';
+            echo '<td>';
+                echo  'dataEnvio';
+            echo '</td>';
+            echo '<td>';
+                echo  'liberado';
             echo '</td>';
             echo '<td>';
             echo "<div class='btn-group'>";

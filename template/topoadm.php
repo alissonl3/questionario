@@ -57,8 +57,8 @@
                     <br />
                     <ul class="nav nav-tabs nav-justified">
                         <li role="presentation"><a href="../adm/gerenciar.php"><span class="glyphicon glyphicon-cog"> </span> Gerenciar</a></li>
+                        <li role="presentation"><a href=../adm/cadastro.php><span class="glyphicon glyphicon-pencil"></span> Cadastrar</a></li>                   
                         <li role="presentation"><a href="../adm/respostas.php"><span class="glyphicon glyphicon-search"> </span>  Visualizar</a></li>
-                        <li role="presentation"><a href=../adm/cadastro.php><span class="glyphicon glyphicon-pencil"></span> Cadastrar</a></li>
                     </ul>
                     
                 </div>
