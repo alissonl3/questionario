@@ -37,6 +37,7 @@ class DaoFormulario {
             
             $sql = "INSERT INTO formulario("
                     . "anoConclusao,"
+                    . "faixaSalarial,"
                     . "ia1,"
                     . "ia2,"
                     . "ia3,"
@@ -67,6 +68,7 @@ class DaoFormulario {
                     . "semestre"
                     . ") VALUES ("
                     . ":anoConclusao,"
+                    . ":faixaSalarial,"
                     . ":ia1,"
                     . ":ia2,"
                     . ":ia3,"
@@ -100,6 +102,7 @@ class DaoFormulario {
             $p_sql = $this->pdo->prepare($sql);
             
             $p_sql -> bindValue(":anoConclusao", $formulario->getAnoConclusao());
+            $p_sql -> bindValue(":faixaSalarial", $formulario->getFaixaSalarial());
             $p_sql -> bindValue(":ia1", $formulario->getIA1());
             $p_sql -> bindValue(":ia2", $formulario->getIA2());
             $p_sql -> bindValue(":ia3", $formulario->getIA3());
@@ -146,6 +149,7 @@ class DaoFormulario {
         try { 
             $sql = "UPDATE formulario SET "
                     . " anoConclusao = :anoConclusao,"
+                    . " faixaSalarial = :faixaSalarial,"
                     . " ia1 = :ia1,"
                     . " ia2 = :ia2,"
                     . " ia3 = :ia3,"
@@ -180,6 +184,7 @@ class DaoFormulario {
             
             $p_sql -> bindValue(":id", $formulario->getId());
             $p_sql -> bindValue(":anoConclusao", $formulario->getAnoConclusao());
+            $p_sql -> bindValue(":faixaSalarial", $formulario->getFaixaSalarial());
             $p_sql -> bindValue(":ia1", $formulario->getIA1());
             $p_sql -> bindValue(":ia2", $formulario->getIA2());
             $p_sql -> bindValue(":ia3", $formulario->getIA3());
@@ -336,6 +341,7 @@ class DaoFormulario {
         $formulario = new Formulario();
         $formulario ->setId($row['id']);
         $formulario ->setAnoConclusao($row['anoConclusao']);
+        $formulario ->setFaixaSalarial($row['faixaSalarial']);
         $formulario ->setIA1($row['ia1']);
         $formulario ->setIA2($row['ia2']);
         $formulario ->setIA3($row['ia3']);

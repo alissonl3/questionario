@@ -6,6 +6,7 @@ class Formulario{
     
     private $id;
     private $anoConclusao;
+    private $faixaSalarial;
     private $ia1;
     private $ia2;
     private $ia3;
@@ -44,6 +45,9 @@ class Formulario{
     
     public function getAnoConclusao() { return $this->anoConclusao; } 
     public function setAnoConclusao($anoConclusao) { $this->anoConclusao = $anoConclusao; }
+    
+    public function getFaixaSalarial() { return $this->faixaSalarial; } 
+    public function setFaixaSalarial($faixaSalarial) { $this->faixaSalarial = $faixaSalarial; }
     
     public function getIA1() { return $this->ia1; } 
     public function setIA1($ia1) { $this->ia1 = $ia1; }

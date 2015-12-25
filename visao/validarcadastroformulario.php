@@ -17,6 +17,9 @@ if(isset($_POST["anoConclusao"])){
 if(isset($_POST["opSemestre"])){
     $formulario->setSemestre($_POST["opSemestre"]); 
 }
+if(isset($_POST["opSalario"])){
+    $formulario->setFaixaSalarial($_POST["opSalario"]); 
+}
 
 
 //INFORMAÇÕES SOBRE O CURSO
@@ -153,24 +156,28 @@ try{
     $userDao = new DaoUsuario();
     $userDao->atualizar($usuario);
 
-    echo "<script type='text/javascript'>";
+//    echo "<script type='text/javascript'>";
+//    
+//        echo "alert('Obrigado por responder ao nosso formulário!');";
+//        echo "location.href='http://localhost/questionario/aluno/principal.php';";
+//
+//    echo "</script>";
     
-        echo "alert('Obrigado por responder ao nosso formulário!');";
-        echo "location.href='http://localhost/questionario/aluno/principal.php';";
-
-    echo "</script>";
+    echo "succes";
 
 } 
 catch (Exception $e){
     
     print "Erro " .$e;
     
-    echo "<script type='text/javascript'>";
+//    echo "<script type='text/javascript'>";
+//    
+//        echo "alert('Houve um erro ao tentar inserir formulario');";
+//        echo "location.href='http://localhost/questionario/aluno/formulario.php';";
+//
+//    echo "</script>";
     
-        echo "alert('Houve um erro ao tentar inserir formulario');";
-        echo "location.href='http://localhost/questionario/aluno/formulario.php';";
-
-    echo "</script>";
+    echo "erroException";
 }
     }
 }

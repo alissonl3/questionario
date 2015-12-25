@@ -80,6 +80,20 @@
                             <label><input type="radio" name="opSemestre" value="2° Semestre">2° Semestre</label>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label  for="opSemestre">3 - Faixa Salarial:</label>
+                        <div class="radio">
+                            <label><input  type="radio" name="opSalario" value="<=1000,00"><=1000,00</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="opSalario" value="> 1000,00 e <=3000,00">2° Semestre> 1000,00 e <=3000,00
+                        </div>
+                        <div class="radio">
+                            <label><input  type="radio" name="opSalario" value=">3000,00 e <= 5000,00">>3000,00 e <= 5000,00</label>
+                        </div>
+                        <div class="radio">
+                            <label><input  type="radio" name="opSalario" value="> 5000,00">> 5000,00</label>
+                        </div>
                 </fieldset>  
 
                 <fieldset>

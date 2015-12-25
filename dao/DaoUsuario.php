@@ -41,7 +41,8 @@ class DaoUsuario {
                     . "telefone,"
                     . "senha,"
                     . "liberado,"
-                    . "tipo"
+                    . "tipo,"
+                    . "qtdResponde"
                     . ") VALUES ("
                     . ":nome,"
                     . ":cpf,"
@@ -49,7 +50,8 @@ class DaoUsuario {
                     . ":telefone,"
                     . ":senha,"
                     . ":liberado,"
-                    . ":tipo)";
+                    . ":tipo,"
+                    . ":qtdResponde)";
             
             $p_sql = $this->pdo->prepare($sql);
             
@@ -59,7 +61,8 @@ class DaoUsuario {
             $p_sql -> bindValue(":telefone", $usuario->getTelefone());
             $p_sql -> bindValue(":senha", $usuario->getSenha());
             $p_sql -> bindValue(":liberado", $usuario->getLiberado());
-             $p_sql -> bindValue(":tipo", $usuario->getTipo());
+            $p_sql -> bindValue(":tipo", $usuario->getTipo());
+            $p_sql -> bindValue(":qtdResponde", $usuario->getQtdResponde());
             
             return $p_sql->execute();
          
@@ -75,7 +78,7 @@ class DaoUsuario {
     
     public function editarComSenha(Usuario $usuario) { 
         try { 
-            $sql = "UPDATE usuario SET nome = :nome, cpf = :cpf, email = :email, telefone = :telefone, senha = :senha, liberado = :liberado, tipo = :tipo WHERE id = :id"; 
+            $sql = "UPDATE usuario SET nome = :nome, cpf = :cpf, email = :email, telefone = :telefone, senha = :senha, liberado = :liberado, tipo = :tipo, qtdResponde = :qtdResponde WHERE id = :id"; 
             $p_sql = $this->pdo->prepare($sql); 
             $p_sql->bindValue(":nome", $usuario->getNome()); 
              $p_sql -> bindValue(":cpf", $usuario->getCpf());
@@ -84,7 +87,8 @@ class DaoUsuario {
             $p_sql->bindValue(":senha", $usuario->getSenha()); 
             $p_sql->bindValue(":telefone", $usuario->getTelefone()); 
             $p_sql->bindValue(":id", $usuario->getId()); 
-             $p_sql -> bindValue(":tipo", $usuario->getTipo());
+            $p_sql -> bindValue(":tipo", $usuario->getTipo());
+            $p_sql -> bindValue(":qtdResponde", $usuario->getQtdResponde());
             return $p_sql->execute(); 
             
         } catch (Exception $e) { 
