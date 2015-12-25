@@ -129,14 +129,13 @@ class DaoEmail {
     
    
 
-    public function buscarPorEmailSenha($email, $senha){
+    public function buscarPorUsuario($idUsuario){
         
          try{
             
-            $sql = "SELECT * FROM usuario WHERE email = :email AND senha = :senha";
+            $sql = "SELECT * FROM email WHERE idUsuario = :idUsuario";
             $p_sql = $this->pdo->prepare($sql);
-            $p_sql -> bindValue(":email", $email);
-            $p_sql -> bindValue(":senha", $senha);
+            $p_sql -> bindValue(":idUsuario", $idUsuario);
             $p_sql->execute();
             
              return $this->populaEmail($p_sql->fetch(PDO::FETCH_ASSOC));
