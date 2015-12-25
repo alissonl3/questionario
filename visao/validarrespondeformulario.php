@@ -19,7 +19,14 @@ $user = $dao->buscarPorCondicao(" cpf = ". $cpf);
 
 if($user->getId() > 0){
   
+if($user->getQtdResponde() >= 5)
+{    
+    echo "erroQtdResponde";
+}
+else
+{
     echo "sucess";
+}
  
 }
 else

@@ -81,7 +81,7 @@ class DaoUsuario {
             $sql = "UPDATE usuario SET nome = :nome, cpf = :cpf, email = :email, telefone = :telefone, senha = :senha, liberado = :liberado, tipo = :tipo, qtdResponde = :qtdResponde WHERE id = :id"; 
             $p_sql = $this->pdo->prepare($sql); 
             $p_sql->bindValue(":nome", $usuario->getNome()); 
-             $p_sql -> bindValue(":cpf", $usuario->getCpf());
+            $p_sql -> bindValue(":cpf", $usuario->getCpf());
             $p_sql->bindValue(":email", $usuario->getEmail()); 
             $p_sql->bindValue(":liberado", $usuario->getLiberado()); 
             $p_sql->bindValue(":senha", $usuario->getSenha()); 
@@ -134,7 +134,8 @@ class DaoUsuario {
                     . "telefone = :telefone,"
                     . "senha = :senha,"
                     . "liberado = :liberado,"
-                    . "tipo = :tipo "
+                    . "tipo = :tipo,"
+                    . "qtdResponde = :qtdResponde "
                     . "WHERE id = :id";
             
             $p_sql = $this->pdo->prepare($sql);
@@ -147,6 +148,7 @@ class DaoUsuario {
             $p_sql -> bindValue(":senha", $usuario->getSenha());
             $p_sql -> bindValue(":liberado", $usuario->getLiberado());
             $p_sql -> bindValue(":tipo", $usuario->getTipo());
+            $p_sql -> bindValue(":qtdResponde", $usuario->getQtdResponde());
             
             return $p_sql->execute();
             
@@ -352,6 +354,7 @@ class DaoUsuario {
         $user ->setTelefone($row['telefone']);
         $user ->setLiberado($row['liberado']);
         $user ->setTipo($row['tipo']);
+        $user ->setQtdResponde($row['qtdResponde']);
         
         return $user;
     }

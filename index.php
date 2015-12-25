@@ -1,46 +1,42 @@
 
 <?php require './template/topo.php'; ?>
 
-
 <script type="text/javascript">
-    
-    function logar()
-    {
-        
-                    $.ajax({
-                     url: 'visao/login.php',
+
+function liberarQuestionario()
+{
+                $.ajax({
+                     url: 'visao/validarrespondeformulario.php',
                      data: {$('#frmLogin').serialize()}, //pegar dados do formulario
                      method: "POST",
                      async: true
-                     }).done(function (r){
+                     }).done(function (retorno){
                          
                          
                          
-                         if(r === "erro"){
-                            $('#messageError').html("<b>Login invalido!</b>") 
+                         if(retorno === "erro"){
+                            $('#messageError').html("<b>Login invalido!</b>");
+                         }
+                         else if(retorno === "erroQtdResponde")
+                         {                            
+                             $('#messageError').html("<b>Ja atingiu seu limite!</b>");
+                         }
+                         else if(retorno === "erroException")
+                         {
+                             $('#messageError').html("<b>Estamos com problemas no momente, tente mais tarde!</b>");
+                         }
+                         else if(retorno === "sucess")
+                         {
+                             document.getElementById("resposta").style.cursor = "auto";
+                             document.getElementById("resposta").style.pointer-events = "auto";
                          }
                          
                          
-                     }); 
-        
-        
-    }
+                     });
     
-    
-    function validarCpf()
-    {
-        
-         alert("CPF validado");
-        
-        
-    }
-    
-    
-   
-    
-    
-</script>
+}
 
+</script>
 
 <!-- Pagina do conteudo -->
 <div class="row" style="margin-top: 5%; margin-bottom: 5%; " >
@@ -62,7 +58,7 @@
                 <p style="color: red;">
                     Para desbloquear o acesso informe seu cpf abaixo
                 </p>
-                <form method="POST" role="form" >
+                <form id="fmrLiberarQuestionario" method="POST" role="form" onsubmit="liberarQuestionario(); return false;" >
                         <div class="input-group">
                             <span class="input-group-addon" id="basic-addon1">CPF</span>
                             <input type="text" required="true" class="form-control" placeholder="informe o cpf" aria-describedby="basic-addon1">
@@ -70,7 +66,7 @@
                         <br />
                         <center>
                             <div class="btn-group">
-                                <button type="button" onclick="validarCpf()" class="btn btn-success btn-lg">
+                                <button type="submit" class="btn btn-success btn-lg">
                                 <span class="glyphicon glyphicon-ok"></span>
                                 Confirmar</button>
                             
@@ -109,12 +105,12 @@
         
         <style>
             
-    #resposta {
-        cursor:not-allowed;
-    }
-    #resposta * {
-        pointer-events: none;
-    }
+            #resposta {
+                cursor:not-allowed;
+            }
+            #resposta * {
+                pointer-events: none;
+            }
             
         </style>
         
