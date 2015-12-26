@@ -17,8 +17,18 @@
                          
                          
                          
-                         if(r === "erro"){
+                         if(r === "erro")
+                         {
                             $('#messageError').html("<b>Login invalido!</b>");
+                         }
+                         else if(r === "sucess")
+                         {
+                             location.href="http://localhost/questionario/adm/gerenciar.php";
+                             
+                         }
+                         else if(r === "erroException")
+                         {
+                               $('#messageError').html("<b>Estamos com problemas no momento, tente mais tarde!</b>");
                          }
                          
                          
