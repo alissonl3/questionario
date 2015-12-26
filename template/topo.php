@@ -49,7 +49,7 @@
         <!-- Wrapper for carousel items -->
         <div class="carousel-inner">
             <div class="item active">
-                <img src="./resources/img/header.png" alt="Newba Tutoriais e Dicas" class="img-rounded img-responsive" />
+                <img src="./resources/img/banner1.png" alt="Newba Tutoriais e Dicas" class="img-rounded img-responsive" />
          
             </div>
             <div class="item">

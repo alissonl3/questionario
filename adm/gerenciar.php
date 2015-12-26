@@ -1,10 +1,18 @@
 <?php require '../template/topoadm.php'; 
 
+//usuario
 include_once  '../dao/DaoUsuario.php';
 include_once '../entidades/Usuario.php';
+
+//email
+include_once '../dao/DaoEmail.php';
+include_once '../entidades/Email.php';
+
+//conexao
 include_once '../banco/Conexao.php';
 
 $daoUsuario = new DaoUsuario();
+$daoEmail = new DaoEmail();
 
 $textoPesquisa = "";
 
@@ -67,6 +75,19 @@ $listaUsuarios = $daoUsuario->buscarTodos();
                     <label for="textoPesquisa">Nome:</label>
                     <input type="text" class="form-control" id="textoPesquisa" name="texto">
                 </div>
+                <div class="form-group">
+                    <label for="curso">Curso:</label>
+                    <select id="curso">
+                    <option value="Técnico em informática">Volvo</option>
+                    <option value="Tecnico em Agroindustria">Saab</option>
+                    <option value="vw">VW</option>
+                    <option value="audi" selected>Audi</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="anoConclusao">Ano conlusão:</label>
+                    <input type="text" class="form-control" id="textoPesquisa" name="texto">
+                </div>
                 <button type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-search"></span>Pesquisar</button>                 
                 <a href="gerenciar.php" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-refresh"></span>Restaurar</a>                 
           
@@ -94,10 +115,24 @@ $listaUsuarios = $daoUsuario->buscarTodos();
                 echo  $usuario->getNome();
             echo '</td>';
             echo '<td>';
-                echo  'dataEnvio';
+                if(count($daoEmail->buscarPorUsuario($usuario->getId()) === 0)                         )
+                {
+                 echo 'sem envio';   
+                }
+                else
+                {
+                    echo $daoEmail->buscarPorUsuario($usuario->getId())->getDataEnvio();
+                }           
             echo '</td>';
             echo '<td>';
-                echo  'sim';
+                 if($usuario->getLiberado() === "" || $usuario->getLiberado() === null)
+                 {
+                    echo 'não'; 
+                 }
+                 else
+                 {
+                     echo 'sim';
+                 }
             echo '</td>';
             echo '<td>';
             echo "<div class='btn-group'>";

@@ -58,7 +58,7 @@ function liberarQuestionario()
                 <p style="color: red;">
                     Para desbloquear o acesso informe seu cpf abaixo
                 </p>
-                <form id="fmrLiberarQuestionario" method="POST" role="form" onsubmit="liberarQuestionario(); return false;" >
+                <form id="fmrLiberarQuestionario" method="POST" role="form" >
                         <div class="input-group">
                             <span class="input-group-addon" id="basic-addon1">CPF</span>
                             <input type="text" required="true" class="form-control" placeholder="informe o cpf" aria-describedby="basic-addon1">
@@ -66,7 +66,7 @@ function liberarQuestionario()
                         <br />
                         <center>
                             <div class="btn-group">
-                                <button type="submit" class="btn btn-success btn-lg">
+                                <button type="button" onclick="liberarQuestionario()" class="btn btn-success btn-lg">
                                 <span class="glyphicon glyphicon-ok"></span>
                                 Confirmar</button>
                             
