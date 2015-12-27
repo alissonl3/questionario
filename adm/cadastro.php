@@ -1,4 +1,14 @@
-  <?php require '../template/topoadm.php'; ?>
+  <?php require '../template/topoadm.php';
+  
+  include_once  '../dao/DaoCurso.php';
+  include_once '../entidades/Curso.php';
+  include_once '../banco/Conexao.php';
+  
+  $daoCurso = new DaoCurso();
+  
+  $cursos = $daoCurso->buscarTodos();
+  
+  ?>
 
 
 <script type="text/javascript">
@@ -91,6 +101,20 @@ $(document).ready(function (){
                     <div class="form-group">
                         <label  for="nome">*Nome:</label>
                         <input type="text" placeholder="Insere o seu nome" required="true" class="form-control" name="nome" />
+                    </div>
+                    <div class="form-group">
+                        <label  for="nome">*Curso:</label>
+                        <select>
+                            <option value="0">Selecione</option>
+                            <?php
+                            
+                                foreach ($cursos as $value) 
+                                    {
+                                    echo "<option value=".$value->getNome().">".$value->getNome()."</option>";
+                                    }
+                            
+                            ?>
+                          </select>
                     </div>
                     <div class="form-group">
                         <label  for="nome">*Cpf:</label>

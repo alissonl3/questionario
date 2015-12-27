@@ -8,26 +8,53 @@ include_once '../entidades/Usuario.php';
 include_once '../dao/DaoEmail.php';
 include_once '../entidades/Email.php';
 
+//curso
+include_once  '../dao/DaoCurso.php';
+include_once '../entidades/Curso.php';
+
 //conexao
 include_once '../banco/Conexao.php';
 
 $daoUsuario = new DaoUsuario();
 $daoEmail = new DaoEmail();
 
-$textoPesquisa = "";
+  
+  $daoCurso = new DaoCurso(); 
+  $cursos = $daoCurso->buscarTodos();
 
-if(isset($_GET['texto'])){
+$textoPesquisa = "";
+$cursoPesquisa = "";
+
+$query = "";
+$control = true;
+if(isset($_GET['texto']) || isset($_GET['curso'])){
     
     $textoPesquisa = $_GET['texto'];
+    $cursoPesquisa = $_GET['curso'];
         
-        if($_GET['texto'] != "" || $_GET['texto'] != null){
+    
+        if($_GET['curso'] != "0" || $_GET['curso'] != null)
+        {
+            $control = false;
+           $query += " idCurso = ".$cursoPesquisa. " ";
             
-            $listaUsuarios = $daoUsuario->buscarPorNome($textoPesquisa);
-            
-        }else{
-            
-           $listaUsuarios = $daoUsuario->buscarTodos(); 
         }
+       
+        if($_GET['texto'] != "" || $_GET['texto'] != null)
+        {
+          $control = false;
+          $query += "and nome LIKE ".$textoPesquisa. " ";
+            
+        }
+        
+        
+        
+        //buscar
+        if($control)
+            $listaUsuarios = $daoUsuario->buscarPorCondicao($query);
+        else
+            $listaUsuarios = $daoUsuario->buscarTodos();
+        
 }else{
 $listaUsuarios = $daoUsuario->buscarTodos();
 }
@@ -77,16 +104,17 @@ $listaUsuarios = $daoUsuario->buscarTodos();
                 </div>
                 <div class="form-group">
                     <label for="curso">Curso:</label>
-                    <select id="curso">
-                    <option value="Técnico em informática">Volvo</option>
-                    <option value="Tecnico em Agroindustria">Saab</option>
-                    <option value="vw">VW</option>
-                    <option value="audi" selected>Audi</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="anoConclusao">Ano conlusão:</label>
-                    <input type="text" class="form-control" id="textoPesquisa" name="texto">
+                    <select id="cursoPesquisa" name="curso">
+                            <option value="0">Selecione</option>
+                            <?php
+                            
+                                foreach ($cursos as $value) 
+                                    {
+                                    echo "<option value=".$value->getId().">".$value->getNome()."</option>";
+                                    }
+                            
+                            ?>
+                          </select>
                 </div>
                 <button type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-search"></span>Pesquisar</button>                 
                 <a href="gerenciar.php" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-refresh"></span>Restaurar</a>                 

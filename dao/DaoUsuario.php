@@ -42,7 +42,8 @@ class DaoUsuario {
                     . "senha,"
                     . "liberado,"
                     . "tipo,"
-                    . "qtdResponde"
+                    . "qtdResponde,"
+                    . "idCurso "
                     . ") VALUES ("
                     . ":nome,"
                     . ":cpf,"
@@ -51,7 +52,8 @@ class DaoUsuario {
                     . ":senha,"
                     . ":liberado,"
                     . ":tipo,"
-                    . ":qtdResponde)";
+                    . ":qtdResponde,"
+                    . ":idCurso)";
             
             $p_sql = $this->pdo->prepare($sql);
             
@@ -63,6 +65,7 @@ class DaoUsuario {
             $p_sql -> bindValue(":liberado", $usuario->getLiberado());
             $p_sql -> bindValue(":tipo", $usuario->getTipo());
             $p_sql -> bindValue(":qtdResponde", $usuario->getQtdResponde());
+            $p_sql -> bindValue(":idCurso", $usuario->getIdCurso());
             
             return $p_sql->execute();
          
@@ -78,7 +81,7 @@ class DaoUsuario {
     
     public function editarComSenha(Usuario $usuario) { 
         try { 
-            $sql = "UPDATE usuario SET nome = :nome, cpf = :cpf, email = :email, telefone = :telefone, senha = :senha, liberado = :liberado, tipo = :tipo, qtdResponde = :qtdResponde WHERE id = :id"; 
+            $sql = "UPDATE usuario SET nome = :nome, cpf = :cpf, email = :email, telefone = :telefone, senha = :senha, liberado = :liberado, tipo = :tipo, qtdResponde = :qtdResponde, idCurso = :idCurso WHERE id = :id"; 
             $p_sql = $this->pdo->prepare($sql); 
             $p_sql->bindValue(":nome", $usuario->getNome()); 
             $p_sql -> bindValue(":cpf", $usuario->getCpf());
@@ -89,6 +92,7 @@ class DaoUsuario {
             $p_sql->bindValue(":id", $usuario->getId()); 
             $p_sql -> bindValue(":tipo", $usuario->getTipo());
             $p_sql -> bindValue(":qtdResponde", $usuario->getQtdResponde());
+            $p_sql -> bindValue(":idCurso", $usuario->getIdCurso());
             return $p_sql->execute(); 
             
         } catch (Exception $e) { 
@@ -135,7 +139,8 @@ class DaoUsuario {
                     . "senha = :senha,"
                     . "liberado = :liberado,"
                     . "tipo = :tipo,"
-                    . "qtdResponde = :qtdResponde "
+                    . "qtdResponde = :qtdResponde,"
+                    . "idCurso = :idCurso "
                     . "WHERE id = :id";
             
             $p_sql = $this->pdo->prepare($sql);
@@ -149,6 +154,7 @@ class DaoUsuario {
             $p_sql -> bindValue(":liberado", $usuario->getLiberado());
             $p_sql -> bindValue(":tipo", $usuario->getTipo());
             $p_sql -> bindValue(":qtdResponde", $usuario->getQtdResponde());
+            $p_sql -> bindValue(":idCurso", $usuario->getIdCurso());
             
             return $p_sql->execute();
             
@@ -355,6 +361,7 @@ class DaoUsuario {
         $user ->setLiberado($row['liberado']);
         $user ->setTipo($row['tipo']);
         $user ->setQtdResponde($row['qtdResponde']);
+        $user ->setQtdResponde($row['idCurso']);
         
         return $user;
     }

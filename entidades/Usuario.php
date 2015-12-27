@@ -13,6 +13,7 @@ class Usuario{
     private $liberado;
     private $tipo;
     private $qtdResponde;
+    private $idCurso;
     
     public function getId() { return $this->id; } 
     public function setId($id) { $this->id = $id; }
@@ -40,6 +41,9 @@ class Usuario{
     
     public function getQtdResponde(){ return $this->qtdResponde; } 
     public function setQtdResponde($qtdResponde) { $this->qtdResponde = $qtdResponde; }
+    
+    public function getIdCurso() { return $this->idCurso; } 
+    public function setIdCurso($idCurso) { $this->idCurso = $idCurso; }
     
    
 
