@@ -38,7 +38,7 @@
     </head>
     <body >
        
-        <div class="container-fluid " style="background-image: url(../resources/img/fundo2.jpg); min-height: 100%; background-repeat: repeat; " >
+        <div class="container-fluid " style="background-color: #f8f8f8;" >
 
             <!-- Pagina do menubar -->
             <div class="row" >

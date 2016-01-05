@@ -163,12 +163,13 @@
             
             
             <!-- botao voltar topo -->
-            <input type="button" id="btnVoltarTopo" class="btn btn-sm btn-info" style="
+            <button type="button" id="btnVoltarTopo" class="btn btn-sm btn-info" style="
                     bottom: 20px !important;
                     position: fixed;
                     right: 30px;" 
-                    onclick="$j('html,body').animate({scrollTop: $j('#voltarTopo').offset().top}, 2000);" value="Topo" >
-            
+                onclick="$j('html,body').animate({scrollTop: $j('#voltarTopo').offset().top}, 2000);" value="Topo" >
+                <span class="glyphicon glyphicon-chevron-up"></span>
+            </button>
             
             
             

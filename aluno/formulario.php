@@ -57,7 +57,7 @@
         
         
         
-        <div class="jumbotron" style=" background: white; border: 2px greenyellow solid;">
+        <div class="jumbotron" style="background-color: white; border: 2px #e7e7e7 solid; border-radius: 10px; padding: 20px; margin-top: 10px;">
             <center>
                 <h3><label>Questionário</label></h3>
                 <br />
@@ -493,26 +493,20 @@
             
             
             <!-- botao voltar topo -->
-            <input type="button" id="btnVoltarTopo" class="btn btn-sm btn-info" style="
+            <button type="button" id="btnVoltarTopo" class="btn btn-sm btn-info" style="
                     bottom: 20px !important;
                     position: fixed;
                     right: 30px;" 
-            onclick="$j('html,body').animate({scrollTop: $j('#voltarTopo').offset().top}, 2000);" value="Topo" >
+                onclick="$j('html,body').animate({scrollTop: $j('#voltarTopo').offset().top}, 2000);" value="Topo" >
+                <span class="glyphicon glyphicon-chevron-up"></span>
+            </button>
             
-            <!-- LINK PARA VOLTAR -->        
-             <a href="principal.php" title="Voltar para a pagina incial" class="btn btn-sm btn-info" style="
-                    bottom: 20px !important;
-                    position: fixed;
-                    left:30px;" >
-             <span class="glyphicon glyphicon-arrow-left"></span>
-                 Voltar</a>
             
         </div>
     </div>  
     <div class="col-md-2 col-sm-2 col-xs-2"></div>
 </div>  
 
-<?php require_once '../visao/validarcadastroformulario.php';?>
 
 <?php require '../template/rodape.php'; ?>
 

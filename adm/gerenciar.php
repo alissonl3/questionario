@@ -228,6 +228,16 @@ else
         </div>
     </div>  
     <div class="col-md-2 col-sm-2 col-xs-2"></div>
+    
+    <!-- botao voltar topo -->
+            <button type="button" id="btnVoltarTopo" class="btn btn-sm btn-info" style="
+                    bottom: 20px !important;
+                    position: fixed;
+                    right: 30px;" 
+                onclick="$j('html,body').animate({scrollTop: $j('#voltarTopo').offset().top}, 2000);" value="Topo" >
+                <span class="glyphicon glyphicon-chevron-up"></span>
+            </button>
+    
 </div>  
 
 <?php require '../template/rodape.php'; ?>

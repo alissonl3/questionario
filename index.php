@@ -148,7 +148,7 @@ if(isset($_POST['acao'])){
             try
             {
                 
-            $user = $daoUsuario->buscarPorCondicao(" cpf = '".$_POST['cpfInformar']."'");
+            $user = $daoUsuario->buscarPorCPF($_POST['cpfInformar']);
             
             if($user != null)
             {
@@ -170,7 +170,7 @@ if(isset($_POST['acao'])){
                 
                 echo "<script type='text/javascript'>";
     
-                echo "location.href='http://localhost/questionario/aluno/questionario.php';";
+                echo "location.href='http://localhost/questionario/aluno/formulario.php';";
 
                 echo "</script>";
                 
