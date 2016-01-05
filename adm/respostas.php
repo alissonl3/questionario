@@ -15,6 +15,7 @@
     <div class="row" style="margin-top: 5%; margin-bottom: 5%;">
     <div class="col-md-2 col-sm-2 col-xs-2"></div>
     <div class="col-md-8 col-sm-8 col-xs-8" >
+        
           <!-- SCRIPT DE IMPORTAÇÃO DO CHART -->
         <script src="../resources/js/Chart.js"></script>
         
@@ -91,6 +92,12 @@
         <div id="voltarTopo"></div>
         
         <div class="jumbotron" style=" background: white; border: 2px #e7e7e7 solid;">
+             <div style="float: left;">
+                <button  title="Ajuda" class="btn btn-info btn-sm" style="border-radius: 30px;">
+                                <span class="glyphicon glyphicon-comment"></span>
+                                 </button>
+         </div>
+         <div style="clear: both;"></div>
             <center>
                 <h3><label>Gráficos</label></h3>
                 <br />

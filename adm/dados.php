@@ -48,10 +48,10 @@ if($usuarioSelecionado->getLiberado() != null && $usuarioSelecionado->getLiberad
                         <span class="glyphicon glyphicon-trash"></span>               
                         Deletar                       
                     </button>
-                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modalFormulario">
+<!--                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modalFormulario">
                         <span class="glyphicon glyphicon-search"></span>               
                         Formulário                      
-                    </button>
+                    </button>-->
                     <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modalAlterar">
                         <span class="glyphicon glyphicon-pencil"></span>               
                         Alterar                      
@@ -164,7 +164,7 @@ $(document).ready(function (){
             $formularioUsuario = $dao->buscarPorIdDoUsuario($usuarioSelecionado->getId());
         
             
-            if($formularioUsuario == null)
+            if($formularioUsuario->getId() == null || $formularioUsuario->getId() == 0)
             {
              echo   '<script type="text/javascript">
                     $(document).ready(function (){
@@ -213,7 +213,7 @@ $(document).ready(function (){
         
         <div id="graficosChart" class="jumbotron" style=" background: white;">
             <center>
-               
+            <div id="conteudoPDF">   
             <label>Você voltaria a estudar no IFPR para fazer outros cursos?</label>
             <br />
             <br />
@@ -422,6 +422,7 @@ $(document).ready(function (){
             <div style="clear: both;"></div>    
             <hr />
             <br />
+            </div>
             </center>
             
             <hr />
@@ -430,6 +431,7 @@ $(document).ready(function (){
                                 <span class="glyphicon glyphicon-cloud-download"></span>
                                 Baixar</a>
             </div>
+            
             
             
             <!--script para a criação dos gráficos -->
@@ -707,11 +709,7 @@ $(document).ready(function (){
             
             <div style='color: red;'><center><h3>O usuário <?php echo $usuarioSelecionado->getNome() ?> ainda não respondeu o formulário</h3></center></div>
             <hr />
-            <div style="float: right;">
-                <a href="#" title="Baixar gráfico" class="btn btn-info btn-sm">
-                                <span class="glyphicon glyphicon-cloud-download"></span>
-                                Baixar</a>
-            </div>
+            
             
         </div>
         
@@ -729,7 +727,7 @@ $(document).ready(function (){
              
              
           
-            if($formularioUsuario != null){
+            if($formularioUsuario->getId() != null || $formularioUsuario->getId() != 0){
               
               echo " <fieldset>
                     <legend>Dados pessoais</legend>

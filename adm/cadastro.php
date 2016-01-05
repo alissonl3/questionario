@@ -26,19 +26,15 @@ $(document).ready(function (){
      
      
     
-    $("#cadastroAdm").hide();
-    $("#cadastroAluno").show();
+    $("#campoSenha").hide();
     
    
-    $("#linkAluno").click(function (){
-        $("#cadastroAluno").show();
-        $("#cadastroAdm").hide();
-
+    $("#opTipoAluno").click(function (){
+        $("#campoSenha").hide();
     });
     
-    $("#linkAdm").click(function (){
-        $("#cadastroAluno").hide();
-        $("#cadastroAdm").show();
+    $("#opTipoAdm").click(function (){
+        $("#campoSenha").show();
     });
    
     
@@ -51,19 +47,16 @@ $(document).ready(function (){
     <div class="col-md-8 col-sm-8 col-xs-8" >
 
         <div  class="jumbotron" style=" background: white; border: 2px #e7e7e7 solid; ">
-            
-              <div id="opcoes">              
-               <ul class="nav nav-tabs nav-justified">
-                   <li role="presentation"><a id="linkAluno" href="#"><span class="glyphicon glyphicon-pencil"> </span>  Aluno</a></li>
-                   <li role="presentation"><a id="linkAdm" href="#"><span class="glyphicon glyphicon-pencil"> </span>  Administrador</a></li>
-                </ul>
-              </div>
-            <br />
-            <br />
+         <div style="float: right;">
+                <button  title="Ajuda" class="btn btn-info btn-sm" style="border-radius: 30px;">
+                                <span class="glyphicon glyphicon-comment"></span>
+                                 </button>
+         </div>
+         <div style="clear: both;"></div>   
             
         <div id="cadastroAluno">   
             <fieldset>
-                <legend>Cadastrar Aluno</legend>
+                <legend>Cadastrar Usuario</legend>
                 <h5 style="color: graytext; color: red;">
                     * Campos obrigatórios
                 </h5>
@@ -99,6 +92,19 @@ $(document).ready(function (){
                     <div class="form-group">
                         <label  for="telefone">*Telefone:</label>
                         <input type="tel" placeholder="Insere o seu telefone" required="true" class="form-control" name="telefone" />
+                    </div>
+                    <div class="form-group">
+                        <label  for="tipo">*Tipo:</label>
+                        <div class="radio">
+                            <label><input id="opTipoAluno"  type="radio" name="opTipo" value="aluno">Aluno</label>
+                        </div>
+                        <div class="radio">
+                            <label><input id="opTipoAdm" type="radio" name="opTipo" value="adm">Administrador</label>
+                        </div>
+                    </div>
+                    <div id="campoSenha" class="form-group">
+                        <label  for="senha">*Senha:</label>
+                        <input type="password" placeholder="Insere a sua senha" class="form-control" name="senha" />
                     </div>
                     <center>
                         <div class="btn-group">
@@ -136,50 +142,6 @@ $(document).ready(function (){
                 </div>
               </div>
             </div>
-        
-        <div id="cadastroAdm">
-            <fieldset>
-                <legend>Cadastrar Administrador</legend>
-                <h5 style="color: graytext; color: red;">
-                    * Campos obrigatórios
-                </h5>
-                <br />
-                <div id="msgAdm"></div>
-                <br />
-                <form id="frmCadastroAdm" method="POST" role="form" onsubmit="cadastrar(); return false;" >
-                    <div class="form-group">
-                        <label  for="nome">*Nome:</label>
-                        <input type="text" placeholder="Insere o seu nome" required="true" class="form-control" name="nome" />
-                    </div>
-                    <div class="form-group">
-                        <label  for="nome">*Cpf:</label>
-                        <input type="text" placeholder="Insere o seu cpf" required="true" class="form-control" name="cpf" />
-                    </div>
-                    <div class="form-group">
-                        <label  for="email">*Email:</label>
-                        <input type="email" placeholder="Insere o seu email" required="true" class="form-control" name="email" />
-                    </div>
-                    <div class="form-group">
-                        <label  for="telefone">*Telefone:</label>
-                        <input type="tel" placeholder="Insere o seu telefone" required="true" class="form-control" name="telefone" />
-                    </div>
-                    <div class="form-group">
-                        <label  for="senha">*Senha:</label>
-                        <input type="password" placeholder="Insere a sua senha" required="true" class="form-control" name="senha" />
-                    </div>
-                    <center>
-                        <div class="btn-group">
-                        <button type="submit" class="btn btn-success btn-lg">
-                             <span class="glyphicon glyphicon-ok"></span>
-                            Cadastrar</button>
-                        <button type="reset" class="btn btn-danger btn-lg">
-                             <span class="glyphicon glyphicon-remove"></span>
-                            Cancelar</button>
-                        </div>
-                    </center>
-        </form>
-                </fieldset>
-        </div>
        
         
     </div>

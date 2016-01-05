@@ -97,6 +97,12 @@ else
         
         
         <div class="jumbotron" style=" background: white; border: 2px #e7e7e7 solid;">
+            <div style="float: left;">
+                <button  title="Ajuda" class="btn btn-info btn-sm" style="border-radius: 30px;">
+                                <span class="glyphicon glyphicon-comment"></span>
+                                 </button>
+            </div>
+            <div style="clear: both;"></div>
             <center>
                 <h3><label>Gerenciar</label></h3>
                 <br />

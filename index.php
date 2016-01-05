@@ -51,18 +51,16 @@ function liberarQuestionario()
     <div class="col-md-2 col-sm-2 col-xs-2"></div>
     
     <div class="col-md-8 col-sm-8 col-xs-8" style="background-color: white; border: 2px #e7e7e7 solid; border-radius: 10px; padding: 20px; margin-top: 10px;" >
-
+        
         <div id="pergunta" style="color: graytext;">
             <center>
-                <h2>Formulário</h2>
-                <p>
-                    O formulário será respondido durante cinco anos após o termino do curso. Nesse 
-                    tempo a cada ano será envia um e-mail para o estudando solicitando o respondimento
-                    do formulário.
-                </p>
-                <br/>
-                <hr />
-                <br />
+                <div style="float: left;">
+                <button  title="Ajuda" class="btn btn-info btn-sm" style="border-radius: 30px;">
+                                <span class="glyphicon glyphicon-comment"></span>
+                                 </button>
+         </div>
+         <div style="clear: both;"></div>
+         <br />
                 <p style="color: red;">
                     Para desbloquear o acesso ao formulário informe seu cpf abaixo
                 </p>
