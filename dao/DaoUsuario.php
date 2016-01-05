@@ -361,7 +361,7 @@ class DaoUsuario {
         $user ->setLiberado($row['liberado']);
         $user ->setTipo($row['tipo']);
         $user ->setQtdResponde($row['qtdResponde']);
-        $user ->setQtdResponde($row['idCurso']);
+        $user ->setIdCurso($row['idCurso']);
         
         return $user;
     }

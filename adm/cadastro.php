@@ -12,48 +12,24 @@
 
 
 <script type="text/javascript">
-    // Use jQuery com a variavel $j(...)
-    var $j = jQuery.noConflict();
-   
-        
-        
-    function cadastrar(){
-            
-            
-            alert("Chamou");
-            
-//                $j.ajax({
-//                    method: "post",
-//                    url: "./visao/validarcadastro.php",
-//                    data: $("#frmCadastro").serialize(),
-//                success: function(data){
-//                           
-//                           
-//                        if(data == "success")
-//                        {   
-//                           document.getElementById("frmCadastro").reset();
-//                           $("#msg").html("<div class='alert alert-success' role='alert'>Cadastro Realizado com Sucesso!<a href='http://localhost/questionario/index.php'>Logar</a></div>");
-//                        }                       
-//                        else if(data == "erroException")
-//                        {
-//                            $("#msg").html("<div class='alert alert-danger' role='alert'>Estamos com problemas! Tente mais tarde.</div>");             
-//                        }
-//                }
-//
-//            });
-//            }
     
 
-</script>
+function cadastrarAluno(){
+$(document).ready(function (){    
+    
+     $("#msgSucesso").show();
 
+});
+}
 
-<script type="text/javascript">
 $(document).ready(function (){
+     
+     
     
     $("#cadastroAdm").hide();
     $("#cadastroAluno").show();
-
     
+   
     $("#linkAluno").click(function (){
         $("#cadastroAluno").show();
         $("#cadastroAdm").hide();
@@ -64,13 +40,10 @@ $(document).ready(function (){
         $("#cadastroAluno").hide();
         $("#cadastroAdm").show();
     });
+   
     
-    
-    
- 
 });
 </script>
-
            
     <!-- Pagina do conteudo -->
     <div class="row" style="margin-top: 7%; margin-bottom: 5%;">
@@ -95,9 +68,8 @@ $(document).ready(function (){
                     * Campos obrigatórios
                 </h5>
                 <br />
-                <div id="msg"></div>
                 <br />
-                <form id="frmCadastro" method="POST" role="form" onsubmit="cadastrar(); return false;" >
+                <form id="frmCadastro" method="POST" role="form" action="<?php echo $_SERVER['PHP_SELF'] ?>">
                     <div class="form-group">
                         <label  for="nome">*Nome:</label>
                         <input type="text" placeholder="Insere o seu nome" required="true" class="form-control" name="nome" />
@@ -118,7 +90,7 @@ $(document).ready(function (){
                     </div>
                     <div class="form-group">
                         <label  for="nome">*Cpf:</label>
-                        <input type="text" placeholder="Insere o seu cpf" required="true" class="form-control" name="cpf" />
+                        <input type="text" placeholder="Insere o seu cpf" name="cpf" id="cpf" required="true" class="form-control" maxlength="14">
                     </div>
                     <div class="form-group">
                         <label  for="email">*Email:</label>
@@ -130,7 +102,7 @@ $(document).ready(function (){
                     </div>
                     <center>
                         <div class="btn-group">
-                        <button type="submit" class="btn btn-success btn-lg">
+                            <button  type="submit" class="btn btn-success btn-lg">
                              <span class="glyphicon glyphicon-ok"></span>
                             Cadastrar</button>
                         <button type="reset" class="btn btn-danger btn-lg">
@@ -142,6 +114,28 @@ $(document).ready(function (){
                 </fieldset>
         </div>
         
+            
+            <!-- Modal de visualiziação  -->
+            <div id="modalMsgSucesso" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Modal corpo-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Sucesso</h4>
+                  </div>
+                  <div class="modal-body">
+                      
+                      <p>Painel de sucesso!</p>
+                        
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
         
         <div id="cadastroAdm">
             <fieldset>
@@ -194,7 +188,6 @@ $(document).ready(function (){
     </div>  
     
     
-
     
    
         

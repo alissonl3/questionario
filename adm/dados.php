@@ -5,7 +5,10 @@ include_once '../entidades/Usuario.php';
 include_once '../banco/Conexao.php';
 include_once '../dao/DaoFormulario.php';
 include_once '../entidades/Formulario.php';
-
+include_once  '../dao/DaoCurso.php';
+include_once '../entidades/Curso.php';
+  
+$daoCurso = new DaoCurso();
 $daoUsuario = new DaoUsuario();
 $daoFormulario = new DaoFormulario();
 
@@ -13,6 +16,8 @@ if(isset($_GET['id'])){
     $idSelecionado = $_GET['id'];
 }
 $usuarioSelecionado = $daoUsuario->buscarPorId($idSelecionado);
+$cursoUsuarioSelecionado = $daoCurso->buscarPorId($usuarioSelecionado->getIdCurso());
+$cursos = $daoCurso->buscarPorCondicao(" id != ".$usuarioSelecionado->getIdCurso());
 
 $verificacaoFormulario = false;
 
@@ -259,6 +264,13 @@ $(document).ready(function (){
             <hr />           
             <br />
             </center>
+            
+            <hr />
+            <div style="float: right;">
+                <a href="#" title="Baixar gráfico" class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-cloud-download"></span>
+                                Baixar</a>
+            </div>
             
             
             <!--script para a criação dos gráficos -->
@@ -529,16 +541,23 @@ $(document).ready(function (){
         <div id="semGraficosChart" class="jumbotron" style=" background: white;">
             
             <div style='color: red;'><center><h3>O usuário <?php echo $usuarioSelecionado->getNome() ?> ainda não respondeu o formulário</h3></center></div>
+            <hr />
+            <div style="float: right;">
+                <a href="#" title="Baixar gráfico" class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-cloud-download"></span>
+                                Baixar</a>
+            </div>
             
         </div>
         
     </div>  
     </div> 
-             
-             
-         </div>
+    </div>
          
-<div id="semgraficos" style="color: graytext; margin-top: 100px;">
+<div id="semgraficos" style="color: graytext;">
+<div class="row" style="margin-top: 5%; margin-bottom: 5%;">
+<div class="col-md-12 col-sm-12 col-xs-12" >
+<div class="jumbotron" style=" background: white;">
              
          
              <?php 
@@ -641,16 +660,32 @@ $(document).ready(function (){
                     ."</fieldset>"
                     ."<hr />";
               
+    
+              echo '<div style="float: right;">
+                <a href="#" title="Baixar gráfico" class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-cloud-download"></span>
+                                Baixar</a>
+                </div>';
+              
               
           }
           else{
               
               echo "<div style='color: red;'><center><h3>O usuário ".$usuarioSelecionado->getNome()." ainda não respondeu o formulário</h3></center></div>";
+              echo "<hr />";
+              echo '<div style="float: right;">
+                <a href="#" title="Baixar gráfico" class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-cloud-download"></span>
+                                Baixar</a>
+                </div>';
           }
           
           ?>
-             
-         </div>
+  
+</div>
+</div>
+</div>
+</div>
             
           
 
@@ -704,7 +739,48 @@ $(document).ready(function (){
       </div>
       <div class="modal-body">
           <div class="jumbotron" style=" background: white;">
-              <p>Painel de alteração</p>        
+               <div id="alterarAluno">                     
+                        <form id="frmAlterarAluno" method="POST" role="form" action="<?php echo $_SERVER['PHP_SELF'] ?>?id=1">
+                            <input type="hidden" name="acao" value="alterarUsuario" />
+                            <div class="form-group">
+                                <label  for="nomeAlterar">Nome:</label>
+                                <input type="text" placeholder="Insere o nome" value="<?php echo $usuarioSelecionado->getNome(); ?>" required="true" class="form-control" name="nomeAlterar" />
+                            </div>
+                            <div class="form-group">
+                                <label  for="cursoAlterar">Curso:</label>
+                                <select name="cursoAlterar">
+                                    <option value="<?php echo $usuarioSelecionado->getIdCurso(); ?>"><?php echo $cursoUsuarioSelecionado->getNome(); ?></option>
+                                    <?php
+
+                                        foreach ($cursos as $value) 
+                                        {
+                                            echo "<option value=".$value->getNome().">".$value->getNome()."</option>";
+                                        }
+
+                                    ?>
+                                  </select>
+                            </div>
+                            <div class="form-group">
+                                <label  for="cpfAlterar">Cpf:</label>
+                                <input type="text" placeholder="Insere o cpf" value="<?php echo $usuarioSelecionado->getCpf(); ?>" name="cpfAlterar" id="cpfAlterar" required="true" class="form-control" maxlength="14">
+                            </div>
+                            <div class="form-group">
+                                <label  for="emailAlterar">Email:</label>
+                                <input type="email" placeholder="Insere o email" value="<?php echo $usuarioSelecionado->getEmail(); ?>" required="true" class="form-control" name="emailAlterar" />
+                            </div>
+                            <div class="form-group">
+                                <label  for="telefoneAlterar">Telefone:</label>
+                                <input type="tel" placeholder="Insere o telefone" value="<?php echo $usuarioSelecionado->getTelefone(); ?>" required="true" class="form-control" name="telefoneAlterar" />
+                            </div>
+                            <center>
+                                <div class="btn-group">
+                                    <button  type="submit" class="btn btn-success btn-lg">
+                                     <span class="glyphicon glyphicon-ok"></span>
+                                    Alterar</button>
+                                </div>
+                            </center>
+                </form>
+        </div>    
           </div>         
       </div>
       <div class="modal-footer">
@@ -881,6 +957,12 @@ $(document).ready(function (){
           else{
               
               echo "<p>O usuário ".$usuarioSelecionado->getNome()." ainda não respondeu o formulário</p>";
+              echo "<hr />";
+              echo '<div style="float: right;">
+                <a href="#" title="Baixar gráfico" class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-cloud-download"></span>
+                                Baixar</a>
+                </div>';
           }
           
           ?>
@@ -910,6 +992,51 @@ $(document).ready(function (){
 
 <!-- deletar usuario -->
 <?php 
+
+    
+if(isset($_POST['acao'])){
+        
+        if($_POST['acao'] == "alterarUsuario")
+        {
+          
+            //alterar o aluno
+            $usuarioSelecionado->setNome($_POST['nomeAlterar']);
+            $usuarioSelecionado->setTelefone($_POST['telefoneAlterar']);
+            $usuarioSelecionado->setCpf($_POST['cpfAlterar']);
+            $usuarioSelecionado->setEmail($_POST['emailAlterar']);
+            
+            try
+            {
+            $daoUsuario->atualizar($usuarioSelecionado);
+            
+            echo "<script type='text/javascript'>";
+    
+            echo "alert('Usuario atualizado com sucesso!');";
+            echo "location.href='http://localhost/questionario/adm/dados.php?id=".$idSelecionado."';";
+
+            echo "</script>";
+            
+            }
+            catch (Exception $erro)
+            {
+             
+            echo "<script type='text/javascript'>";
+    
+            echo "alert('Erro ao tentar atualizar usuario!');";
+            echo "location.href='http://localhost/questionario/adm/gerenciar.php?id=".$idSelecionado."';";
+
+            echo "</script>";
+                
+                
+            }
+            
+        }
+        
+        
+        
+    }
+
+
 
 
 if(isset($_GET['deletar'])){

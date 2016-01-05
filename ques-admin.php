@@ -1,5 +1,12 @@
 
-<?php require './template/topo.php'; ?>
+<?php require './template/topo.php'; 
+
+
+include_once  './dao/DaoUsuario.php';
+include_once './entidades/Usuario.php';
+include_once './banco/Conexao.php';
+
+?>
 
 
 
@@ -76,7 +83,8 @@
                 <!-- MENSSAGEM DE ERRO -->
                 <div id="messageError"></div>
                 
-                <form id="frmLogin" method="POST" action="visao/login.php" role="form"  >
+                <form id="frmLogin" method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>" role="form"  >
+                    <input type="hidden" name="acao" value="login" />
                     <div class="form-group">
                         <label for="email">Seu email:</label>
                         <input type="email" required="true" placeholder="Insere o seu email" class="form-control" id="email" name="email" />
@@ -110,6 +118,110 @@
 
 <?php require './template/rodape.php';
 
+//logar usuario
+if(isset($_POST['acao'])){
+        
+        if($_POST['acao'] == "login")
+        {
+            
+            session_start();
+            //VALIDAÇÃO DOS DADOS
+            if(isset($_POST["email"])){
+                $email = $_POST["email"];
+            }
+
+            if(isset($_POST["senha"])){
+                $senha = $_POST["senha"];
+            }
+
+            //USUARIO MASTER
+            if($email == "ifpr@edu.br" && $senha == "root"){
+
+
+                $_SESSION['nome'] = "Moderador";
+
+                $_SESSION['email'] = $email;
+                $_SESSION['senha'] = $senha;
+
+                //VARIAVEL DE VERIFICAÇÃO DO LOGI... saber se é adm ou usuario
+                $_SESSION['tipo'] = "adm";
+
+                echo "ifpr";
+
+            }
+            else{
+
+            try{
+
+            $dao = new DaoUsuario();
+            $user = $dao->buscarPorEmailSenha($email, $senha);
+
+
+            if($user->getId() > 0){
+
+                //ENVIO DE DADOS PELA SEÇÃO
+                $_SESSION['nome'] = $user->getNome();
+                $_SESSION['id'] = $user->getId(); 
+                $_SESSION['email'] = $email;
+                $_SESSION['senha'] = $senha;
+                $_SESSION['telefone'] = $user->getTelefone();
+                $_SESSION['idFormulario'] = $user->getLiberado();
+
+
+
+                //VARIAVEL DE VERIFICAÇÃO DO LOGI... saber se é adm ou usuario
+                $_SESSION['tipo'] = "user";
+
+
+               // echo "sucess";
+                
+                echo "<script type='text/javascript'>";
+    
+                echo "location.href='http://localhost/questionario/adm/gerenciar.php';";
+
+                echo "</script>";
+
+
+
+            }
+            else
+            {
+
+                unset ($_SESSION['email']);
+                unset ($_SESSION['senha']);
+
+               // echo "erro";
+                
+                echo "<script type='text/javascript'>";
+                
+                echo "alert('Login incorreto, tente novamente!');";
+                echo "location.href='http://localhost/questionario/ques-admin.php';";
+
+                echo "</script>";
+
+
+            }
+
+
+            } 
+            catch (Exception $e){
+
+               //echo "erroException";
+                
+                echo "<script type='text/javascript'>";
+                
+                echo "alert('Estamos com problemas, tente mais tarde!');";
+                echo "location.href='http://localhost/questionario/ques-admin.php';";
+
+                echo "</script>";
+            }
+            }
+            
+        }
+        
+        
+        
+    }
 
 ?>
 

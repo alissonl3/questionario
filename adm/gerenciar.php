@@ -19,44 +19,50 @@ $daoUsuario = new DaoUsuario();
 $daoEmail = new DaoEmail();
 
   
-  $daoCurso = new DaoCurso(); 
-  $cursos = $daoCurso->buscarTodos();
+$daoCurso = new DaoCurso(); 
+$cursos = $daoCurso->buscarTodos();
 
 $textoPesquisa = "";
 $cursoPesquisa = "";
 
-$query = "";
+$queryBusca = "";
 $control = true;
+$cont = 0;
 if(isset($_GET['texto']) || isset($_GET['curso'])){
     
-    $textoPesquisa = $_GET['texto'];
+    $textoPesquisa = $_GET['texto']."%";
     $cursoPesquisa = $_GET['curso'];
         
     
-        if($_GET['curso'] != "0" || $_GET['curso'] != null)
+        if($_GET['curso'] != "0" && $_GET['curso'] != null)
         {
-            $control = false;
-           $query += " idCurso = ".$cursoPesquisa. " ";
+           $control = false;
+           $cont++;
+           $queryBusca = $queryBusca. " idCurso = ".$cursoPesquisa." ";
             
         }
-       
-        if($_GET['texto'] != "" || $_GET['texto'] != null)
+        
+        if($_GET['texto'] != "" && $_GET['texto'] != null)
         {
+            if($cont === 1)
+                $queryBusca = $queryBusca. "and";
+            
           $control = false;
-          $query += "and nome LIKE ".$textoPesquisa. " ";
+          $cont++;
+          $queryBusca = $queryBusca. " nome LIKE '".$textoPesquisa."' ";
             
         }
-        
-        
         
         //buscar
         if($control)
-            $listaUsuarios = $daoUsuario->buscarPorCondicao($query);
+           $listaUsuarios = $daoUsuario->buscarTodos();
         else
-            $listaUsuarios = $daoUsuario->buscarTodos();
+           $listaUsuarios = $daoUsuario->buscarPorCondicao($queryBusca);
         
-}else{
-$listaUsuarios = $daoUsuario->buscarTodos();
+}
+else
+{
+    $listaUsuarios = $daoUsuario->buscarTodos();
 }
 
 ?>
