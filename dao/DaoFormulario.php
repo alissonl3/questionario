@@ -268,6 +268,28 @@ class DaoFormulario {
         
     }
     
+    
+    public function buscarPorIdDoUsuario($idUsuario){
+        
+         try{
+            
+            $sql = "SELECT * FROM formulario WHERE idUsuario = :idUsuario";
+            $p_sql = $this->pdo->prepare($sql);
+            $p_sql -> bindValue(":idUsuario", $idUsuario);
+            $p_sql->execute();
+            
+             return $this->populaFormulario($p_sql->fetch(PDO::FETCH_ASSOC));
+           
+              }       
+        catch (Exception $e){
+     
+            print "Ocorreu um erro ao tentar executar esta ação, foi gerado um LOG do mesmo, tente novamente mais tarde."; 
+           
+     
+        }
+        
+    }
+    
 
     
     public function buscarTodos(){

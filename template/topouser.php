@@ -8,13 +8,7 @@
         <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        
-        
-        <!-- COUNTDOWN -->
-        <!-- Our CSS stylesheet file -->
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" />
-        <link rel="stylesheet" href="assets/css/styles.css" />
-        <link rel="stylesheet" href="assets/countdown/jquery.countdown.css" />
+
  
 
         <?php
@@ -29,6 +23,7 @@
 
 
         $logado = $_SESSION['nome'];
+        $idLogado = $_SESSION['id'];
         
         ?>
 

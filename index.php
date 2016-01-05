@@ -156,9 +156,14 @@ if(isset($_POST['acao'])){
                 //ENVIO DE DADOS PELA SEÇÃO
                 $_SESSION['nome'] = $user->getNome();
                 $_SESSION['id'] = $user->getId(); 
+                $_SESSION['senha'] = $user->getSenha();
                 $_SESSION['email'] = $user->getEmail();
+                $_SESSION['cpf'] = $user->getCpf();
                 $_SESSION['telefone'] = $user->getTelefone();
-                $_SESSION['idFormulario'] = $user->getLiberado();
+                $_SESSION['liberado'] = $user->getLiberado();
+               // $_SESSION['tipo'] = $user->getTipo();
+                $_SESSION['qtdResponde'] = $user->getQtdResponde();
+                $_SESSION['idCurso'] = $user->getIdCurso();
 
 
 
