@@ -123,8 +123,9 @@ if(isset($_POST['acao'])){
         
         if($_POST['acao'] == "login")
         {
-            
+
             session_start();
+            
             //VALIDAÇÃO DOS DADOS
             if(isset($_POST["email"])){
                 $email = $_POST["email"];
@@ -170,7 +171,7 @@ if(isset($_POST['acao'])){
 
 
                 //VARIAVEL DE VERIFICAÇÃO DO LOGI... saber se é adm ou usuario
-                $_SESSION['tipo'] = "user";
+                $_SESSION['tipo'] = "adm";
 
 
                // echo "sucess";
