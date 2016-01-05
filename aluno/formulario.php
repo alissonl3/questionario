@@ -9,7 +9,7 @@ include_once '../banco/Conexao.php';
 ?>
 
 
-<script>
+<script type="text/javascript">
     
     $(document).ready(function(){
  
