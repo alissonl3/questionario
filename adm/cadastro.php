@@ -4,6 +4,9 @@
   include_once '../entidades/Curso.php';
   include_once '../banco/Conexao.php';
   
+  include_once  '../dao/DaoUsuario.php';
+  include_once '../entidades/Usuario.php';
+  
   $daoCurso = new DaoCurso();
   
   $cursos = $daoCurso->buscarTodos();
@@ -63,19 +66,20 @@ $(document).ready(function (){
                 <br />
                 <br />
                 <form id="frmCadastro" method="POST" role="form" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+                    <input type="hidden" name="acao" value="cadastrarUsuario" />
                     <div class="form-group">
                         <label  for="nome">*Nome:</label>
                         <input type="text" placeholder="Insere o seu nome" required="true" class="form-control" name="nome" />
                     </div>
                     <div class="form-group">
-                        <label  for="nome">*Curso:</label>
-                        <select>
+                        <label  for="curso">*Curso:</label>
+                        <select name="curso">
                             <option value="0">Selecione</option>
                             <?php
                             
                                 foreach ($cursos as $value) 
                                     {
-                                    echo "<option value=".$value->getNome().">".$value->getNome()."</option>";
+                                        echo "<option name='opCurso' value=".$value->getId().">".$value->getNome()."</option>";
                                     }
                             
                             ?>
@@ -153,5 +157,77 @@ $(document).ready(function (){
     
    
         
-   <?php require '../template/rodape.php'; ?>
+   <?php require '../template/rodape.php';
+   
+   //EXECUTAR AÇÃO
+if(isset($_POST['acao'])){
+    
+        //RESPONDER FORMULÁRIO 
+        if($_POST['acao'] == "cadastrarUsuario")
+        {
+            
+            $user = new Usuario();
+
+            if(isset($_POST["nome"]))
+                $user->setNome($_POST["nome"]);
+
+            if(isset($_POST["email"]))
+                $user->setEmail($_POST["email"]);
+
+            if(isset($_POST["telefone"]))
+                $user->setTelefone($_POST["telefone"]);
+
+            if(isset($_POST["senha"]))
+                $user->setSenha($_POST["senha"]);
+
+            if(isset($_POST["cpf"]))
+                $user->setCpf($_POST["cpf"]);
+            
+            if(isset($_POST["opTipo"]))
+                $user->setTipo($_POST["opTipo"]);
+
+            if(isset($_POST["curso"]))
+                $user->setIdCurso($_POST["curso"]);
+
+
+            try{
+                
+                
+            $dao = new DaoUsuario();
+            $dao->inserir($user);
+            
+            //    header('location:http://localhost/questionario/index.php');
+                
+                echo "<script type='text/javascript'>";
+                
+                    echo "alert('Obrigado por se cadastrar!');";
+                   // echo "location.href='http://localhost/questionario/gerenciar.php';";
+            
+                echo "</script>";
+            
+            //       echo " $('#msgSucesso').show();";
+            
+            } 
+            catch (Exception $e){
+                
+                print "Erro " .$e;
+                
+                echo "<script type='text/javascript'>";
+                
+                    echo "alert('Houve um erro ao tentar cadastrar usuario');";
+                    echo "location.href='http://localhost/questionario/adm/gerenciar.php';";
+            
+                echo "</script>";
+                
+                //echo "erroException";
+            }
+            
+            
+        }
+        
+        
+}
+   
+   
+   ?>
 

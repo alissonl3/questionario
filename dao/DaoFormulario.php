@@ -37,7 +37,6 @@ class DaoFormulario {
             
             $sql = "INSERT INTO formulario("
                     . "anoConclusao,"
-                    . "faixaSalarial,"
                     . "ia1,"
                     . "ia2,"
                     . "ia3,"
@@ -65,10 +64,10 @@ class DaoFormulario {
                     . "ip3c,"
                     . "ip3d,"
                     . "sugestao,"
-                    . "semestre"
+                    . "semestre,"
+                    . "idUsuario"
                     . ") VALUES ("
                     . ":anoConclusao,"
-                    . ":faixaSalarial,"
                     . ":ia1,"
                     . ":ia2,"
                     . ":ia3,"
@@ -96,13 +95,13 @@ class DaoFormulario {
                     . ":ip3c,"
                     . ":ip3d,"
                     . ":sugestao,"
-                    . ":semestre"
+                    . ":semestre,"
+                    . ":idUsuario"
                     . ")";
             
             $p_sql = $this->pdo->prepare($sql);
             
             $p_sql -> bindValue(":anoConclusao", $formulario->getAnoConclusao());
-            $p_sql -> bindValue(":faixaSalarial", $formulario->getFaixaSalarial());
             $p_sql -> bindValue(":ia1", $formulario->getIA1());
             $p_sql -> bindValue(":ia2", $formulario->getIA2());
             $p_sql -> bindValue(":ia3", $formulario->getIA3());
@@ -131,6 +130,7 @@ class DaoFormulario {
             $p_sql -> bindValue(":ip3d", $formulario->getIP3D());
             $p_sql -> bindValue(":sugestao", $formulario->getSugestao());
             $p_sql -> bindValue(":semestre", $formulario->getSemestre());
+            $p_sql -> bindValue(":idUsuario", $formulario->getIdUsuario());
 
             
             return $p_sql->execute();
@@ -149,7 +149,6 @@ class DaoFormulario {
         try { 
             $sql = "UPDATE formulario SET "
                     . " anoConclusao = :anoConclusao,"
-                    . " faixaSalarial = :faixaSalarial,"
                     . " ia1 = :ia1,"
                     . " ia2 = :ia2,"
                     . " ia3 = :ia3,"
@@ -178,13 +177,13 @@ class DaoFormulario {
                     . " ip3c = :ip3c,"
                     . " ip3d = :ip3d,"
                     . " sugestao = :sugestao,"
-                    . " semestre = :semestre"
+                    . " semestre = :semestre,"
+                    . " idUsuario = :idUsuario"
                     . " WHERE id = :id"; 
            $p_sql = $this->pdo->prepare($sql);
             
             $p_sql -> bindValue(":id", $formulario->getId());
             $p_sql -> bindValue(":anoConclusao", $formulario->getAnoConclusao());
-            $p_sql -> bindValue(":faixaSalarial", $formulario->getFaixaSalarial());
             $p_sql -> bindValue(":ia1", $formulario->getIA1());
             $p_sql -> bindValue(":ia2", $formulario->getIA2());
             $p_sql -> bindValue(":ia3", $formulario->getIA3());
@@ -213,6 +212,7 @@ class DaoFormulario {
             $p_sql -> bindValue(":ip3d", $formulario->getIP3D());
             $p_sql -> bindValue(":sugestao", $formulario->getSugestao());
             $p_sql -> bindValue(":semestre", $formulario->getSemestre()); 
+            $p_sql -> bindValue(":idUsuario", $formulario->getIdUsuario()); 
             
             return $p_sql->execute(); 
             
@@ -363,7 +363,6 @@ class DaoFormulario {
         $formulario = new Formulario();
         $formulario ->setId($row['id']);
         $formulario ->setAnoConclusao($row['anoConclusao']);
-        $formulario ->setFaixaSalarial($row['faixaSalarial']);
         $formulario ->setIA1($row['ia1']);
         $formulario ->setIA2($row['ia2']);
         $formulario ->setIA3($row['ia3']);
@@ -392,6 +391,7 @@ class DaoFormulario {
         $formulario ->setIP3D($row['ip3d']);
         $formulario ->setSugestao($row['sugestao']);
         $formulario ->setSemestre($row['semestre']);
+        $formulario ->setIdUsuario($row['idUsuario']);
         
  
         return $formulario;

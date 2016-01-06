@@ -74,10 +74,11 @@ include_once '../banco/Conexao.php';
 
             <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST"  role="form">
                 <input type="hidden" name="acao" value="responderQuestionario" />
+                
                 <fieldset>
                     <legend>Dados pessoais</legend>
                     <div class="form-group">
-                        <label  for="anoConclusao">Ano de conclusão:</label>
+                        <label  for="anoConclusao">Ano de conclusão: <?php echo $idLogado ?></label>
                         <input type="number" placeholder="Insere o ano de conclusão" required="true" class="form-control" name="anoConclusao" />
                     </div>
                     <div class="form-group">
@@ -534,9 +535,6 @@ if(isset($_POST['acao'])){
         }
         if(isset($_POST["opSemestre"])){
             $formulario->setSemestre($_POST["opSemestre"]); 
-        }
-        if(isset($_POST["opSalario"])){
-            $formulario->setFaixaSalarial($_POST["opSalario"]); 
         }
 
 
