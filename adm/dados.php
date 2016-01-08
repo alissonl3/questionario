@@ -34,7 +34,12 @@ if($usuarioSelecionado->getLiberado() != null && $usuarioSelecionado->getLiberad
 <div class="row" style="margin-top: 5%; margin-bottom: 5%;">
     <div class="col-md-2 col-sm-2 col-xs-2"></div>
     <div class="col-md-8 col-sm-8 col-xs-8" >
+        
+        
         <div class="jumbotron" style=" background: white; border: 2px #e7e7e7 solid;">
+            
+        <!-- DIV PARA VOLTAR NO TOPO -->
+        <div id="voltarTopo"></div>
             
             <div style="color: graytext;">
                 <div style="float: left;">
@@ -66,30 +71,44 @@ if($usuarioSelecionado->getLiberado() != null && $usuarioSelecionado->getLiberad
             <div style="clear: both;"></div>
          <br />
 
+         <script type="text/javascript">
+        // Use jQuery com a variavel $j(...)
+        var $j = jQuery.noConflict();
+        $j(document).ready(function() {
+        $j("#btnVoltarTopo").hide();
+        $j(function () {
+        $j(window).scroll(function () {
+        if ($j(this).scrollTop() > 1000) {
+        $j('#btnVoltarTopo').fadeIn();
+          } else {
+        $j('#btnVoltarTopo').fadeOut();
+        }
+        });
+        $j('#btnVoltarTopo').click(function() {
+        $j('body,html').animate({scrollTop:0},600);
+        }); 
+        });
+    
+    
+        $j("#semgraficos").hide();
+        $j("#comgraficos").show();
+
+    
+        $j("#linkComGraficos").click(function (){
+        $j("#comgraficos").show();
+        $j("#semgraficos").hide();
+
+    });
+    
+    $j("#linkSemGraficos").click(function (){
+        $j("#comgraficos").hide();
+        $j("#semgraficos").show();
+    });
+    
+    
+        });
+        </script>
          
-<script type="text/javascript">
-$(document).ready(function (){
-    
-    $("#semgraficos").hide();
-    $("#comgraficos").show();
-
-    
-    $("#linkComGraficos").click(function (){
-        $("#comgraficos").show();
-        $("#semgraficos").hide();
-
-    });
-    
-    $("#linkSemGraficos").click(function (){
-        $("#comgraficos").hide();
-        $("#semgraficos").show();
-    });
-    
-    
-    
- 
-});
-</script>
            
          <div id="opcoes">              
                <ul class="nav nav-tabs nav-justified">
@@ -167,10 +186,10 @@ $(document).ready(function (){
             if($formularioUsuario->getId() == null || $formularioUsuario->getId() == 0)
             {
              echo   '<script type="text/javascript">
-                    $(document).ready(function (){
+                    $j(document).ready(function (){
 
-                        $("#graficosChart").hide();
-                        $("#semGraficosChart").show();
+                        $j("#graficosChart").hide();
+                        $j("#semGraficosChart").show();
 
                     });
                     </script>';
@@ -179,10 +198,10 @@ $(document).ready(function (){
             else
             {
                 echo   '<script type="text/javascript">
-                    $(document).ready(function (){
+                    $j(document).ready(function (){
 
-                        $("#graficosChart").show();
-                        $("#semGraficosChart").hide();
+                        $j("#graficosChart").show();
+                        $j("#semGraficosChart").hide();
 
 
                     });
@@ -424,12 +443,20 @@ $(document).ready(function (){
             <br />
             </div>
             </center>
-            
+            <script type="text/javascript">
+                
+                function baixarPDF()
+                {
+                    
+                    alert("Baixado");
+                }
+                
+            </script>
             <hr />
             <div style="float: right;">
-                <a href="#" title="Baixar gráfico" class="btn btn-info btn-sm">
+                <button  title="Baixar gráfico" onclick="baixarPDF();" class="btn btn-info btn-sm">
                                 <span class="glyphicon glyphicon-cloud-download"></span>
-                                Baixar</a>
+                                Baixar</button>
             </div>
             
             
@@ -1149,6 +1176,15 @@ $(document).ready(function (){
         </div>
     </div>  
     <div class="col-md-2 col-sm-2 col-xs-2"></div>
+    
+        <button type="button" id="btnVoltarTopo" class="btn btn-sm btn-info" style="
+                    bottom: 20px !important;
+                    position: fixed;
+                    right: 30px;" 
+                onclick="$j('html,body').animate({scrollTop: $j('#voltarTopo').offset().top}, 2000);" value="Topo" >
+                <span class="glyphicon glyphicon-chevron-up"></span>
+            </button>
+    
 </div>  
 
 

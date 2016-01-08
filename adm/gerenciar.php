@@ -220,14 +220,6 @@ else
 
   </div>
 </div>
-
-            <!-- botao voltar topo -->
-            <input type="button" id="btnVoltarTopo" class="btn btn-sm btn-info" style="
-                    bottom: 20px !important;
-                    position: fixed;
-                    right: 30px;" 
-                    onclick="$j('html,body').animate({scrollTop: $j('#voltarTopo').offset().top}, 2000);" value="Topo" >
-            
             
             
             

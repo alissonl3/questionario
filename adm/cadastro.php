@@ -214,7 +214,7 @@ if(isset($_POST['acao'])){
                 
                 echo "<script type='text/javascript'>";
                 
-                    echo "alert('Houve um erro ao tentar cadastrar usuario');";
+                    echo "alert('Estamos com problemas, tente mais tarde!');";
                     echo "location.href='http://localhost/questionario/adm/gerenciar.php';";
             
                 echo "</script>";
