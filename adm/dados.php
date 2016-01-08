@@ -447,8 +447,22 @@ if($usuarioSelecionado->getLiberado() != null && $usuarioSelecionado->getLiberad
                 
                 function baixarPDF()
                 {
+                    var doc = new jsPDF();
+                    doc.text(70, 10, 'Questionário de Egresssos');                   
+                    doc.text(0, 20, '_____________________________________________________________________________');  
+                    doc.setTextColor(128, 128, 128);            
+                    doc.text(10, 30, 'Nome: <?php echo $usuarioSelecionado->getNome(); ?>'); 
+                    doc.text(10, 40, 'Email: <?php echo $usuarioSelecionado->getEmail(); ?>');  
+                    doc.text(10, 50, 'Telefone: <?php echo $usuarioSelecionado->getTelefone(); ?>');
+                    doc.text(10, 60, 'Cpf: <?php echo $usuarioSelecionado->getCpf(); ?>');
+                    doc.setTextColor(0, 0, 0);  
+                    doc.text(0, 65, '_____________________________________________________________________________');  
                     
-                    alert("Baixado");
+ 
+//                    doc.addPage(); // add new page in pdf  
+//                    doc.setTextColor(165, 0, 0);  
+//                    doc.text(10, 20, 'extra page to write');  
+                    doc.save('graficos.pdf');
                 }
                 
             </script>
