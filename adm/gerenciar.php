@@ -139,7 +139,9 @@ else
     <table class="table table-striped">
     <thead>
       <tr>
+          <th>Id</th>
         <th>Nome</th>
+        <th>Curso</th>
         <th>Envio</th>
         <th>Liberado</th>
         <th>Ação</th>
@@ -152,12 +154,26 @@ else
     foreach ($listaUsuarios as $usuario) {
         echo '<tr>';
             echo '<td>';
+                echo  $usuario->getId();
+            echo '</td>';
+            echo '<td>';
                 echo  $usuario->getNome();
+            echo '</td>';
+            echo '<td>';
+                $cursoUsuarioLista = $daoCurso->buscarPorId($usuario->getIdCurso());
+                  if($cursoUsuarioLista != null)
+                  {
+                    echo $cursoUsuarioLista->getNome();
+                  }
+                  else
+                  {
+                     echo "Não existe curso!"; 
+                  }
             echo '</td>';
             echo '<td>';
                 if(count($daoEmail->buscarPorUsuario($usuario->getId()) === 0)                         )
                 {
-                 echo 'sem envio';   
+                 echo 'Indefinida';   
                 }
                 else
                 {
@@ -176,7 +192,7 @@ else
             echo '</td>';
             echo '<td>';
             echo "<div class='btn-group'>";
-                echo   '<a href="dados.php?id='.$usuario->getId().'" class="btn btn-info btn-sm"  >';
+                echo   '<a href="dados.php?id='.$usuario->getId().'&idFormulario=Todos" class="btn btn-info btn-sm"  >';
                 echo   '<span class="glyphicon glyphicon-search"></span>';                
                 echo   '</a>';
             echo "</div>";

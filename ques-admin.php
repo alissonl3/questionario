@@ -12,37 +12,37 @@ include_once './banco/Conexao.php';
 
 <script type="text/javascript">
     
-    function logar()
-    {
-        
-                    $.ajax({
-                     url: 'visao/login.php',
-                     data: {$('#frmLogin').serialize()}, //pegar dados do formulario
-                     method: "POST",
-                     async: true
-                     }).done(function (r){
-                         
-                         
-                         
-                         if(r === "erro")
-                         {
-                            $('#messageError').html("<b>Login invalido!</b>");
-                         }
-                         else if(r === "sucess")
-                         {
-                             location.href="http://localhost/questionario/adm/gerenciar.php";
-                             
-                         }
-                         else if(r === "erroException")
-                         {
-                               $('#messageError').html("<b>Estamos com problemas no momento, tente mais tarde!</b>");
-                         }
-                         
-                         
-                     }); 
-        
-        
-    }
+//    function logar()
+//    {
+//        
+//                    $.ajax({
+//                     url: 'visao/login.php',
+//                     data: {$('#frmLogin').serialize()}, //pegar dados do formulario
+//                     method: "POST",
+//                     async: true
+//                     }).done(function (r){
+//                         
+//                         
+//                         
+//                         if(r === "erro")
+//                         {
+//                            $('#messageError').html("<b>Login invalido!</b>");
+//                         }
+//                         else if(r === "sucess")
+//                         {
+//                             location.href="http://localhost/questionario/adm/gerenciar.php";
+//                             
+//                         }
+//                         else if(r === "erroException")
+//                         {
+//                               $('#messageError').html("<b>Estamos com problemas no momento, tente mais tarde!</b>");
+//                         }
+//                         
+//                         
+//                     }); 
+//        
+//        
+//    }
     
     function teste()
     {
@@ -122,7 +122,10 @@ include_once './banco/Conexao.php';
     <div class="col-md-2 col-sm-2 col-xs-2"></div>
 </div> 
 
-<?php require './template/rodape.php';
+<?php
+
+require_once './visao/componentes.php';
+require_once './template/rodape.php';
 
 //logar usuario
 if(isset($_POST['acao'])){
@@ -205,8 +208,9 @@ if(isset($_POST['acao'])){
                 
                 echo "<script type='text/javascript'>";
                 
-                echo "alert('Login incorreto, tente novamente!');";
-                echo "location.href='http://localhost/questionario/ques-admin.php';";
+                echo "$('#modalMsgErroLogin').modal('show');";
+                //echo "alert('Login incorreto, tente novamente!');";
+               // echo "location.href='http://localhost/questionario/ques-admin.php';";
 
                 echo "</script>";
 
@@ -221,7 +225,8 @@ if(isset($_POST['acao'])){
                 
                 echo "<script type='text/javascript'>";
                 
-                echo "alert('Estamos com problemas, tente mais tarde!');";
+                echo "$('#modalMsgErroException').modal('show');";
+                //echo "alert('Estamos com problemas, tente mais tarde!');";
                 echo "location.href='http://localhost/questionario/ques-admin.php';";
 
                 echo "</script>";

@@ -20,12 +20,8 @@ $cursoUsuarioSelecionado = $daoCurso->buscarPorId($usuarioSelecionado->getIdCurs
 $cursos = $daoCurso->buscarPorCondicao(" id != ".$usuarioSelecionado->getIdCurso());
 
 $verificacaoFormulario = false;
-
-
-if($usuarioSelecionado->getLiberado() != null && $usuarioSelecionado->getLiberado() != 0){
-    $verificacaoFormulario = true;
-    $formularioSelecionado = $daoFormulario->buscarPorId($usuarioSelecionado->getLiberado());
-}
+$formulariosUsuario = $daoFormulario->buscarPorIdDoUsuario($usuarioSelecionado->getId());
+$formularioSelecionado = new Formulario();
 
 ?>
 
@@ -47,6 +43,8 @@ if($usuarioSelecionado->getLiberado() != null && $usuarioSelecionado->getLiberad
                     <h4>Cpf: <?php echo $usuarioSelecionado->getCpf() ?> </h4>
                     <h4>Email: <?php echo $usuarioSelecionado->getEmail() ?> </h4>
                     <h4>Telefone: <?php echo $usuarioSelecionado->getTelefone() ?> </h4>
+                    <h4>Curso: <?php echo $cursoUsuarioSelecionado->getNome() ?> </h4>
+                    
                 </div>
                 <div style="float: right;">
                     <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modalDeletar">
@@ -67,6 +65,9 @@ if($usuarioSelecionado->getLiberado() != null && $usuarioSelecionado->getLiberad
                     </button>
                 </div>
             </div>
+        
+        
+        
            
             <div style="clear: both;"></div>
          <br />
@@ -109,6 +110,32 @@ if($usuarioSelecionado->getLiberado() != null && $usuarioSelecionado->getLiberad
         });
         </script>
          
+        <div id="formularios"  style="color: graytext; float: right;">
+            <center>
+                <div class="btn-group">
+                    <h4>Formulário: </h4>
+                    <?php 
+                    //LINKS PARA OS FORMULÁRIOS
+                    $htmlLinksFormularios = "";
+                    $incremento = 0;
+                    foreach ($formulariosUsuario as $value) 
+                    {
+                        $incremento++;
+                        $htmlLinksFormularios = $htmlLinksFormularios. " <a id='linkComGraficos".$incremento."' title='Pesquisar o formulário' href='".$_SERVER['PHP_SELF']."?id=".$usuarioSelecionado->getId()."&idFormulario=".$value->getId()."'><span class='glyphicon glyphicon-search'> </span> " .$incremento."</a>";
+                    }
+                    
+                    $incremento++;
+                    $htmlLinksFormularios = $htmlLinksFormularios. " <a id='linkComGraficos".$incremento."' title='Pesquisar o formulário' href='".$_SERVER['PHP_SELF']."?id=".$usuarioSelecionado->getId()."&idFormulario=Todos'><span class='glyphicon glyphicon-search'> </span> Todos</a>";
+                    echo $htmlLinksFormularios;
+                    ?>
+                             
+                </div>
+            </center>
+        </div>
+        
+        <div style="clear: both;"></div>
+        
+        <br />
            
          <div id="opcoes">              
                <ul class="nav nav-tabs nav-justified">
@@ -138,52 +165,79 @@ if($usuarioSelecionado->getLiberado() != null && $usuarioSelecionado->getLiberad
          
                <!--script para a busca dos dados -->
             <?php 
+            
+              //VERIFICAR O FORMULÁRIO ATUAL PARA PREENCHER OS GRAFICOS
+              $idFormularioBusca = "";
+              if(isset($_GET['idFormulario']))
+              {
+                  $idFormularioBusca = $_GET['idFormulario'];
+              }
+              
+              $incrementoBusca = "";
+              if($idFormularioBusca != "Todos" && $idFormularioBusca != "")
+              {
+                $incrementoBusca = $incrementoBusca. " and id = ".$idFormularioBusca;
+                 
+                $formularioSelecionado = $daoFormulario->buscarPorId($idFormularioBusca);
+                
+              }
+              else
+              {
+                  $incrementoBusca = " ";
+                  if(count($formulariosUsuario) >= 1)
+                  {
+                    $verificacaoFormulario = true;                  
+                  }
+              }
+              //FIM
+              
       
             
-            $simia5  = $dao->buscarCountResposta("ia5 = 'Sim' and idUsuario = ". $usuarioSelecionado->getId()) ;
-            $naoia5 =  $dao->buscarCountResposta("ia5 = 'Não' and idUsuario = ". $usuarioSelecionado->getId());
+            $simia5  = $dao->buscarCountResposta("ia5 = 'Sim' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca) ;
+            $naoia5 =  $dao->buscarCountResposta("ia5 = 'Não' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca);
                     
-            $simia6  = $dao->buscarCountResposta("ia6 = 'Sim' and idUsuario = ". $usuarioSelecionado->getId());   
-            $naoia6  = $dao->buscarCountResposta("ia6 = 'Não' and idUsuario = ". $usuarioSelecionado->getId());
+            $simia6  = $dao->buscarCountResposta("ia6 = 'Sim' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca);   
+            $naoia6  = $dao->buscarCountResposta("ia6 = 'Não' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca);
             
-            $ia21  = $dao->buscarCountResposta("ia2 = 'O nome da Instituição de Ensino onde estudou' and idUsuario = ". $usuarioSelecionado->getId());  
-            $ia22  = $dao->buscarCountResposta("ia2 = 'As respostas ao teste de seleção, ao qual foi submetido' and idUsuario = ". $usuarioSelecionado->getId()); 
-            $ia23  = $dao->buscarCountResposta("ia2 = 'A formação teórica' and idUsuario = ". $usuarioSelecionado->getId()); 
-            $ia24  = $dao->buscarCountResposta("ia2 = 'A experiência prática' and idUsuario = ". $usuarioSelecionado->getId()); 
-            $ia25  = $dao->buscarCountResposta("ia2 = 'Visão sistámica' and idUsuario = ". $usuarioSelecionado->getId()); 
+            $ia21  = $dao->buscarCountResposta("ia2 = 'O nome da Instituição de Ensino onde estudou' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca);  
+            $ia22  = $dao->buscarCountResposta("ia2 = 'As respostas ao teste de seleção, ao qual foi submetido' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca); 
+            $ia23  = $dao->buscarCountResposta("ia2 = 'A formação teórica' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca); 
+            $ia24  = $dao->buscarCountResposta("ia2 = 'A experiência prática' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca); 
+            $ia25  = $dao->buscarCountResposta("ia2 = 'Visão sistámica' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca); 
             
-            $simip3  = $dao->buscarCountResposta("ip3 = 'Sim' and idUsuario = ". $usuarioSelecionado->getId());   
-            $naoip3  = $dao->buscarCountResposta("ip3 = 'Não' and idUsuario = ". $usuarioSelecionado->getId());
+            $simip3  = $dao->buscarCountResposta("ip3 = 'Sim' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca);   
+            $naoip3  = $dao->buscarCountResposta("ip3 = 'Não' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca);
             
-            $ia31  = $dao->buscarCountResposta("ia3 = 'Maior embasamento conceitual' and idUsuario = ". $usuarioSelecionado->getId());  
-            $ia32  = $dao->buscarCountResposta("ia3 = 'Maior embasamento técnico' and idUsuario = ". $usuarioSelecionado->getId()); 
-            $ia33  = $dao->buscarCountResposta("ia3 = 'Maior embasamento prático' and idUsuario = ". $usuarioSelecionado->getId()); 
-            $ia34  = $dao->buscarCountResposta("ia3 = 'Maior aproximação com as necessidades da indússtria' and idUsuario = ". $usuarioSelecionado->getId()); 
-            $ia35  = $dao->buscarCountResposta("ia3 = 'Maior capacidade de liderança' and idUsuario = ". $usuarioSelecionado->getId());
-            $ia36  = $dao->buscarCountResposta("ia3 = 'Maior visão sistêmica' and idUsuario = ". $usuarioSelecionado->getId());
+            $ia31  = $dao->buscarCountResposta("ia3 = 'Maior embasamento conceitual' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca);  
+            $ia32  = $dao->buscarCountResposta("ia3 = 'Maior embasamento técnico' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca); 
+            $ia33  = $dao->buscarCountResposta("ia3 = 'Maior embasamento prático' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca); 
+            $ia34  = $dao->buscarCountResposta("ia3 = 'Maior aproximação com as necessidades da indússtria' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca); 
+            $ia35  = $dao->buscarCountResposta("ia3 = 'Maior capacidade de liderança' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca);
+            $ia36  = $dao->buscarCountResposta("ia3 = 'Maior visão sistêmica' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca);
             
-            $ic71  = $dao->buscarCountResposta("ic7 = 'Muito Satisfatório' and idUsuario = ". $usuarioSelecionado->getId());  
-            $ic72  = $dao->buscarCountResposta("ic7 = 'Satisfatório' and idUsuario = ". $usuarioSelecionado->getId()); 
-            $ic73  = $dao->buscarCountResposta("ic7 = 'Insatisfatório' and idUsuario = ". $usuarioSelecionado->getId()); 
-            $ic74  = $dao->buscarCountResposta("ic7 = 'Não sei responder' and idUsuario = ". $usuarioSelecionado->getId()); 
+            $ic71  = $dao->buscarCountResposta("ic7 = 'Muito Satisfatório' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca);  
+            $ic72  = $dao->buscarCountResposta("ic7 = 'Satisfatório' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca); 
+            $ic73  = $dao->buscarCountResposta("ic7 = 'Insatisfatório' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca); 
+            $ic74  = $dao->buscarCountResposta("ic7 = 'Não sei responder' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca); 
             
-            $ic91  = $dao->buscarCountResposta("ic9 = 'A obtenção de diploma de nível técnico' and idUsuario = ". $usuarioSelecionado->getId());  
-            $ic92  = $dao->buscarCountResposta("ic9 = 'A aquisição de cultura geral' and idUsuario = ". $usuarioSelecionado->getId()); 
-            $ic93  = $dao->buscarCountResposta("ic9 = 'A aquisiçaoo de formação profissional e teórica' and idUsuario = ". $usuarioSelecionado->getId()); 
-            $ic94  = $dao->buscarCountResposta("ic9 = 'Melhores perspectivas de ganhos materiais' and idUsuario = ". $usuarioSelecionado->getId());
+            $ic91  = $dao->buscarCountResposta("ic9 = 'A obtenção de diploma de nível técnico' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca);  
+            $ic92  = $dao->buscarCountResposta("ic9 = 'A aquisição de cultura geral' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca); 
+            $ic93  = $dao->buscarCountResposta("ic9 = 'A aquisiçaoo de formação profissional e teórica' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca); 
+            $ic94  = $dao->buscarCountResposta("ic9 = 'Melhores perspectivas de ganhos materiais' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca);
             
-            $ic101  = $dao->buscarCountResposta("ic10 = 'Encontrar emprego na área' and idUsuario = ". $usuarioSelecionado->getId());  
-            $ic102  = $dao->buscarCountResposta("ic10 = 'Adequação salarial' and idUsuario = ". $usuarioSelecionado->getId()); 
-            $ic103  = $dao->buscarCountResposta("ic10 = 'Continuar na mesma empresa' and idUsuario = ". $usuarioSelecionado->getId()); 
-            $ic104  = $dao->buscarCountResposta("ic10 = 'Ser promovido' and idUsuario = ". $usuarioSelecionado->getId());
-            $ic105  = $dao->buscarCountResposta("ic10 = 'Adaptação ao ambiente de trabalho' and idUsuario = ". $usuarioSelecionado->getId());  
-            $ic106  = $dao->buscarCountResposta("ic10 = 'Tempo para se dedicar a uma qualificação' and idUsuario = ". $usuarioSelecionado->getId());
+            $ic101  = $dao->buscarCountResposta("ic10 = 'Encontrar emprego na área' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca);  
+            $ic102  = $dao->buscarCountResposta("ic10 = 'Adequação salarial' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca); 
+            $ic103  = $dao->buscarCountResposta("ic10 = 'Continuar na mesma empresa' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca); 
+            $ic104  = $dao->buscarCountResposta("ic10 = 'Ser promovido' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca);
+            $ic105  = $dao->buscarCountResposta("ic10 = 'Adaptação ao ambiente de trabalho' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca);  
+            $ic106  = $dao->buscarCountResposta("ic10 = 'Tempo para se dedicar a uma qualificação' and idUsuario = ". $usuarioSelecionado->getId() .$incrementoBusca);
             
 
-            $formularioUsuario = $dao->buscarPorIdDoUsuario($usuarioSelecionado->getId());
-        
+            //$formularioUsuario = $dao->buscarPorIdDoUsuario($usuarioSelecionado->getId());
+            $formularioUsuario = $formulariosUsuario;
             
-            if($formularioUsuario->getId() == null || $formularioUsuario->getId() == 0)
+//          if($formularioUsuario->getId() == null || $formularioUsuario->getId() == 0)
+            if(count($formularioUsuario) == 0)
             {
              echo   '<script type="text/javascript">
                     $j(document).ready(function (){
@@ -231,6 +285,11 @@ if($usuarioSelecionado->getLiberado() != null && $usuarioSelecionado->getLiberad
         
         
         <div id="graficosChart" class="jumbotron" style=" background: white;">
+            <div id="numFormulario">
+                    Formulário: 
+                    <button type="button" style="border-radius: 20px;" disabled="true" class="btn btn-lg btn-success"> <?php echo $idFormularioBusca; ?></button>                             
+            </div>
+            <br />
             <center>
             <div id="conteudoPDF">   
             <label>Você voltaria a estudar no IFPR para fazer outros cursos?</label>
@@ -454,10 +513,17 @@ if($usuarioSelecionado->getLiberado() != null && $usuarioSelecionado->getLiberad
                     doc.text(10, 30, 'Nome: <?php echo $usuarioSelecionado->getNome(); ?>'); 
                     doc.text(10, 40, 'Email: <?php echo $usuarioSelecionado->getEmail(); ?>');  
                     doc.text(10, 50, 'Telefone: <?php echo $usuarioSelecionado->getTelefone(); ?>');
-                    doc.text(10, 60, 'Cpf: <?php echo $usuarioSelecionado->getCpf(); ?>');
-                    doc.setTextColor(0, 0, 0);  
-                    doc.text(0, 65, '_____________________________________________________________________________');  
-                    
+                    doc.text(10, 60, 'CPF: <?php echo $usuarioSelecionado->getCpf(); ?>');
+                    doc.text(10, 70, 'Quantidade formulários respondido: <?php echo "2" ?>');
+                    doc.setTextColor(0, 0, 0);   
+                    doc.text(0, 75, '_____________________________________________________________________________');  
+                    doc.text(10, 90, '1 - Você voltaria a estudar no IFPR para fazer outros cursos?'); 
+                    doc.text(10, 100, 'Sim XX'); 
+                    doc.text(10, 110, 'Não'); 
+                    doc.text(10, 120, '2 - Você teria interesse em cursar uma Pós-Graduação ou cursos de qualificação profissional ofertados pelo IFPR?'); 
+                    doc.text(10, 130, 'Sim'); 
+                    doc.text(10, 140, 'Não XX'); 
+ 
  
 //                    doc.addPage(); // add new page in pdf  
 //                    doc.setTextColor(165, 0, 0);  
@@ -465,14 +531,73 @@ if($usuarioSelecionado->getLiberado() != null && $usuarioSelecionado->getLiberad
                     doc.save('graficos.pdf');
                 }
                 
+                function printTela(el)
+                {
+//                    var restorepagina = document.body.innerHTML;
+//                    var printcontent = document.getElementById(el).innerHTML;
+//                    document.body.innerHTML = printcontent;
+//                    window.print();
+//                    document.body.innerHTML = restorepagina;
+                    
+                    var conteudo = document.getElementById(el).innerHTML;  
+                    var win = window.open();  
+                    win.document.write(conteudo);  
+                    win.print();  
+                    win.close();
+                    
+                }
+                
+                function printar(el)
+                {
+                  //var conteudo = document.getElementById(el).innerHTML; 
+                  html2canvas(document.getElementById(el), {
+                    onrendered: function(canvas) 
+                    {
+                        document.body.appendChild(canvas);
+                    }
+                });
+                    
+                }
+                
             </script>
             <hr />
             <div style="float: right;">
-                <button  title="Baixar gráfico" onclick="baixarPDF();" class="btn btn-info btn-sm">
+                <button  title="Baixar gráfico" onclick="printTela('dadosAlunoBaixar')" class="btn btn-info btn-sm">
                                 <span class="glyphicon glyphicon-cloud-download"></span>
                                 Baixar</button>
             </div>
             
+            <div id="dadosAlunoBaixar" style="display: none;">
+                
+                <div style="color: graytext;">
+                    <img src="../resources/img/logo.png"  />
+                    <hr />
+                    <table>
+                        <tr>
+                        <td>Nome</td>
+                        <td><?php echo $usuarioSelecionado->getNome() ?></td>
+                        </tr>
+                        <tr>
+                        <td>Cpf</td>
+                        <td><?php echo $usuarioSelecionado->getCpf() ?></td>
+                        </tr>
+                        <tr>
+                        <td>Email</td>
+                        <td><?php echo $usuarioSelecionado->getEmail() ?></td>
+                        </tr>
+                        <tr>
+                        <td>Telefone</td>
+                        <td><?php echo $usuarioSelecionado->getTelefone() ?></td>
+                        <td>Curso</td>
+                        <td>Técnico em Informática</td>
+                        </tr>
+                    </table>                   
+                    <hr />
+                </div>
+                
+                
+                
+            </div>
             
             
             <!--script para a criação dos gráficos -->
@@ -768,102 +893,175 @@ if($usuarioSelecionado->getLiberado() != null && $usuarioSelecionado->getLiberad
              
              
           
-            if($formularioUsuario->getId() != null || $formularioUsuario->getId() != 0){
-              
+//            if($formularioUsuario->getId() != null || $formularioUsuario->getId() != 0)
+            if(count($formularioUsuario) >= 1){
+                
               echo " <fieldset>
                     <legend>Dados pessoais</legend>
-                    <label>1 - Ano de Conclusão:</label><br />"
-                    ."<label style='color:graytext;'>R: ". $formularioUsuario->getAnoConclusao() ." </label><br />" 
-                    ."<label>2 - Sementre:</label><br />"
-                    ."<label style='color:graytext;'>R: ". $formularioUsuario->getSemestre() ." </label><br />" 
-                   ."</fieldset>"
+                    <label>1 - Ano de Conclusão:</label><br />";
+                    foreach ($formularioUsuario as $value) {
+                        echo "<label style='color:graytext;'>R: ". $value->getAnoConclusao() ." </label><br />";
+                    }                    
+                    echo "<label>2 - Sementre:</label><br />";
+                    foreach ($formularioUsuario as $value) {
+                        echo "<label style='color:graytext;'>R: ". $value->getSemestre() ." </label><br />";
+                    }
+                   echo "</fieldset>"
                    ."<hr />";
               
               echo " <fieldset>
                     <legend>Informações sobre o curso</legend>
-                    <label>1 - Qual o curso que você fez?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioUsuario->getIC1() ."</label><br />"  
-                    ."<label>2 - Qual foi o tipo de curso?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioUsuario->getIC2() ."</label><br />"
-                    ."<label>3 - O que achou do curso que fez?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioUsuario->getIC3() ."</label><br />"
-                    ."<label>4 - A duração do curso foi suficiente?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioUsuario->getIC4() ."</label><br />"  
-                    ."<label>5 - Como foi a parte teórica do curso?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioUsuario->getIC5() ."</label><br />"  
-                    ."<label>6 - Como foi a parte prática do curso?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioUsuario->getIC6() ."</label><br />"
-                    ."<label>7 - Os conhecimentos adquiridos durante o curso foram importantes para formação profissional?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioUsuario->getIC7() ."</label><br />"  
-                    ."<label>8 - Como você avalia o nivel de exigência do curso?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioUsuario->getIC8() ."</label><br />"  
-                    ."<label>9 - Qual foi a principal contribuição do curso?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioUsuario->getIC9() ."</label><br />"  
-                    ."<label>10 - Quais foram suas principais dificuldades logo após a conclusÃ£o do curso?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioUsuario->getIC10() ."</label><br />"                  
-                    ."</fieldset>"
+                    <label>1 - Qual o curso que você fez?</label><br /> ";
+                    foreach ($formularioUsuario as $value) {
+                        echo "<label style='color:graytext;'>R: ". $value->getAnoConclusao() ." </label><br />";
+                    }
+                    echo "<label>2 - Qual foi o tipo de curso?</label><br /> ";
+                    foreach ($formularioUsuario as $value) {
+                        echo "<label style='color:graytext;'>R: ". $value->getIC2() ." </label><br />";
+                    }
+                    echo "<label>3 - O que achou do curso que fez?</label><br /> ";
+                    foreach ($formularioUsuario as $value) {
+                        echo "<label style='color:graytext;'>R: ". $value->getIC3() ." </label><br />";
+                    }
+                    echo "<label>4 - A duração do curso foi suficiente?</label><br /> ";
+                    foreach ($formularioUsuario as $value) {
+                        echo "<label style='color:graytext;'>R: ". $value->getIC4() ." </label><br />";
+                    }
+                    echo "<label>5 - Como foi a parte teórica do curso?</label><br /> ";
+                    foreach ($formularioUsuario as $value) {
+                        echo "<label style='color:graytext;'>R: ". $value->getIC5() ." </label><br />";
+                    } 
+                    echo "<label>6 - Como foi a parte prática do curso?</label><br /> ";
+                    foreach ($formularioUsuario as $value) {
+                        echo "<label style='color:graytext;'>R: ". $value->getIC6() ." </label><br />";
+                    }
+                    echo "<label>7 - Os conhecimentos adquiridos durante o curso foram importantes para formação profissional?</label><br /> ";
+                    foreach ($formularioUsuario as $value) {
+                        echo "<label style='color:graytext;'>R: ". $value->getIC7() ." </label><br />";
+                    }  
+                    echo "<label>8 - Como você avalia o nivel de exigência do curso?</label><br /> ";
+                    foreach ($formularioUsuario as $value) {
+                        echo "<label style='color:graytext;'>R: ". $value->getIC8() ." </label><br />";
+                    }  
+                    echo "<label>9 - Qual foi a principal contribuição do curso?</label><br /> ";
+                    foreach ($formularioUsuario as $value) {
+                        echo "<label style='color:graytext;'>R: ". $value->getIC9() ." </label><br />";
+                    }  
+                    echo "<label>10 - Quais foram suas principais dificuldades logo após a conclusão do curso?</label><br /> ";
+                    foreach ($formularioUsuario as $value) {
+                        echo "<label style='color:graytext;'>R: ". $value->getIC10() ." </label><br />";
+                    }                  
+                    echo"</fieldset>"
                     ."<hr />";
               
               echo " <fieldset>
                     <legend>Informações sobre o corpo docente</legend>
-                    <label>1 - De modo geral, os professores tinham domínio do conteúdo das disciplinas que deram?</label><br />"
-                    ."<label style='color:graytext;'>R: ". $formularioUsuario->getID1() ." </label><br />" 
-                    ."<label>2 - De modo geral, como foram os recursos utilizados pelos professores durante as aulas?</label><br />"
-                    ."<label style='color:graytext;'>R: ". $formularioUsuario->getID2() ." </label><br />"
-                    ."<label>3 - De Modo geral, como foi a relação do professor com os alunos?</label><br />"
-                    ."<label style='color:graytext;'>R: ". $formularioUsuario->getID3() ." </label><br />"                    
-                   ."</fieldset>"
+                    <label>1 - De modo geral, os professores tinham domínio do conteúdo das disciplinas que deram?</label><br />";
+                    foreach ($formularioUsuario as $value) {
+                        echo "<label style='color:graytext;'>R: ". $value->getID1() ." </label><br />";
+                    } 
+                    echo "<label>2 - De modo geral, como foram os recursos utilizados pelos professores durante as aulas?</label><br />";
+                    foreach ($formularioUsuario as $value) {
+                        echo "<label style='color:graytext;'>R: ". $value->getID2() ." </label><br />";
+                    }
+                    echo "<label>3 - De Modo geral, como foi a relação do professor com os alunos?</label><br />";
+                    foreach ($formularioUsuario as $value) {
+                        echo "<label style='color:graytext;'>R: ". $value->getID1() ." </label><br />";
+                    }                    
+                   echo "</fieldset>"
                    ."<hr />";
               
-              $painel = "";
-              
-              if($formularioUsuario->getIP3() != null && ($formularioUsuario->getIP3() != "Não"
-                 && $formularioUsuario->getIP3() != "não" && $formularioUsuario->getIP3() != "NÃO"
-                 && $formularioUsuario->getIP3() != "nao" && $formularioUsuario->getIP3() != "Nao" && $formularioSelecionado->getIP3() != "NAO"  )      ){
-                  $painel = ""
-                  ."<label>A - Qual o seu grau de satisfação com a sua atividade profissional?</label><br />"
-                  ."<label style='color:graytext;'>R: ". $formularioUsuario->getIP3A() ." </label><br />"   
-                  ."<label>B - Você egresso recém-formado, atende às necessidades da empresa para a qual você trabalha?</label><br />"
-                  ."<label style='color:graytext;'>R: ". $formularioUsuario->getIP3B() ." </label><br />"
-                  ."<label>C - Qual das habilidades abaixo está sendo mais exigida em seu exercício profissional?</label><br />"
-                  ."<label style='color:graytext;'>R: ". $formularioUsuario->getIP3C() ." </label><br />"
-                  ."<label> D - Qual a sua faixa salarial?</label><br />"
-                  ."<label style='color:graytext;'>R: ". $formularioUsuario->getIP3D() ." </label><br />"
-                      ;
-              }else{
-                  $painel = ""; 
-              }
+//              $painel = "";
+//              
+//              foreach ($formularioUsuario as $value) {
+//                if($value->getIP3() != null && ($value->getIP3() != "Não"
+//                   && $value->getIP3() != "não" && $value->getIP3() != "NÃO"
+//                   && $value->getIP3() != "nao" && $value->getIP3() != "Nao" && $value->getIP3() != "NAO"  )){
+//                    $painel = ""
+//                    ."<label>A - Qual o seu grau de satisfação com a sua atividade profissional?</label><br />"
+//                    ."<label style='color:graytext;'>R: ". $value->getIP3A() ." </label><br />"   
+//                    ."<label>B - Você egresso recém-formado, atende às necessidades da empresa para a qual você trabalha?</label><br />"
+//                    ."<label style='color:graytext;'>R: ". $value->getIP3B() ." </label><br />"
+//                    ."<label>C - Qual das habilidades abaixo está sendo mais exigida em seu exercício profissional?</label><br />"
+//                    ."<label style='color:graytext;'>R: ". $value->getIP3C() ." </label><br />"
+//                    ."<label> D - Qual a sua faixa salarial?</label><br />"
+//                    ."<label style='color:graytext;'>R: ". $value->getIP3D() ." </label><br />"
+//                        ;
+//
+//                }else{
+//                    $painel = ""; 
+//                }
+//              }
              
               echo "<fieldset>
                     <legend>Informações pessoais</legend>
-                    <label>1 - Você já tinha uma profissão antes de fazer o curso? Se sim, onde?</label><br />"
-                    ."<label style='color:graytext;'>R: ". $formularioUsuario->getIP1() ." </label><br />" 
-                    ."<label>2 - Você estava trabalhando na área durante o curso? Se sim, onde?</label><br />"
-                    ."<label style='color:graytext;'>R: ". $formularioUsuario->getIP2() ." </label><br />"
-                    ."<label>3 - Você está trabalhando na área atualmente? Se sim, em que/onde?</label><br />"
-                    ."<label style='color:graytext;'>R: ". $formularioUsuario->getIP3() ." </label><br />"                    
-                    .$painel
-                    ."</fieldset>"
+                    <label>1 - Você já tinha uma profissão antes de fazer o curso? Se sim, onde?</label><br />";
+                    foreach ($formularioUsuario as $value) {
+                        echo "<label style='color:graytext;'>R: ". $value->getIP1() ." </label><br />";
+                    }
+                    echo"<label>2 - Você estava trabalhando na área durante o curso? Se sim, onde?</label><br />";
+                    foreach ($formularioUsuario as $value) {
+                        echo "<label style='color:graytext;'>R: ". $value->getIP2() ." </label><br />";
+                    }
+                    echo"<label>3 - Você está trabalhando na área atualmente? Se sim, em que/onde?</label><br />";
+                    foreach ($formularioUsuario as $value) {
+                        echo "<label style='color:graytext;'>R: ". $value->getIP3() ." </label><br />";
+                         if($value->getIP3() != null && ($value->getIP3() != "Não"
+                                && $value->getIP3() != "não" && $value->getIP3() != "NÃO"
+                                && $value->getIP3() != "nao" && $value->getIP3() != "Nao" && $value->getIP3() != "NAO"  )){
+                                 $painel = ""
+                                 ."<label>A - Qual o seu grau de satisfação com a sua atividade profissional?</label><br />"
+                                 ."<label style='color:graytext;'>R: ". $value->getIP3A() ." </label><br />"   
+                                 ."<label>B - Você egresso recém-formado, atende às necessidades da empresa para a qual você trabalha?</label><br />"
+                                 ."<label style='color:graytext;'>R: ". $value->getIP3B() ." </label><br />"
+                                 ."<label>C - Qual das habilidades abaixo está sendo mais exigida em seu exercício profissional?</label><br />"
+                                 ."<label style='color:graytext;'>R: ". $value->getIP3C() ." </label><br />"
+                                 ."<label> D - Qual a sua faixa salarial?</label><br />"
+                                 ."<label style='color:graytext;'>R: ". $value->getIP3D() ." </label><br />"
+                                     ;
+
+                             }else{
+                                 $painel = ""; 
+                             }
+                       
+                    }
+//                    ."<label style='color:graytext;'>R: ". $formularioUsuario->getIP3() ." </label><br />"                    
+//                    .$painel
+                    echo "</fieldset>"
                    ."<hr />";
               
               
               echo " <fieldset>
                     <legend>Informações adicionais</legend>
-                     <label>1 - Na sua opinião um estudante recêm-formado em sua área que tenha dedicado todo o tempo de estudo somente às atividades acadêmicas, leva mais tempo para se adaptar ao mercado do que um outro que já trabalhava na área durante o dia e estudava a noite?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioUsuario->getIA1() ."</label><br />"  
-                    ."<label>2 - Na contratação de um egresso de sua área, o que é relevante no processo de seleção?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioUsuario->getIA2() ."</label><br />"
-                    ."<label>3 - O que tem faltado aos recêm-formados em sua área?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioUsuario->getIA3() ."</label><br />"
-                    ."<label>4 - Em sua opinião, quanto tempo leva um egresso, recêm-formado em sua area, para tornar-se altamente produtivo, após ser contratado por sua empresa?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioUsuario->getIA4() ."</label><br />"  
-                    ."<label>5 - Você voltaria a estudar no IFPR para fazer outros cursos?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioUsuario->getIA5() ."</label><br />"  
-                    ."<label>6 - Você teria interesse em cursar uma Pós-Graduação ou cursos de qualificação profissional ofertados pelo IFPR?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioUsuario->getIA6() ."</label><br />"
-                    ."<label> Sugestões (se houver):</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioUsuario->getSugestao() ."</label><br />"
-                    ."</fieldset>"
+                     <label>1 - Na sua opinião um estudante recêm-formado em sua área que tenha dedicado todo o tempo de estudo somente às atividades acadêmicas, leva mais tempo para se adaptar ao mercado do que um outro que já trabalhava na área durante o dia e estudava a noite?</label><br /> ";
+                     foreach ($formularioUsuario as $value) {
+                        echo "<label style='color:graytext;'>R: ". $value->getIA1() ." </label><br />";
+                    } 
+                    echo "<label>2 - Na contratação de um egresso de sua área, o que é relevante no processo de seleção?</label><br /> ";
+                    foreach ($formularioUsuario as $value) {
+                        echo "<label style='color:graytext;'>R: ". $value->getIA2() ." </label><br />";
+                    }
+                    echo"<label>3 - O que tem faltado aos recêm-formados em sua área?</label><br /> ";
+                    foreach ($formularioUsuario as $value) {
+                        echo "<label style='color:graytext;'>R: ". $value->getIA3() ." </label><br />";
+                    }
+                    echo"<label>4 - Em sua opinião, quanto tempo leva um egresso, recêm-formado em sua area, para tornar-se altamente produtivo, após ser contratado por sua empresa?</label><br /> ";
+                    foreach ($formularioUsuario as $value) {
+                        echo "<label style='color:graytext;'>R: ". $value->getIA4() ." </label><br />";
+                    }  
+                    echo"<label>5 - Você voltaria a estudar no IFPR para fazer outros cursos?</label><br /> ";
+                    foreach ($formularioUsuario as $value) {
+                        echo "<label style='color:graytext;'>R: ". $value->getIA5() ." </label><br />";
+                    } 
+                    echo "<label>6 - Você teria interesse em cursar uma Pós-Graduação ou cursos de qualificação profissional ofertados pelo IFPR?</label><br /> ";
+                    foreach ($formularioUsuario as $value) {
+                        echo "<label style='color:graytext;'>R: ". $value->getIA6() ." </label><br />";
+                    }
+                    echo"<label> Sugestões (se houver):</label><br /> ";
+                    foreach ($formularioUsuario as $value) {
+                        echo "<label style='color:graytext;'>R: ". $value->getSugestao() ." </label><br />";
+                    }
+                    echo"</fieldset>"
                     ."<hr />";
               
     
@@ -878,12 +1076,6 @@ if($usuarioSelecionado->getLiberado() != null && $usuarioSelecionado->getLiberad
           else{
               
               echo "<div style='color: red;'><center><h3>O usuário ".$usuarioSelecionado->getNome()." ainda não respondeu o formulário</h3></center></div>";
-              echo "<hr />";
-              echo '<div style="float: right;">
-                <a href="#" title="Baixar gráfico" class="btn btn-info btn-sm">
-                                <span class="glyphicon glyphicon-cloud-download"></span>
-                                Baixar</a>
-                </div>';
           }
           
           ?>
@@ -894,9 +1086,6 @@ if($usuarioSelecionado->getLiberado() != null && $usuarioSelecionado->getLiberad
 </div>
             
           
-
-           
-                 
             
 <!-- Modal de visualiziação  -->
 <div id="modalDeletar" class="modal fade" role="dialog">
@@ -906,7 +1095,9 @@ if($usuarioSelecionado->getLiberado() != null && $usuarioSelecionado->getLiberad
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Exclusão</h4>
+        <h4 class="modal-title">
+                     <button type="button" style="border-radius: 20px;" disabled="true" class="btn btn-lg btn-info"><span class="glyphicon glyphicon-trash"></span></button>                              
+        </h4>
       </div>
       <div class="modal-body">
           <div class="jumbotron" style=" background: white;">
@@ -941,12 +1132,14 @@ if($usuarioSelecionado->getLiberado() != null && $usuarioSelecionado->getLiberad
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Alteração</h4>
+        <h4 class="modal-title">
+                 <button type="button" style="border-radius: 20px;" disabled="true" class="btn btn-lg btn-info"><span class="glyphicon glyphicon-pencil"></span></button>                             
+        </h4>
       </div>
       <div class="modal-body">
           <div class="jumbotron" style=" background: white;">
                <div id="alterarAluno">                     
-                        <form id="frmAlterarAluno" method="POST" role="form" action="<?php echo $_SERVER['PHP_SELF'] ?>?id=1">
+                        <form id="frmAlterarAluno" method="POST" role="form" action="<?php echo $_SERVER['PHP_SELF'] ?>?id=<?php echo $idSelecionado;?>">
                             <input type="hidden" name="acao" value="alterarUsuario" />
                             <div class="form-group">
                                 <label  for="nomeAlterar">Nome:</label>
@@ -1003,7 +1196,9 @@ if($usuarioSelecionado->getLiberado() != null && $usuarioSelecionado->getLiberad
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Email</h4>
+        <h4 class="modal-title">
+                     <button type="button" style="border-radius: 20px;" disabled="true" class="btn btn-lg btn-info"><span class="glyphicon glyphicon-envelope"></span></button>                                  
+        </h4>
       </div>
       <div class="modal-body">
           <div class="jumbotron" style=" background: white; color: graytext;">
@@ -1045,147 +1240,11 @@ if($usuarioSelecionado->getLiberado() != null && $usuarioSelecionado->getLiberad
   </div>
 </div>
 
-
-<!-- Modal de visualiziação do formulario -->
-<div id="modalFormulario" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal corpo-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Formulário</h4>
-      </div>
-      <div class="modal-body">
-        
-          <?php 
-          
-          if($verificacaoFormulario === true){
-              
-              echo " <fieldset>
-                    <legend>Dados pessoais</legend>
-                    <label>1 - Ano de Conclusão:</label><br />"
-                    ."<label style='color:graytext;'>R: ". $formularioSelecionado->getAnoConclusao() ." </label><br />" 
-                    ."<label>2 - Sementre:</label><br />"
-                    ."<label style='color:graytext;'>R: ". $formularioSelecionado->getSemestre() ." </label><br />" 
-                   ."</fieldset>"
-                   ."<hr />";
-              
-              echo " <fieldset>
-                    <legend>Informações sobre o curso</legend>
-                    <label>1 - Qual o curso que você fez?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioSelecionado->getIC1() ."</label><br />"  
-                    ."<label>2 - Qual foi o tipo de curso?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioSelecionado->getIC2() ."</label><br />"
-                    ."<label>3 - O que achou do curso que fez?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioSelecionado->getIC3() ."</label><br />"
-                    ."<label>4 - A duração do curso foi suficiente?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioSelecionado->getIC4() ."</label><br />"  
-                    ."<label>5 - Como foi a parte teórica do curso?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioSelecionado->getIC5() ."</label><br />"  
-                    ."<label>6 - Como foi a parte prática do curso?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioSelecionado->getIC6() ."</label><br />"
-                    ."<label>7 - Os conhecimentos adquiridos durante o curso foram importantes para formação profissional?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioSelecionado->getIC7() ."</label><br />"  
-                    ."<label>8 - Como você avalia o nivel de exigência do curso?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioSelecionado->getIC8() ."</label><br />"  
-                    ."<label>9 - Qual foi a principal contribuição do curso?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioSelecionado->getIC9() ."</label><br />"  
-                    ."<label>10 - Quais foram suas principais dificuldades logo após a conclusÃ£o do curso?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioSelecionado->getIC10() ."</label><br />"                  
-                    ."</fieldset>"
-                    ."<hr />";
-              
-              echo " <fieldset>
-                    <legend>Informações sobre o corpo docente</legend>
-                    <label>1 - De modo geral, os professores tinham domínio do conteúdo das disciplinas que deram?</label><br />"
-                    ."<label style='color:graytext;'>R: ". $formularioSelecionado->getID1() ." </label><br />" 
-                    ."<label>2 - De modo geral, como foram os recursos utilizados pelos professores durante as aulas?</label><br />"
-                    ."<label style='color:graytext;'>R: ". $formularioSelecionado->getID2() ." </label><br />"
-                    ."<label>3 - De Modo geral, como foi a relação do professor com os alunos?</label><br />"
-                    ."<label style='color:graytext;'>R: ". $formularioSelecionado->getID3() ." </label><br />"                    
-                   ."</fieldset>"
-                   ."<hr />";
-              
-              $painel = "";
-              
-              if($formularioSelecionado->getIP3() != null && ($formularioSelecionado->getIP3() != "Não"
-                 && $formularioSelecionado->getIP3() != "não" && $formularioSelecionado->getIP3() != "NÃO"
-                 && $formularioSelecionado->getIP3() != "nao" && $formularioSelecionado->getIP3() != "Nao" && $formularioSelecionado->getIP3() != "NAO"  )      ){
-                  $painel = ""
-                  ."<label>A - Qual o seu grau de satisfação com a sua atividade profissional?</label><br />"
-                  ."<label style='color:graytext;'>R: ". $formularioSelecionado->getIP3A() ." </label><br />"   
-                  ."<label>B - Você egresso recém-formado, atende às necessidades da empresa para a qual você trabalha?</label><br />"
-                  ."<label style='color:graytext;'>R: ". $formularioSelecionado->getIP3B() ." </label><br />"
-                  ."<label>C - Qual das habilidades abaixo está sendo mais exigida em seu exercício profissional?</label><br />"
-                  ."<label style='color:graytext;'>R: ". $formularioSelecionado->getIP3C() ." </label><br />"
-                  ."<label> D - Qual a sua faixa salarial?</label><br />"
-                  ."<label style='color:graytext;'>R: ". $formularioSelecionado->getIP3D() ." </label><br />"
-                      ;
-              }else{
-                  $painel = ""; 
-              }
-             
-              echo "<fieldset>
-                    <legend>Informações pessoais</legend>
-                    <label>1 - Você já tinha uma profissão antes de fazer o curso? Se sim, onde?</label><br />"
-                    ."<label style='color:graytext;'>R: ". $formularioSelecionado->getIP1() ." </label><br />" 
-                    ."<label>2 - Você estava trabalhando na área durante o curso? Se sim, onde?</label><br />"
-                    ."<label style='color:graytext;'>R: ". $formularioSelecionado->getIP2() ." </label><br />"
-                    ."<label>3 - Você está trabalhando na área atualmente? Se sim, em que/onde?</label><br />"
-                    ."<label style='color:graytext;'>R: ". $formularioSelecionado->getIP3() ." </label><br />"                    
-                    .$painel
-                    ."</fieldset>"
-                   ."<hr />";
-              
-              
-              echo " <fieldset>
-                    <legend>Informações adicionais</legend>
-                     <label>1 - Na sua opinião um estudante recêm-formado em sua área que tenha dedicado todo o tempo de estudo somente às atividades acadêmicas, leva mais tempo para se adaptar ao mercado do que um outro que já trabalhava na área durante o dia e estudava a noite?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioSelecionado->getIA1() ."</label><br />"  
-                    ."<label>2 - Na contratação de um egresso de sua área, o que é relevante no processo de seleção?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioSelecionado->getIA2() ."</label><br />"
-                    ."<label>3 - O que tem faltado aos recêm-formados em sua área?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioSelecionado->getIA3() ."</label><br />"
-                    ."<label>4 - Em sua opinião, quanto tempo leva um egresso, recêm-formado em sua area, para tornar-se altamente produtivo, após ser contratado por sua empresa?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioSelecionado->getIA4() ."</label><br />"  
-                    ."<label>5 - Você voltaria a estudar no IFPR para fazer outros cursos?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioSelecionado->getIA5() ."</label><br />"  
-                    ."<label>6 - Você teria interesse em cursar uma Pós-Graduação ou cursos de qualificação profissional ofertados pelo IFPR?</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioSelecionado->getIA6() ."</label><br />"
-                    ."<label> Sugestões (se houver):</label><br /> "
-                    ."<label style='color:graytext;'>R: ". $formularioSelecionado->getSugestao() ."</label><br />"
-                    ."</fieldset>"
-                    ."<hr />";
-              
-              
-          }
-          else{
-              
-              echo "<p>O usuário ".$usuarioSelecionado->getNome()." ainda não respondeu o formulário</p>";
-              echo "<hr />";
-              echo '<div style="float: right;">
-                <a href="#" title="Baixar gráfico" class="btn btn-info btn-sm">
-                                <span class="glyphicon glyphicon-cloud-download"></span>
-                                Baixar</a>
-                </div>';
-          }
-          
-          ?>
-               
-          
-          
-                  
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-            
            
+                 
+
+
+
             
         </div>
     </div>  
@@ -1203,7 +1262,10 @@ if($usuarioSelecionado->getLiberado() != null && $usuarioSelecionado->getLiberad
 
 
 
-<?php require '../template/rodape.php'; ?>
+<?php 
+          require_once '../visao/componentes.php';
+          require_once '../template/rodape.php'; 
+?>
 
 <!-- deletar usuario -->
 <?php 
@@ -1226,7 +1288,11 @@ if(isset($_POST['acao'])){
             
             echo "<script type='text/javascript'>";
     
-            echo "alert('Usuario atualizado com sucesso!');";
+            //echo "alert('Usuario atualizado com sucesso!');";
+            echo "var $ = jQuery.noConflict();
+            $(document).ready(function() {
+            $('#modalMsgSucesso').modal('show');
+                });";
             echo "location.href='http://localhost/questionario/adm/dados.php?id=".$idSelecionado."';";
 
             echo "</script>";
@@ -1237,7 +1303,11 @@ if(isset($_POST['acao'])){
              
             echo "<script type='text/javascript'>";
     
-            echo "alert('Erro ao tentar atualizar usuario!');";
+            //echo "alert('Erro ao tentar atualizar usuario!');";
+            echo "var $ = jQuery.noConflict();
+            $(document).ready(function() {
+            $('#modalMsgErro').modal('show');
+                });";
             echo "location.href='http://localhost/questionario/adm/gerenciar.php?id=".$idSelecionado."';";
 
             echo "</script>";
@@ -1259,10 +1329,7 @@ if(isset($_GET['deletar'])){
       
        try{
        //verificar existencia do formulario
-       if($usuarioSelecionado->getLiberado() != null && $usuarioSelecionado->getLiberado() != 0){
-           
-           $idForm = $usuarioSelecionado->getLiberado();   
-       }
+       $idForm = 0;
        
        $daoUsuario->deletar($usuarioSelecionado->getId());
        
@@ -1273,7 +1340,12 @@ if(isset($_GET['deletar'])){
        
        echo "<script type='text/javascript'>";
     
-            echo "alert('Usuario deletado com sucesso!');";
+            //echo "alert('Usuario deletado com sucesso!');";
+            echo "var $ = jQuery.noConflict();
+            $(document).ready(function() {
+            $('#modalMsgSucesso').modal('show');
+                });";
+            //echo "$j('#modalMsgSucesso').modal('show');";   
             echo "location.href='http://localhost/questionario/adm/gerenciar.php';";
 
        echo "</script>";
@@ -1286,7 +1358,10 @@ if(isset($_GET['deletar'])){
            
        echo "<script type='text/javascript'>";
     
-            echo "alert('Erro ao tentar deletar usuario!');";
+            echo "var $ = jQuery.noConflict();
+            $(document).ready(function() {
+            $('#modalMsgErro').modal('show');
+                });";
             echo "location.href='http://localhost/questionario/adm/gerenciar.php';";
 
        echo "</script>";

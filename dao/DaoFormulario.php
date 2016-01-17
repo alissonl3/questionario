@@ -273,12 +273,22 @@ class DaoFormulario {
         
          try{
             
-            $sql = "SELECT * FROM formulario WHERE idUsuario = :idUsuario";
+            $sql = "SELECT * FROM formulario WHERE idUsuario = :idUsuario ORDER BY id";
             $p_sql = $this->pdo->prepare($sql);
             $p_sql -> bindValue(":idUsuario", $idUsuario);
             $p_sql->execute();
             
-             return $this->populaFormulario($p_sql->fetch(PDO::FETCH_ASSOC));
+            $lista = $p_sql->fetchAll(PDO::FETCH_ASSOC);
+            $f_lista = array();
+            
+            foreach ($lista as $l){
+                $f_lista[] = $this->populaFormulario($l);
+            }
+           
+            return $f_lista;
+            
+            
+             //return $this->populaFormulario($p_sql->fetch(PDO::FETCH_ASSOC));
            
               }       
         catch (Exception $e){

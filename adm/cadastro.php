@@ -15,33 +15,22 @@
 
 
 <script type="text/javascript">
-    
 
-function cadastrarAluno(){
-$(document).ready(function (){    
-    
-     $("#msgSucesso").show();
 
-});
-}
-
-$(document).ready(function (){
-     
-     
+$(document).ready(function ()
+{
     
     $("#campoSenha").hide();
     
-   
     $("#opTipoAluno").click(function (){
         $("#campoSenha").hide();
     });
     
     $("#opTipoAdm").click(function (){
         $("#campoSenha").show();
-    });
-   
-    
+    }); 
 });
+        
 </script>
            
     <!-- Pagina do conteudo -->
@@ -112,7 +101,7 @@ $(document).ready(function (){
                     </div>
                     <center>
                         <div class="btn-group">
-                            <button  type="submit" class="btn btn-success btn-lg">
+                            <button type="submit" class="btn btn-success btn-lg">
                              <span class="glyphicon glyphicon-ok"></span>
                             Cadastrar</button>
                         <button type="reset" class="btn btn-danger btn-lg">
@@ -125,27 +114,7 @@ $(document).ready(function (){
         </div>
         
             
-            <!-- Modal de visualiziação  -->
-            <div id="modalMsgSucesso" class="modal fade" role="dialog">
-              <div class="modal-dialog">
-
-                <!-- Modal corpo-->
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Sucesso</h4>
-                  </div>
-                  <div class="modal-body">
-                      
-                      <p>Painel de sucesso!</p>
-                        
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  </div>
-                </div>
-              </div>
-            </div>
+     <?php   require_once '../visao/componentes.php';     ?>  
        
         
     </div>
@@ -157,7 +126,7 @@ $(document).ready(function (){
     
    
         
-   <?php require '../template/rodape.php';
+<?php require '../template/rodape.php';
    
    //EXECUTAR AÇÃO
 if(isset($_POST['acao'])){
@@ -196,30 +165,21 @@ if(isset($_POST['acao'])){
             $dao = new DaoUsuario();
             $dao->inserir($user);
             
-            //    header('location:http://localhost/questionario/index.php');
-                
-                echo "<script type='text/javascript'>";
-                
-                    echo "alert('Obrigado por se cadastrar!');";
-                   // echo "location.href='http://localhost/questionario/gerenciar.php';";
-            
+
+                echo "<script type='text/javascript'>";               
+                    echo "$('#modalMsgSucesso').modal('show');";
                 echo "</script>";
-            
-            //       echo " $('#msgSucesso').show();";
+
             
             } 
             catch (Exception $e){
                 
                 print "Erro " .$e;
                 
-                echo "<script type='text/javascript'>";
-                
-                    echo "alert('Estamos com problemas, tente mais tarde!');";
-                    echo "location.href='http://localhost/questionario/adm/gerenciar.php';";
-            
+                echo "<script type='text/javascript'>";                
+                    echo "$('#modalMsgErroException').modal('show');";            
                 echo "</script>";
-                
-                //echo "erroException";
+
             }
             
             
