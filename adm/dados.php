@@ -1417,7 +1417,7 @@ if(isset($_POST['acao'])){
             //echo "alert('Usuario atualizado com sucesso!');";
             echo "var $ = jQuery.noConflict();
             $(document).ready(function() {
-            $('#modalMsgSucesso').modal('show');
+            $('#modalMsgSucessoComLoading').modal('show');
                 });";
             echo "location.href='http://localhost/questionario/adm/dados.php?id=".$idSelecionado."';";
 
@@ -1469,7 +1469,7 @@ if(isset($_GET['deletar'])){
             //echo "alert('Usuario deletado com sucesso!');";
             echo "var $ = jQuery.noConflict();
             $(document).ready(function() {
-            $('#modalMsgSucesso').modal('show');
+            $('#modalMsgSucessoComLoading').modal('show');
                 });";
             //echo "$j('#modalMsgSucesso').modal('show');";   
             echo "location.href='http://localhost/questionario/adm/gerenciar.php';";

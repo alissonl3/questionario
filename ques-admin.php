@@ -1,7 +1,9 @@
+<?php 
 
-<?php require './template/topo.php'; 
 
+session_start();
 
+require_once './template/topo.php'; 
 include_once  './dao/DaoUsuario.php';
 include_once './entidades/Usuario.php';
 include_once './banco/Conexao.php';
@@ -133,7 +135,6 @@ if(isset($_POST['acao'])){
         if($_POST['acao'] == "login")
         {
 
-            session_start();
             
             //VALIDAÇÃO DOS DADOS
             if(isset($_POST["email"])){

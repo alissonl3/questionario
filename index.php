@@ -1,6 +1,12 @@
 
-<?php require './template/topo.php';
+<?php 
 
+        
+session_start();
+ 
+
+
+require_once './template/topo.php';
 include_once  './dao/DaoUsuario.php';
 include_once './entidades/Usuario.php';
 include_once './banco/Conexao.php';
@@ -9,42 +15,6 @@ $daoUsuario = new DaoUsuario();
 
 ?>
 
-<script type="text/javascript">
-
-function liberarQuestionario()
-{
-                $.ajax({
-                     url: 'visao/validarrespondeformulario.php',
-                     data: {$('#frmLogin').serialize()}, //pegar dados do formulario
-                     method: "POST",
-                     async: true
-                     }).done(function (retorno){
-                         
-                         
-                         
-                         if(retorno === "erro"){
-                            $('#messageError').html("<b>Login invalido!</b>");
-                         }
-                         else if(retorno === "erroQtdResponde")
-                         {                            
-                             $('#messageError').html("<b>Ja atingiu seu limite!</b>");
-                         }
-                         else if(retorno === "erroException")
-                         {
-                             $('#messageError').html("<b>Estamos com problemas no momente, tente mais tarde!</b>");
-                         }
-                         else if(retorno === "sucess")
-                         {
-                             document.getElementById("resposta").style.cursor = "auto";
-                             document.getElementById("resposta").style.pointer-events = "auto";
-                         }
-                         
-                         
-                     });
-    
-}
-
-</script>
 
 <!-- Pagina do conteudo -->
 <div class="row" style="margin-top: 5%; margin-bottom: 5%; " >
@@ -132,23 +102,20 @@ function liberarQuestionario()
 </div> 
 
 <?php
-require_once './template/rodape.php';
 
+require_once './visao/componentes.php';
 
 if(isset($_POST['acao'])){
         
         if($_POST['acao'] == "liberarQuestionario")
         {
-           
-            session_start();
- 
 
             try
             {
                 
             $user = $daoUsuario->buscarPorCPF($_POST['cpfInformar']);
             
-            if($user != null)
+            if($user->getId() != null && $user->getId() != 0)
             {
                 
                 //ENVIO DE DADOS PELA SEÇÃO
@@ -173,6 +140,7 @@ if(isset($_POST['acao'])){
                 
                 echo "<script type='text/javascript'>";
     
+                //echo "alert('Cpf valido!');";
                 echo "location.href='http://localhost/questionario/aluno/formulario.php';";
 
                 echo "</script>";
@@ -185,8 +153,9 @@ if(isset($_POST['acao'])){
                 unset ($_SESSION['senha']);
                 
                 echo "<script type='text/javascript'>";
-    
-                echo "alert('Cpf inválido!');";
+               
+                echo "$('#modalMsgErroLoginCpf').modal('show');";
+                //echo "alert('Cpf inválido!');";
 
                 echo "</script>";
                 
@@ -199,7 +168,8 @@ if(isset($_POST['acao'])){
              
              echo "<script type='text/javascript'>";
     
-             echo "alert('Estamos com prblemas, tente mais tarde!');";
+             echo "$('#modalMsgErroException').modal('show');";
+             //echo "alert('Estamos com prblemas, tente mais tarde!');";
 
              echo "</script>";
                 
@@ -212,6 +182,6 @@ if(isset($_POST['acao'])){
         
     }
 
-
+require_once './template/rodape.php';
 ?>
 
