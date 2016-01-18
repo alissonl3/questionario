@@ -326,6 +326,26 @@ class DaoFormulario {
         
  }
  
+ public function buscarCountRespostaComUsuario($condicao){
+        
+          try{
+                        
+            $sql = "SELECT COUNT(formulario.id) FROM formulario, usuario WHERE ". $condicao;
+            $result = $this->pdo->query($sql);
+            $retorno = $result->fetch(PDO::FETCH_ASSOC);  
+    
+            return $retorno;
+  
+            
+            }       
+            catch (Exception $e){
+     
+            print "Ocorreu um erro ao tentar executar esta ação, foi gerado um LOG do mesmo, tente novamente mais tarde."; 
+        
+ }
+        
+    }
+ 
   public function buscarCountResposta($condicao){
         
           try{

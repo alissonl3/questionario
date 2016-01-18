@@ -23,43 +23,43 @@
             <?php 
       
             
-            $simia5  = $dao->buscarCountResposta("ia5 = 'Sim'") ;
-            $naoia5 =  $dao->buscarCountResposta("ia5 = 'Não'");
+            $simia5  = $dao->buscarCountRespostaComUsuario("ia5 = 'Sim'") ;
+            $naoia5 =  $dao->buscarCountRespostaComUsuario("ia5 = 'Não'");
                     
-            $simia6  = $dao->buscarCountResposta("ia6 = 'Sim'");   
-            $naoia6  = $dao->buscarCountResposta("ia6 = 'Não'");
+            $simia6  = $dao->buscarCountRespostaComUsuario("ia6 = 'Sim'");   
+            $naoia6  = $dao->buscarCountRespostaComUsuario("ia6 = 'Não'");
             
-            $ia21  = $dao->buscarCountResposta("ia2 = 'O nome da Instituição de Ensino onde estudou'");  
-            $ia22  = $dao->buscarCountResposta("ia2 = 'As respostas ao teste de seleção, ao qual foi submetido'"); 
-            $ia23  = $dao->buscarCountResposta("ia2 = 'A formação teórica'"); 
-            $ia24  = $dao->buscarCountResposta("ia2 = 'A experiência prática'"); 
-            $ia25  = $dao->buscarCountResposta("ia2 = 'Visão sistámica'"); 
+            $ia21  = $dao->buscarCountRespostaComUsuario("ia2 = 'O nome da Instituição de Ensino onde estudou'");  
+            $ia22  = $dao->buscarCountRespostaComUsuario("ia2 = 'As respostas ao teste de seleção, ao qual foi submetido'"); 
+            $ia23  = $dao->buscarCountRespostaComUsuario("ia2 = 'A formação teórica'"); 
+            $ia24  = $dao->buscarCountRespostaComUsuario("ia2 = 'A experiência prática'"); 
+            $ia25  = $dao->buscarCountRespostaComUsuario("ia2 = 'Visão sistámica'"); 
             
-            $simip3  = $dao->buscarCountResposta("ip3 = 'Sim'");   
-            $naoip3  = $dao->buscarCountResposta("ip3 = 'Não'");
+            $simip3  = $dao->buscarCountRespostaComUsuario("ip3 = 'Sim'");   
+            $naoip3  = $dao->buscarCountRespostaComUsuario("ip3 = 'Não'");
             
-            $ia31  = $dao->buscarCountResposta("ia3 = 'Maior embasamento conceitual'");  
-            $ia32  = $dao->buscarCountResposta("ia3 = 'Maior embasamento técnico'"); 
-            $ia33  = $dao->buscarCountResposta("ia3 = 'Maior embasamento prático'"); 
-            $ia34  = $dao->buscarCountResposta("ia3 = 'Maior aproximação com as necessidades da indússtria'"); 
-            $ia35  = $dao->buscarCountResposta("ia3 = 'Maior capacidade de liderança'");
+            $ia31  = $dao->buscarCountRespostaComUsuario("ia3 = 'Maior embasamento conceitual'");  
+            $ia32  = $dao->buscarCountRespostaComUsuario("ia3 = 'Maior embasamento técnico'"); 
+            $ia33  = $dao->buscarCountRespostaComUsuario("ia3 = 'Maior embasamento prático'"); 
+            $ia34  = $dao->buscarCountRespostaComUsuario("ia3 = 'Maior aproximação com as necessidades da indússtria'"); 
+            $ia35  = $dao->buscarCountRespostaComUsuario("ia3 = 'Maior capacidade de liderança'");
            
-            $ic71  = $dao->buscarCountResposta("ic7 = 'Muito Satisfatório'");  
-            $ic72  = $dao->buscarCountResposta("ic7 = 'Satisfatório'"); 
-            $ic73  = $dao->buscarCountResposta("ic7 = 'Insatisfatório'"); 
-            $ic74  = $dao->buscarCountResposta("ic7 = 'Não sei responder'"); 
+            $ic71  = $dao->buscarCountRespostaComUsuario("ic7 = 'Muito Satisfatório'");  
+            $ic72  = $dao->buscarCountRespostaComUsuario("ic7 = 'Satisfatório'"); 
+            $ic73  = $dao->buscarCountRespostaComUsuario("ic7 = 'Insatisfatório'"); 
+            $ic74  = $dao->buscarCountRespostaComUsuario("ic7 = 'Não sei responder'"); 
             
-            $ic91  = $dao->buscarCountResposta("ic9 = 'A obtenção de diploma de nível técnico'");  
-            $ic92  = $dao->buscarCountResposta("ic9 = 'A aquisição de cultura geral'"); 
-            $ic93  = $dao->buscarCountResposta("ic9 = 'A aquisiçaoo de formação profissional e teórica'"); 
-            $ic94  = $dao->buscarCountResposta("ic9 = 'Melhores perspectivas de ganhos materiais'");
+            $ic91  = $dao->buscarCountRespostaComUsuario("ic9 = 'A obtenção de diploma de nível técnico'");  
+            $ic92  = $dao->buscarCountRespostaComUsuario("ic9 = 'A aquisição de cultura geral'"); 
+            $ic93  = $dao->buscarCountRespostaComUsuario("ic9 = 'A aquisiçaoo de formação profissional e teórica'"); 
+            $ic94  = $dao->buscarCountRespostaComUsuario("ic9 = 'Melhores perspectivas de ganhos materiais'");
             
-            $ic101  = $dao->buscarCountResposta("ic10 = 'Encontrar emprego na área'");  
-            $ic102  = $dao->buscarCountResposta("ic10 = 'Adequação salarial'"); 
-            $ic103  = $dao->buscarCountResposta("ic10 = 'Continuar na mesma empresa'"); 
-            $ic104  = $dao->buscarCountResposta("ic10 = 'Ser promovido'");
-            $ic105  = $dao->buscarCountResposta("ic10 = 'Adaptação ao ambiente de trabalho'");  
-            $ic106  = $dao->buscarCountResposta("ic10 = 'Tempo para se dedicar a uma qualificação'");
+            $ic101  = $dao->buscarCountRespostaComUsuario("ic10 = 'Encontrar emprego na área'");  
+            $ic102  = $dao->buscarCountRespostaComUsuario("ic10 = 'Adequação salarial'"); 
+            $ic103  = $dao->buscarCountRespostaComUsuario("ic10 = 'Continuar na mesma empresa'"); 
+            $ic104  = $dao->buscarCountRespostaComUsuario("ic10 = 'Ser promovido'");
+            $ic105  = $dao->buscarCountRespostaComUsuario("ic10 = 'Adaptação ao ambiente de trabalho'");  
+            $ic106  = $dao->buscarCountRespostaComUsuario("ic10 = 'Tempo para se dedicar a uma qualificação'");
 
             
             

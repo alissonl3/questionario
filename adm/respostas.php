@@ -5,9 +5,43 @@
    
    include_once  '../dao/DaoFormulario.php';
    include_once '../entidades/Formulario.php'; 
+   
+   //curso
+    include_once  '../dao/DaoCurso.php';
+    include_once '../entidades/Curso.php';
+   
+   
    include_once '../banco/Conexao.php'; 
    
    $dao = new DaoFormulario();
+   
+   $daoCurso = new DaoCurso(); 
+   $cursos = $daoCurso->buscarTodos();
+   
+$anoConclusao = "";
+$cursoPesquisa = "";
+
+$queryBusca = "";
+if(isset($_GET['anoConclusao']) || isset($_GET['curso'])){
+    
+    $anoConclusao = $_GET['anoConclusao'];
+    $cursoPesquisa = $_GET['curso'];
+    
+        if($_GET['curso'] != "0" && $_GET['curso'] != null)
+        {
+            
+           $queryBusca = $queryBusca. " and usuario.idCurso = ".$cursoPesquisa;
+            
+        }
+        
+        if($_GET['anoConclusao'] != "" && $_GET['anoConclusao'] != null)
+        {
+            
+          $queryBusca = $queryBusca. " and formulario.anoConclusao = ".$anoConclusao;
+            
+        }
+        
+}
    
     ?>
            
@@ -24,43 +58,43 @@
             <?php 
       
             
-            $simia5  = $dao->buscarCountResposta("ia5 = 'Sim'") ;
-            $naoia5 =  $dao->buscarCountResposta("ia5 = 'Não'");
+            $simia5  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ia5 = 'Sim' " .$queryBusca) ;
+            $naoia5 =  $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ia5 = 'Não' " .$queryBusca);
                     
-            $simia6  = $dao->buscarCountResposta("ia6 = 'Sim'");   
-            $naoia6  = $dao->buscarCountResposta("ia6 = 'Não'");
+            $simia6  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ia6 = 'Sim' " .$queryBusca);   
+            $naoia6  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ia6 = 'Não' " .$queryBusca);
             
-            $ia21  = $dao->buscarCountResposta("ia2 = 'O nome da Instituição de Ensino onde estudou'");  
-            $ia22  = $dao->buscarCountResposta("ia2 = 'As respostas ao teste de seleção, ao qual foi submetido'"); 
-            $ia23  = $dao->buscarCountResposta("ia2 = 'A formação teórica'"); 
-            $ia24  = $dao->buscarCountResposta("ia2 = 'A experiência prática'"); 
-            $ia25  = $dao->buscarCountResposta("ia2 = 'Visão sistámica'"); 
+            $ia21  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ia2 = 'O nome da Instituição de Ensino onde estudou' " .$queryBusca);  
+            $ia22  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ia2 = 'As respostas ao teste de seleção, ao qual foi submetido' " .$queryBusca); 
+            $ia23  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ia2 = 'A formação teórica' " .$queryBusca); 
+            $ia24  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ia2 = 'A experiência prática' " .$queryBusca); 
+            $ia25  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ia2 = 'Visão sistámica' " .$queryBusca); 
             
-            $simip3  = $dao->buscarCountResposta("ip3 = 'Sim'");   
-            $naoip3  = $dao->buscarCountResposta("ip3 = 'Não'");
+            $simip3  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ip3 = 'Sim' " .$queryBusca);   
+            $naoip3  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ip3 = 'Não' " .$queryBusca);
             
-            $ia31  = $dao->buscarCountResposta("ia3 = 'Maior embasamento conceitual'");  
-            $ia32  = $dao->buscarCountResposta("ia3 = 'Maior embasamento técnico'"); 
-            $ia33  = $dao->buscarCountResposta("ia3 = 'Maior embasamento prático'"); 
-            $ia34  = $dao->buscarCountResposta("ia3 = 'Maior aproximação com as necessidades da indússtria'"); 
-            $ia35  = $dao->buscarCountResposta("ia3 = 'Maior capacidade de liderança'");
+            $ia31  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ia3 = 'Maior embasamento conceitual' " .$queryBusca);  
+            $ia32  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ia3 = 'Maior embasamento técnico' " .$queryBusca); 
+            $ia33  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ia3 = 'Maior embasamento prático' " .$queryBusca); 
+            $ia34  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ia3 = 'Maior aproximação com as necessidades da indússtria' " .$queryBusca); 
+            $ia35  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ia3 = 'Maior capacidade de liderança' " .$queryBusca);
            
-            $ic71  = $dao->buscarCountResposta("ic7 = 'Muito Satisfatório'");  
-            $ic72  = $dao->buscarCountResposta("ic7 = 'Satisfatório'"); 
-            $ic73  = $dao->buscarCountResposta("ic7 = 'Insatisfatório'"); 
-            $ic74  = $dao->buscarCountResposta("ic7 = 'Não sei responder'"); 
+            $ic71  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ic7 = 'Muito Satisfatório' " .$queryBusca);  
+            $ic72  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ic7 = 'Satisfatório' " .$queryBusca); 
+            $ic73  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ic7 = 'Insatisfatório' " .$queryBusca); 
+            $ic74  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ic7 = 'Não sei responder' " .$queryBusca); 
             
-            $ic91  = $dao->buscarCountResposta("ic9 = 'A obtenção de diploma de nível técnico'");  
-            $ic92  = $dao->buscarCountResposta("ic9 = 'A aquisição de cultura geral'"); 
-            $ic93  = $dao->buscarCountResposta("ic9 = 'A aquisiçaoo de formação profissional e teórica'"); 
-            $ic94  = $dao->buscarCountResposta("ic9 = 'Melhores perspectivas de ganhos materiais'");
+            $ic91  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ic9 = 'A obtenção de diploma de nível técnico' " .$queryBusca);  
+            $ic92  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ic9 = 'A aquisição de cultura geral' " .$queryBusca); 
+            $ic93  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ic9 = 'A aquisiçaoo de formação profissional e teórica' " .$queryBusca); 
+            $ic94  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ic9 = 'Melhores perspectivas de ganhos materiais' " .$queryBusca);
             
-            $ic101  = $dao->buscarCountResposta("ic10 = 'Encontrar emprego na área'");  
-            $ic102  = $dao->buscarCountResposta("ic10 = 'Adequação salarial'"); 
-            $ic103  = $dao->buscarCountResposta("ic10 = 'Continuar na mesma empresa'"); 
-            $ic104  = $dao->buscarCountResposta("ic10 = 'Ser promovido'");
-            $ic105  = $dao->buscarCountResposta("ic10 = 'Adaptação ao ambiente de trabalho'");  
-            $ic106  = $dao->buscarCountResposta("ic10 = 'Tempo para se dedicar a uma qualificação'");
+            $ic101  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ic10 = 'Encontrar emprego na área' " .$queryBusca);  
+            $ic102  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ic10 = 'Adequação salarial' " .$queryBusca); 
+            $ic103  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ic10 = 'Continuar na mesma empresa' " .$queryBusca); 
+            $ic104  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ic10 = 'Ser promovido' " .$queryBusca);
+            $ic105  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ic10 = 'Adaptação ao ambiente de trabalho' " .$queryBusca);  
+            $ic106  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario and formulario.ic10 = 'Tempo para se dedicar a uma qualificação' " .$queryBusca);
 
             
             
@@ -92,12 +126,72 @@
         <div id="voltarTopo"></div>
         
         <div class="jumbotron" style=" background: white; border: 2px #e7e7e7 solid;">
-             <div style="float: left;">
+             <div style="float: right;">
                 <button  title="Ajuda" class="btn btn-info btn-sm" style="border-radius: 30px;">
                                 <span class="glyphicon glyphicon-comment"></span>
                                  </button>
          </div>
          <div style="clear: both;"></div>
+         
+         <form action="respostas.php" method="GET">
+                <div class="form-group">
+                    <label for="anoConclusao">Ano de conclusão:</label>
+                    <input type="number" class="form-control" id="anoConclusao" name="anoConclusao">
+                </div>
+                <div class="form-group">
+                    <label for="curso">Curso:</label>
+                    <select id="cursoPesquisa" name="curso">
+                            <option value="0">Selecione</option>
+                            <?php
+                            
+                                foreach ($cursos as $value) 
+                                    {
+                                    echo "<option value=".$value->getId().">".$value->getNome()."</option>";
+                                    }
+                            
+                            ?>
+                          </select>
+                </div>
+                <button type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-search"></span>Pesquisar</button>                 
+                <a href="respostas.php" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-refresh"></span>Restaurar</a>                          
+            </form>
+         <br />
+         <hr />
+         
+         <?php
+         
+         $formularios  = $dao->buscarCountRespostaComUsuario("usuario.id = formulario.idUsuario " .$queryBusca);
+         
+         if($formularios['COUNT(formulario.id)'] > 0)
+         {
+            echo "<script type='text/javascript'>";
+    
+                echo "var $ = jQuery.noConflict();
+                $(document).ready(function() {
+                $('#comResultado').show();
+                $('#semResultado').hide();
+                });";
+
+            echo "</script>";
+         }
+         else
+         {
+             
+             echo "<script type='text/javascript'>";
+    
+                echo "var $ = jQuery.noConflict();
+                $(document).ready(function() {
+                $('#comResultado').hide();
+                $('#semResultado').show();
+                });";
+
+            echo "</script>";
+             
+         }
+         
+         ?>
+         
+         <div id="comResultado">
             <center>
                 <h3><label>Gráficos</label></h3>
                 <br />
@@ -167,7 +261,12 @@
             <hr />           
             <br />
             </center>
-            
+         </div>
+         
+         <div id="semResultado">
+             <br />
+             <div style='color: red;'><center><h3>Não retornou resultado!</h3></center></div>;         
+         </div>
             
             <!-- botao voltar topo -->
             <button type="button" id="btnVoltarTopo" class="btn btn-sm btn-info" style="
@@ -192,13 +291,13 @@
                 //resposta ia5
                 var data = [
                     {
-                        value: <?php echo $simia5['COUNT(id)'] ?>,
+                        value: <?php echo $simia5['COUNT(formulario.id)'] ?>,
                         color:"#F7464A",
                         highlight: "#FF5A5E",
                         label: "Sim"
                     },
                     {
-                        value: <?php echo $naoia5['COUNT(id)']  ?>,
+                        value: <?php echo $naoia5['COUNT(formulario.id)']  ?>,
                         color: "#46BFBD",
                         highlight: "#5AD3D1",
                         label: "Não"
@@ -208,13 +307,13 @@
                 //resposta ia6
                 var data3 = [
                     {
-                        value: <?php echo $simia6['COUNT(id)'] ?>,
+                        value: <?php echo $simia6['COUNT(formulario.id)'] ?>,
                         color:"#F7464A",
                         highlight: "#FF5A5E",
                         label: "Sim"
                     },
                     {
-                        value: <?php echo $naoia6['COUNT(id)']  ?>,
+                        value: <?php echo $naoia6['COUNT(formulario.id)']  ?>,
                         color: "#46BFBD",
                         highlight: "#5AD3D1",
                         label: "Não"
@@ -224,13 +323,13 @@
                  //resposta ip3
                 var data4 = [
                     {
-                        value: <?php echo $simip3['COUNT(id)'] ?>,
+                        value: <?php echo $simip3['COUNT(formulario.id)'] ?>,
                         color:"#F7464A",
                         highlight: "#FF5A5E",
                         label: "Sim"
                     },
                     {
-                        value: <?php echo $naoip3['COUNT(id)']  ?>,
+                        value: <?php echo $naoip3['COUNT(formulario.id)']  ?>,
                         color: "#46BFBD",
                         highlight: "#5AD3D1",
                         label: "Não"
@@ -241,31 +340,31 @@
                 //resposta ia2
                 var data5 = [
                     {
-                        value: <?php echo $ia21['COUNT(id)']  ?>,
+                        value: <?php echo $ia21['COUNT(formulario.id)']  ?>,
                         color:"#F7464A",
                         highlight: "#FF5A5E",
                         label: "O nome da Instituição de Ensino onde estudou"
                     },
                     {
-                        value: <?php echo $ia22['COUNT(id)']  ?>,
+                        value: <?php echo $ia22['COUNT(formulario.id)']  ?>,
                         color: "#46BFBD",
                         highlight: "#5AD3D1",
                         label: "As respostas ao teste de seleção, ao qual foi submetido"
                     },
                     {
-                        value: <?php echo $ia23['COUNT(id)']  ?>,
+                        value: <?php echo $ia23['COUNT(formulario.id)']  ?>,
                         color: "#0000FF",
                         highlight: "#6495ED",
                         label: "A formação teórica"
                     },
                     {
-                        value: <?php echo $ia24['COUNT(id)']  ?>,
+                        value: <?php echo $ia24['COUNT(formulario.id)']  ?>,
                         color: "#00FF7F",
                         highlight: "#98FB98",
                         label: "A experiência prática"
                     },
                     {
-                        value: <?php echo $ia25['COUNT(id)']  ?>,
+                        value: <?php echo $ia25['COUNT(formulario.id)']  ?>,
                         color: "#FFD700",
                         highlight: "#F0E68C",
                         label: "Visão sistámica"
@@ -275,31 +374,31 @@
                  //resposta ia3
                 var data6 = [
                     {
-                        value: <?php echo $ia31['COUNT(id)']  ?>,
+                        value: <?php echo $ia31['COUNT(formulario.id)']  ?>,
                         color:"#F7464A",
                         highlight: "#FF5A5E",
                         label: "Maior embasamento conceitual"
                     },
                     {
-                        value: <?php echo $ia32['COUNT(id)']  ?>,
+                        value: <?php echo $ia32['COUNT(formulario.id)']  ?>,
                         color: "#46BFBD",
                         highlight: "#5AD3D1",
                         label: "Maior embasamento técnico"
                     },
                     {
-                        value: <?php echo $ia33['COUNT(id)']  ?>,
+                        value: <?php echo $ia33['COUNT(formulario.id)']  ?>,
                         color: "#0000FF",
                         highlight: "#6495ED",
                         label: "Maior embasamento prático"
                     },
                     {
-                        value: <?php echo $ia34['COUNT(id)']  ?>,
+                        value: <?php echo $ia34['COUNT(formulario.id)']  ?>,
                         color: "#00FF7F",
                         highlight: "#98FB98",
                         label: "Maior aproximação com as necessidades da indússtria"
                     },
                     {
-                        value: <?php echo $ia35['COUNT(id)']  ?>,
+                        value: <?php echo $ia35['COUNT(formulario.id)']  ?>,
                         color: "#FFD700",
                         highlight: "#F0E68C",
                         label: "Maior capacidade de liderança"
@@ -309,25 +408,25 @@
                  //resposta ic7
                 var data7 = [
                     {
-                        value: <?php echo $ic71['COUNT(id)']  ?>,
+                        value: <?php echo $ic71['COUNT(formulario.id)']  ?>,
                         color:"#F7464A",
                         highlight: "#FF5A5E",
                         label: "Muito Satisfatório"
                     },
                     {
-                        value: <?php echo $ic72['COUNT(id)']  ?>,
+                        value: <?php echo $ic72['COUNT(formulario.id)']  ?>,
                         color: "#46BFBD",
                         highlight: "#5AD3D1",
                         label: "Satisfatório"
                     },
                     {
-                        value: <?php echo $ic73['COUNT(id)']  ?>,
+                        value: <?php echo $ic73['COUNT(formulario.id)']  ?>,
                         color: "#0000FF",
                         highlight: "#6495ED",
                         label: "Insatisfatório"
                     },
                     {
-                        value: <?php echo $ic74['COUNT(id)']  ?>,
+                        value: <?php echo $ic74['COUNT(formulario.id)']  ?>,
                         color: "#00FF7F",
                         highlight: "#98FB98",
                         label: "Não sei responder"
@@ -338,25 +437,25 @@
                   //resposta ic9
                 var data8 = [
                     {
-                        value: <?php echo $ic91['COUNT(id)']  ?>,
+                        value: <?php echo $ic91['COUNT(formulario.id)']  ?>,
                         color:"#F7464A",
                         highlight: "#FF5A5E",
                         label: "A obtenção de diploma de nível técnico"
                     },
                     {
-                        value: <?php echo $ic92['COUNT(id)']  ?>,
+                        value: <?php echo $ic92['COUNT(formulario.id)']  ?>,
                         color: "#46BFBD",
                         highlight: "#5AD3D1",
                         label: "A aquisição de cultura geral"
                     },
                     {
-                        value: <?php echo $ic93['COUNT(id)']  ?>,
+                        value: <?php echo $ic93['COUNT(formulario.id)']  ?>,
                         color: "#0000FF",
                         highlight: "#6495ED",
                         label: "A aquisiçaoo de formação profissional e teórica"
                     },
                     {
-                        value: <?php echo $ic94['COUNT(id)']  ?>,
+                        value: <?php echo $ic94['COUNT(formulario.id)']  ?>,
                         color: "#00FF7F",
                         highlight: "#98FB98",
                         label: "Melhores perspectivas de ganhos materiais"
@@ -366,37 +465,37 @@
                 //resposta ic10
                 var data9 = [
                     {
-                        value: <?php echo $ic101['COUNT(id)']  ?>,
+                        value: <?php echo $ic101['COUNT(formulario.id)']  ?>,
                         color:"#F7464A",
                         highlight: "#FF5A5E",
                         label: "Encontrar emprego na área"
                     },
                     {
-                        value: <?php echo $ic102['COUNT(id)']  ?>,
+                        value: <?php echo $ic102['COUNT(formulario.id)']  ?>,
                         color: "#46BFBD",
                         highlight: "#5AD3D1",
                         label: "Adequação salarial"
                     },
                     {
-                        value: <?php echo $ic103['COUNT(id)']  ?>,
+                        value: <?php echo $ic103['COUNT(formulario.id)']  ?>,
                         color: "#0000FF",
                         highlight: "#6495ED",
                         label: "Continuar na mesma empresa"
                     },
                     {
-                        value: <?php echo $ic104['COUNT(id)']  ?>,
+                        value: <?php echo $ic104['COUNT(formulario.id)']  ?>,
                         color: "#00FF7F",
                         highlight: "#98FB98",
                         label: "Ser promovido"
                     },
                     {
-                        value: <?php echo $ic105['COUNT(id)']  ?>,
+                        value: <?php echo $ic105['COUNT(formulario.id)']  ?>,
                         color: "#FFD700",
                         highlight: "#F0E68C",
                         label: "Adaptação ao ambiente de trabalho"
                     },
                     {
-                        value: <?php echo $ic106['COUNT(id)']  ?>,
+                        value: <?php echo $ic106['COUNT(formulario.id)']  ?>,
                         color: "#E9967A",
                         highlight: "#FFA07A",
                         label: "Tempo para se dedicar a uma qualificação"

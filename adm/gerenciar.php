@@ -22,7 +22,7 @@ $daoEmail = new DaoEmail();
 $daoCurso = new DaoCurso(); 
 $cursos = $daoCurso->buscarTodos();
 
-$textoPesquisa = "";
+$anoConclusao = "";
 $cursoPesquisa = "";
 
 $queryBusca = "";
@@ -30,7 +30,7 @@ $control = true;
 $cont = 0;
 if(isset($_GET['texto']) || isset($_GET['curso'])){
     
-    $textoPesquisa = $_GET['texto']."%";
+    $anoConclusao = $_GET['texto']."%";
     $cursoPesquisa = $_GET['curso'];
         
     
@@ -49,7 +49,7 @@ if(isset($_GET['texto']) || isset($_GET['curso'])){
             
           $control = false;
           $cont++;
-          $queryBusca = $queryBusca. " nome LIKE '".$textoPesquisa."' ";
+          $queryBusca = $queryBusca. " nome LIKE '".$anoConclusao."' ";
             
         }
         

@@ -34,43 +34,43 @@
             //SE RESPONDEU O FORMULARIO: FAZER A PESQUISA
             if($mostrarGraficos){
                 
-            $simia5  = $dao->buscarCountResposta("ia5 = 'Sim' AND id = ".$idUsuarioTopUser."") ;
-            $naoia5 =  $dao->buscarCountResposta("ia5 = 'Não' AND id = ".$idUsuarioTopUser."");
+            $simia5  = $dao->buscarCountRespostaComUsuario("ia5 = 'Sim' AND id = ".$idUsuarioTopUser."") ;
+            $naoia5 =  $dao->buscarCountRespostaComUsuario("ia5 = 'Não' AND id = ".$idUsuarioTopUser."");
                     
-            $simia6  = $dao->buscarCountResposta("ia6 = 'Sim' AND id = ".$idUsuarioTopUser."");   
-            $naoia6  = $dao->buscarCountResposta("ia6 = 'Não' AND id = ".$idUsuarioTopUser."");
+            $simia6  = $dao->buscarCountRespostaComUsuario("ia6 = 'Sim' AND id = ".$idUsuarioTopUser."");   
+            $naoia6  = $dao->buscarCountRespostaComUsuario("ia6 = 'Não' AND id = ".$idUsuarioTopUser."");
             
-            $ia21  = $dao->buscarCountResposta("ia2 = 'O nome da Instituição de Ensino onde estudou' AND id = ".$idUsuarioTopUser."");  
-            $ia22  = $dao->buscarCountResposta("ia2 = 'As respostas ao teste de seleção, ao qual foi submetido' AND id = ".$idUsuarioTopUser.""); 
-            $ia23  = $dao->buscarCountResposta("ia2 = 'A formação teórica' AND id = ".$idUsuarioTopUser.""); 
-            $ia24  = $dao->buscarCountResposta("ia2 = 'A experiência prática' AND id = ".$idUsuarioTopUser.""); 
-            $ia25  = $dao->buscarCountResposta("ia2 = 'Visão sistámica' AND id = ".$idUsuarioTopUser.""); 
+            $ia21  = $dao->buscarCountRespostaComUsuario("ia2 = 'O nome da Instituição de Ensino onde estudou' AND id = ".$idUsuarioTopUser."");  
+            $ia22  = $dao->buscarCountRespostaComUsuario("ia2 = 'As respostas ao teste de seleção, ao qual foi submetido' AND id = ".$idUsuarioTopUser.""); 
+            $ia23  = $dao->buscarCountRespostaComUsuario("ia2 = 'A formação teórica' AND id = ".$idUsuarioTopUser.""); 
+            $ia24  = $dao->buscarCountRespostaComUsuario("ia2 = 'A experiência prática' AND id = ".$idUsuarioTopUser.""); 
+            $ia25  = $dao->buscarCountRespostaComUsuario("ia2 = 'Visão sistámica' AND id = ".$idUsuarioTopUser.""); 
             
-            $simip3  = $dao->buscarCountResposta("ip3 = 'Sim' AND id = ".$idUsuarioTopUser."");   
-            $naoip3  = $dao->buscarCountResposta("ip3 = 'Não' AND id = ".$idUsuarioTopUser."");
+            $simip3  = $dao->buscarCountRespostaComUsuario("ip3 = 'Sim' AND id = ".$idUsuarioTopUser."");   
+            $naoip3  = $dao->buscarCountRespostaComUsuario("ip3 = 'Não' AND id = ".$idUsuarioTopUser."");
             
-            $ia31  = $dao->buscarCountResposta("ia3 = 'Maior embasamento conceitual' AND id = ".$idUsuarioTopUser."");  
-            $ia32  = $dao->buscarCountResposta("ia3 = 'Maior embasamento técnico' AND id = ".$idUsuarioTopUser.""); 
-            $ia33  = $dao->buscarCountResposta("ia3 = 'Maior embasamento prático' AND id = ".$idUsuarioTopUser.""); 
-            $ia34  = $dao->buscarCountResposta("ia3 = 'Maior aproximação com as necessidades da indússtria' AND id = ".$idUsuarioTopUser.""); 
-            $ia35  = $dao->buscarCountResposta("ia3 = 'Maior capacidade de liderança' AND id = ".$idUsuarioTopUser."");
+            $ia31  = $dao->buscarCountRespostaComUsuario("ia3 = 'Maior embasamento conceitual' AND id = ".$idUsuarioTopUser."");  
+            $ia32  = $dao->buscarCountRespostaComUsuario("ia3 = 'Maior embasamento técnico' AND id = ".$idUsuarioTopUser.""); 
+            $ia33  = $dao->buscarCountRespostaComUsuario("ia3 = 'Maior embasamento prático' AND id = ".$idUsuarioTopUser.""); 
+            $ia34  = $dao->buscarCountRespostaComUsuario("ia3 = 'Maior aproximação com as necessidades da indússtria' AND id = ".$idUsuarioTopUser.""); 
+            $ia35  = $dao->buscarCountRespostaComUsuario("ia3 = 'Maior capacidade de liderança' AND id = ".$idUsuarioTopUser."");
            
-            $ic71  = $dao->buscarCountResposta("ic7 = 'Muito Satisfatório' AND id = ".$idUsuarioTopUser."");  
-            $ic72  = $dao->buscarCountResposta("ic7 = 'Satisfatório' AND id = ".$idUsuarioTopUser.""); 
-            $ic73  = $dao->buscarCountResposta("ic7 = 'Insatisfatório' AND id = ".$idUsuarioTopUser.""); 
-            $ic74  = $dao->buscarCountResposta("ic7 = 'Não sei responder' AND id = ".$idUsuarioTopUser.""); 
+            $ic71  = $dao->buscarCountRespostaComUsuario("ic7 = 'Muito Satisfatório' AND id = ".$idUsuarioTopUser."");  
+            $ic72  = $dao->buscarCountRespostaComUsuario("ic7 = 'Satisfatório' AND id = ".$idUsuarioTopUser.""); 
+            $ic73  = $dao->buscarCountRespostaComUsuario("ic7 = 'Insatisfatório' AND id = ".$idUsuarioTopUser.""); 
+            $ic74  = $dao->buscarCountRespostaComUsuario("ic7 = 'Não sei responder' AND id = ".$idUsuarioTopUser.""); 
             
-            $ic91  = $dao->buscarCountResposta("ic9 = 'A obtenção de diploma de nível técnico' AND id = ".$idUsuarioTopUser."");  
-            $ic92  = $dao->buscarCountResposta("ic9 = 'A aquisição de cultura geral' AND id = ".$idUsuarioTopUser.""); 
-            $ic93  = $dao->buscarCountResposta("ic9 = 'A aquisiçaoo de formação profissional e teórica' AND id = ".$idUsuarioTopUser.""); 
-            $ic94  = $dao->buscarCountResposta("ic9 = 'Melhores perspectivas de ganhos materiais' AND id = ".$idUsuarioTopUser."");
+            $ic91  = $dao->buscarCountRespostaComUsuario("ic9 = 'A obtenção de diploma de nível técnico' AND id = ".$idUsuarioTopUser."");  
+            $ic92  = $dao->buscarCountRespostaComUsuario("ic9 = 'A aquisição de cultura geral' AND id = ".$idUsuarioTopUser.""); 
+            $ic93  = $dao->buscarCountRespostaComUsuario("ic9 = 'A aquisiçaoo de formação profissional e teórica' AND id = ".$idUsuarioTopUser.""); 
+            $ic94  = $dao->buscarCountRespostaComUsuario("ic9 = 'Melhores perspectivas de ganhos materiais' AND id = ".$idUsuarioTopUser."");
             
-            $ic101  = $dao->buscarCountResposta("ic10 = 'Encontrar emprego na área' AND id = ".$idUsuarioTopUser."");  
-            $ic102  = $dao->buscarCountResposta("ic10 = 'Adequação salarial' AND id = ".$idUsuarioTopUser.""); 
-            $ic103  = $dao->buscarCountResposta("ic10 = 'Continuar na mesma empresa' AND id = ".$idUsuarioTopUser.""); 
-            $ic104  = $dao->buscarCountResposta("ic10 = 'Ser promovido' AND id = ".$idUsuarioTopUser."");
-            $ic105  = $dao->buscarCountResposta("ic10 = 'Adaptação ao ambiente de trabalho' AND id = ".$idUsuarioTopUser."");  
-            $ic106  = $dao->buscarCountResposta("ic10 = 'Tempo para se dedicar a uma qualificação' AND id = ".$idUsuarioTopUser."");
+            $ic101  = $dao->buscarCountRespostaComUsuario("ic10 = 'Encontrar emprego na área' AND id = ".$idUsuarioTopUser."");  
+            $ic102  = $dao->buscarCountRespostaComUsuario("ic10 = 'Adequação salarial' AND id = ".$idUsuarioTopUser.""); 
+            $ic103  = $dao->buscarCountRespostaComUsuario("ic10 = 'Continuar na mesma empresa' AND id = ".$idUsuarioTopUser.""); 
+            $ic104  = $dao->buscarCountRespostaComUsuario("ic10 = 'Ser promovido' AND id = ".$idUsuarioTopUser."");
+            $ic105  = $dao->buscarCountRespostaComUsuario("ic10 = 'Adaptação ao ambiente de trabalho' AND id = ".$idUsuarioTopUser."");  
+            $ic106  = $dao->buscarCountRespostaComUsuario("ic10 = 'Tempo para se dedicar a uma qualificação' AND id = ".$idUsuarioTopUser."");
             }
             
             
