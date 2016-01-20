@@ -105,74 +105,95 @@ $daoUsuario = new DaoUsuario();
 
 require_once './visao/componentes.php';
 
+
+
 if(isset($_POST['acao'])){
         
         if($_POST['acao'] == "liberarQuestionario")
         {
 
-            try
-            {
-                
-            $user = $daoUsuario->buscarPorCPF($_POST['cpfInformar']);
             
-            if($user->getId() != null && $user->getId() != 0)
+            if(validaCPF($_POST['cpfInformar']))
             {
-                
-                //ENVIO DE DADOS PELA SEÇÃO
-                $_SESSION['nome'] = $user->getNome();
-                $_SESSION['id'] = $user->getId(); 
-                $_SESSION['senha'] = $user->getSenha();
-                $_SESSION['email'] = $user->getEmail();
-                $_SESSION['cpf'] = $user->getCpf();
-                $_SESSION['telefone'] = $user->getTelefone();
-                $_SESSION['liberado'] = $user->getLiberado();
-               // $_SESSION['tipo'] = $user->getTipo();
-                $_SESSION['qtdResponde'] = $user->getQtdResponde();
-                $_SESSION['idCurso'] = $user->getIdCurso();
+            
+                try
+                {
+
+                $user = $daoUsuario->buscarPorCPF($_POST['cpfInformar']);
+
+                if($user->getId() != null && $user->getId() != 0)
+                {
+
+                    //ENVIO DE DADOS PELA SEÇÃO
+                    $_SESSION['nome'] = $user->getNome();
+                    $_SESSION['id'] = $user->getId(); 
+                    $_SESSION['senha'] = $user->getSenha();
+                    $_SESSION['email'] = $user->getEmail();
+                    $_SESSION['cpf'] = $user->getCpf();
+                    $_SESSION['telefone'] = $user->getTelefone();
+                    $_SESSION['liberado'] = $user->getLiberado();
+                   // $_SESSION['tipo'] = $user->getTipo();
+                    $_SESSION['qtdResponde'] = $user->getQtdResponde();
+                    $_SESSION['idCurso'] = $user->getIdCurso();
 
 
 
-                //VARIAVEL DE VERIFICAÇÃO DO LOGI... saber se é adm ou usuario
-                $_SESSION['tipo'] = "aluno";
+                    //VARIAVEL DE VERIFICAÇÃO DO LOGI... saber se é adm ou usuario
+                    $_SESSION['tipo'] = "aluno";
 
 
-               // echo "sucess";
-                
-                echo "<script type='text/javascript'>";
-    
-                //echo "alert('Cpf valido!');";
-                echo "location.href='http://localhost/questionario/aluno/formulario.php';";
+                   // echo "sucess";
 
-                echo "</script>";
-                
+                    echo "<script type='text/javascript'>";
+
+                    //echo "alert('Cpf valido!');";
+                    echo "location.href='http://localhost/questionario/aluno/formulario.php';";
+
+                    echo "</script>";
+
+                }
+                else
+                {
+
+                    unset ($_SESSION['email']);
+                    unset ($_SESSION['senha']);
+
+                    echo "<script type='text/javascript'>";
+
+                    echo "$('#modalMsgErroLoginCpf').modal('show');";
+                    //echo "alert('Cpf inválido!');";
+
+                    echo "</script>";
+
+                }
+
+
+                }
+                catch (Exception $erro)
+                {
+
+                 echo "<script type='text/javascript'>";
+
+                 echo "$('#modalMsgErroException').modal('show');";
+                 //echo "alert('Estamos com prblemas, tente mais tarde!');";
+
+                 echo "</script>";
+
+
+                }
             }
             else
             {
                 
-                unset ($_SESSION['email']);
-                unset ($_SESSION['senha']);
-                
-                echo "<script type='text/javascript'>";
-               
-                echo "$('#modalMsgErroLoginCpf').modal('show');";
-                //echo "alert('Cpf inválido!');";
+                    unset ($_SESSION['email']);
+                    unset ($_SESSION['senha']);
 
-                echo "</script>";
-                
-            }
-            
-            
-            }
-            catch (Exception $erro)
-            {
-             
-             echo "<script type='text/javascript'>";
-    
-             echo "$('#modalMsgErroException').modal('show');";
-             //echo "alert('Estamos com prblemas, tente mais tarde!');";
+                    echo "<script type='text/javascript'>";
 
-             echo "</script>";
-                
+                    echo "$('#modalMsgErroLoginCpf').modal('show');";
+                    //echo "alert('Cpf inválido!');";
+
+                    echo "</script>";
                 
             }
             
@@ -181,6 +202,54 @@ if(isset($_POST['acao'])){
         
         
     }
+    
+    
+    function validaCPF($cpf = null) {
+ 
+    // Verifica se um número foi informado
+    if(empty($cpf)) {
+        return false;
+    }
+ 
+    // Elimina possivel mascara
+//    $cpf = ereg_replace('[^0-9]', '', $cpf);
+//    $cpf = str_pad($cpf, 11, '0', STR_PAD_LEFT);
+     
+    // Verifica se o numero de digitos informados é igual a 11 
+    if (strlen($cpf) != 11) {
+        return false;
+    }
+    // Verifica se nenhuma das sequências invalidas abaixo 
+    // foi digitada. Caso afirmativo, retorna falso
+    else if ($cpf == '00000000000' || 
+        $cpf == '11111111111' || 
+        $cpf == '22222222222' || 
+        $cpf == '33333333333' || 
+        $cpf == '44444444444' || 
+        $cpf == '55555555555' || 
+        $cpf == '66666666666' || 
+        $cpf == '77777777777' || 
+        $cpf == '88888888888' || 
+        $cpf == '99999999999') {
+        return false;
+     // Calcula os digitos verificadores para verificar se o
+     // CPF é válido
+     } else {   
+         
+        for ($t = 9; $t < 11; $t++) {
+             
+            for ($d = 0, $c = 0; $c < $t; $c++) {
+                $d += $cpf{$c} * (($t + 1) - $c);
+            }
+            $d = ((10 * $d) % 11) % 10;
+            if ($cpf{$c} != $d) {
+                return false;
+            }
+        }
+ 
+        return true;
+    }
+}
 
 require_once './template/rodape.php';
 ?>

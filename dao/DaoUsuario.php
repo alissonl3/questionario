@@ -296,6 +296,28 @@ class DaoUsuario {
     }
     
     
+    public function buscarPorEmail($email){
+        
+         try{
+            
+            $sql = "SELECT * FROM usuario WHERE email = :email";
+            $p_sql = $this->pdo->prepare($sql);
+            $p_sql -> bindValue(":email", $email);
+            $p_sql->execute();
+    
+             return $this->populaUsuario($p_sql->fetch(PDO::FETCH_ASSOC));
+           
+              }       
+        catch (Exception $e){
+     
+            print "Ocorreu um erro ao tentar executar esta ação, foi gerado um LOG do mesmo, tente novamente mais tarde."; 
+           
+     
+        }
+        
+    }
+    
+    
     
      public function buscarPorNome($nome){
         

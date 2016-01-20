@@ -11,6 +11,7 @@ include_once '../banco/Conexao.php';
 
 <script type="text/javascript">
     
+    var $ = jQuery.noConflict();
     $(document).ready(function(){
  
     $("#painelPessoal1").hide();
@@ -512,6 +513,10 @@ include_once '../banco/Conexao.php';
             </button>
             
             
+        <?php
+            require_once '../visao/componentes.php';
+        ?>
+            
         </div>
     </div>  
     <div class="col-md-2 col-sm-2 col-xs-2"></div>
@@ -655,8 +660,12 @@ if(isset($_POST['acao'])){
 
     echo "<script type='text/javascript'>";
     
-        echo "alert('Obrigado por responder ao nosso formulário!');";
-        echo "location.href='http://localhost/questionario/aluno/formulario.php';";
+        //echo "alert('Obrigado por responder ao nosso formulário!');";
+        echo "var $ = jQuery.noConflict();
+            $(document).ready(function() {
+            $('#modalMsgSucessoComLoadingFormulario').modal('show');
+                });";
+        echo "location.href='http://localhost/questionario/aluno/sair.php';";
 
     echo "</script>";
     
@@ -669,8 +678,12 @@ catch (Exception $e){
     
     echo "<script type='text/javascript'>";
     
-        echo "alert('Houve um erro ao tentar inserir formulario');";
-        echo "location.href='http://localhost/questionario/aluno/formulario.php';";
+        echo "var $ = jQuery.noConflict();
+            $(document).ready(function() {
+            $('#modalMsgErroExceptionComLoading').modal('show');
+                });";
+        //echo "alert('Houve um erro ao tentar inserir formulario');";
+        echo "location.href='http://localhost/questionario/aluno/sair.php';";
 
     echo "</script>";
     

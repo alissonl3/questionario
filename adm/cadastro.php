@@ -157,35 +157,128 @@ if(isset($_POST['acao'])){
 
             if(isset($_POST["curso"]))
                 $user->setIdCurso($_POST["curso"]);
+            
 
-
-            try{
-                
-                
             $dao = new DaoUsuario();
-            $dao->inserir($user);
             
-
-                echo "<script type='text/javascript'>";               
-                    echo "$('#modalMsgSucesso').modal('show');";
-                echo "</script>";
-
             
-            } 
-            catch (Exception $e){
+            if(validaCPF($user->getCpf()))
+            {
                 
-                print "Erro " .$e;
-                
-                echo "<script type='text/javascript'>";                
-                    echo "$('#modalMsgErroException').modal('show');";            
-                echo "</script>";
+            $usuarioVerificacaoCPF = $dao->buscarPorCPF($user->getCpf());
+            $usuarioVerificacaoEmail = $dao->buscarPorEmail($user->getEmail());
+            
+            
+                if(!$usuarioVerificacaoCPF->getId() != null && !$usuarioVerificacaoCPF->getId() != 0){
 
+                    if(!$usuarioVerificacaoEmail->getId() != null && !$usuarioVerificacaoEmail->getId() != 0){
+                    
+                        try
+                        {
+
+
+
+                        $dao->inserir($user);
+
+
+                            echo "<script type='text/javascript'>";               
+                                echo "$('#modalMsgSucesso').modal('show');";
+                            echo "</script>";
+
+
+                        } 
+                        catch (Exception $e){
+
+                            print "Erro " .$e;
+
+                            echo "<script type='text/javascript'>";                
+                                echo "$('#modalMsgErroException').modal('show');";            
+                            echo "</script>";
+
+                        }
+                    } //FIM VERIFICAR EMAIL
+                    else
+                    {
+                      
+                        echo "<script type='text/javascript'>";                
+                            echo "$('#modalMsgErroEmailJaExiste').modal('show');";            
+                        echo "</script>"; 
+                            
+                    }
+                    
+                    
+                }//FIM DE VERIFICAR USUARIO COM AQUELE CPF
+                else
+                {
+                    
+                    echo "<script type='text/javascript'>";                
+                        echo "$('#modalMsgErroCPFJaExiste').modal('show');";            
+                    echo "</script>"; 
+
+
+                }
+    
+            } //FIM IF DE VALIDAR_CPF
+            else
+            {
+               echo "<script type='text/javascript'>";                
+                        echo "$('#modalMsgErroLoginCpf').modal('show');";            
+               echo "</script>"; 
             }
             
             
         }
         
         
+}//FIM DO EXECUTAR AÇÃO
+
+
+
+ function validaCPF($cpf = null) {
+ 
+    // Verifica se um número foi informado
+    if(empty($cpf)) {
+        return false;
+    }
+ 
+    // Elimina possivel mascara
+//    $cpf = ereg_replace('[^0-9]', '', $cpf);
+//    $cpf = str_pad($cpf, 11, '0', STR_PAD_LEFT);
+     
+    // Verifica se o numero de digitos informados é igual a 11 
+    if (strlen($cpf) != 11) {
+        return false;
+    }
+    // Verifica se nenhuma das sequências invalidas abaixo 
+    // foi digitada. Caso afirmativo, retorna falso
+    else if ($cpf == '00000000000' || 
+        $cpf == '11111111111' || 
+        $cpf == '22222222222' || 
+        $cpf == '33333333333' || 
+        $cpf == '44444444444' || 
+        $cpf == '55555555555' || 
+        $cpf == '66666666666' || 
+        $cpf == '77777777777' || 
+        $cpf == '88888888888' || 
+        $cpf == '99999999999') {
+        return false;
+     // Calcula os digitos verificadores para verificar se o
+     // CPF é válido
+     } else {   
+         
+        for ($t = 9; $t < 11; $t++) {
+             
+            for ($d = 0, $c = 0; $c < $t; $c++) {
+                $d += $cpf{$c} * (($t + 1) - $c);
+            }
+            $d = ((10 * $d) % 11) % 10;
+            if ($cpf{$c} != $d) {
+                return false;
+            }
+        }
+ 
+        return true;
+    }
 }
    
    
