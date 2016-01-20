@@ -1,7 +1,16 @@
-  <?php require '../template/topouser.php';
+  <?php require_once '../template/topouser.php';
   
+ require_once '../visao/componentes.php';
   
   ?>
+
+<script type='text/javascript'>
+var $ = jQuery.noConflict();
+            $(document).ready(function() {
+            $('#modalMsgSucessoComLoadingFormulario').modal('show');
+                });
+</script>
+
            
     <!-- Pagina do conteudo -->
     <div class="row" style="margin-top: 8%; margin-bottom: 10%;">
@@ -15,10 +24,9 @@
                <label>Aguardando o seu deslogamento...</label>
                <h3>Por favor, clique em "Sair" no header da página!</h3>              
            </div>
-                        
+        </div>               
         </center>
     </div>
-    
     <div class="col-md-2 col-sm-2 col-xs-1"></div>
     </div>  
     

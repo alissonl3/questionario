@@ -286,7 +286,8 @@ class DaoUsuario {
              return $this->populaUsuario($p_sql->fetch(PDO::FETCH_ASSOC));
            
               }       
-        catch (Exception $e){
+        catch (Exception $e)
+        {
      
             print "Ocorreu um erro ao tentar executar esta ação, foi gerado um LOG do mesmo, tente novamente mais tarde."; 
            

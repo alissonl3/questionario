@@ -140,7 +140,7 @@ if(isset($_GET['anoConclusao']) || isset($_GET['curso'])){
                 </div>
                 <div class="form-group">
                     <label for="curso">Curso:</label>
-                    <select id="cursoPesquisa" name="curso">
+                    <select id="cursoPesquisa" name="curso" class="form-control">
                             <option value="0">Selecione</option>
                             <?php
                             

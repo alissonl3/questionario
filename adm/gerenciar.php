@@ -75,8 +75,8 @@ else
         
         <script type="text/javascript">
         // Use jQuery com a variavel $j(...)
-        var $j = jQuery.noConflict();
-        $j(document).ready(function() {
+        var $j = jQuery.noConflict();      
+        $j(document).ready(function() {          
         $j("#btnVoltarTopo").hide();
         $j(function () {
         $j(window).scroll(function () {
@@ -104,7 +104,7 @@ else
             </div>
             <div style="clear: both;"></div>
             <center>
-                <h3><label>Gerenciar</label></h3>
+                <h3><label>Principal</label></h3>
                 <br />
                 <br />
             </center>
@@ -116,7 +116,7 @@ else
                 </div>
                 <div class="form-group">
                     <label for="curso">Curso:</label>
-                    <select id="cursoPesquisa" name="curso">
+                    <select id="cursoPesquisa" name="curso" class="form-control">
                             <option value="0">Selecione</option>
                             <?php
                             
@@ -180,14 +180,19 @@ else
                     echo $daoEmail->buscarPorUsuario($usuario->getId())->getDataEnvio();
                 }           
             echo '</td>';
-            echo '<td>';
+            echo '<td align="center">';
                  if($usuario->getLiberado() === "" || $usuario->getLiberado() === null)
                  {
-                    echo 'não'; 
+                    
+                    echo   '<button class="btn btn-danger btn-sm" disabled="true" >';
+                    echo   '<span class="glyphicon glyphicon-remove"></span>';                
+                    echo   '</button>';
                  }
                  else
                  {
-                     echo 'sim';
+                    echo   '<button class="btn btn-success btn-sm" disabled="true" >';
+                    echo   '<span class="glyphicon glyphicon-ok"></span>';                
+                    echo   '</button>'; 
                  }
             echo '</td>';
             echo '<td>';
@@ -203,7 +208,18 @@ else
     ?>
     </tbody>
   </table>
-                 
+  <div>
+      <center>
+        <button id="anterior" class="btn btn-success" disabled><span class="glyphicon glyphicon-chevron-left"></span></button>
+        <span id="numeracao"></span>
+        <button id="proximo" class="btn btn-success " disabled><span class="glyphicon glyphicon-chevron-right"></span></button>
+    </center>
+  </div>
+
+<!-- PAGINAÇÃO TABELA -->
+
+            
+            
             
 <!-- Modal de visualiziação  -->
 <div id="modalVisualizar" class="modal fade" role="dialog">

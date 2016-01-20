@@ -62,7 +62,7 @@ $(document).ready(function ()
                     </div>
                     <div class="form-group">
                         <label  for="curso">*Curso:</label>
-                        <select name="curso">
+                        <select name="curso" class="form-control">
                             <option value="0">Selecione</option>
                             <?php
                             

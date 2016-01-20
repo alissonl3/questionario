@@ -3,36 +3,21 @@
 include_once  '../dao/DaoFormulario.php';
 include_once '../entidades/Formulario.php';
 
+include_once  '../dao/DaoUsuario.php';
+include_once '../entidades/Usuario.php';
+
+include_once  '../dao/DaoCurso.php';
+include_once '../entidades/Curso.php';
+
 include_once '../banco/Conexao.php';
 
+$daoCurso = new DaoCurso();
+  
+$cursos = $daoCurso->buscarTodos();
 
 ?>
 
 
-<script type="text/javascript">
-    
-    var $ = jQuery.noConflict();
-    $(document).ready(function(){
- 
-    $("#painelPessoal1").hide();
-    $("#painelPessoal2").hide();
-    $("#painelPessoal3").hide();
-    
-    $("#pessoal1sim").click(function(){   $("#painelPessoal1").show(); });
-    $("#pessoal1nao").click(function(){   $("#painelPessoal1").hide(); });
-    
-    $("#pessoal2sim").click(function(){   $("#painelPessoal2").show(); });
-    $("#pessoal2nao").click(function(){   $("#painelPessoal2").hide(); });
-    
-    $("#pessoal3sim").click(function(){   $("#painelPessoal3").show(); });
-    $("#pessoal3nao").click(function(){   $("#painelPessoal3").hide(); });
-    
-    
-            
-    
-    });
-    
-</script>
 
 
 <!-- Pagina do conteudo -->
@@ -45,6 +30,22 @@ include_once '../banco/Conexao.php';
     // Use jQuery com a variavel $j(...)
     var $j = jQuery.noConflict();
     $j(document).ready(function() {
+        
+    $j("#painelPessoal1").hide();
+    $j("#painelPessoal2").hide();
+    $j("#painelPessoal3").hide();
+    
+    $j("#pessoal1sim").click(function(){   $j("#painelPessoal1").show(); });
+    $j("#pessoal1nao").click(function(){   $j("#painelPessoal1").hide(); });
+    
+    $j("#pessoal2sim").click(function(){   $j("#painelPessoal2").show(); });
+    $j("#pessoal2nao").click(function(){   $j("#painelPessoal2").hide(); });
+    
+    $j("#pessoal3sim").click(function(){   $j("#painelPessoal3").show(); });
+    $j("#pessoal3nao").click(function(){   $j("#painelPessoal3").hide(); });
+        
+        
+        
     $j("#btnVoltarTopo").hide();
     $j(function () {
     $j(window).scroll(function () {
@@ -79,8 +80,19 @@ include_once '../banco/Conexao.php';
                 <fieldset>
                     <legend>Dados pessoais</legend>
                     <div class="form-group">
-                        <label  for="anoConclusao">Ano de conclusão: <?php echo $idLogado ?></label>
-                        <input type="number" placeholder="Insere o ano de conclusão" required="true" class="form-control" name="anoConclusao" />
+                        <label  for="anoConclusao">Ano de conclusão:</label>
+                        <select name="anoConclusao" required="true" class="form-control">
+                        <?php 
+                        // PEGAR OS ULTIMOS ANOS DEPOIS DO ANO ATUAL
+                        $anoAtualMenosCinco = date('Y') - 5;
+                        
+                        for($i = $anoAtualMenosCinco; $i <= date('Y'); $i++)
+                        {
+                            echo "<option name='opAno' value=".$i.">".$i."</option>";
+                        }
+                        
+                        ?>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label  for="opSemestre">2 - Sementre:</label>
@@ -97,7 +109,16 @@ include_once '../banco/Conexao.php';
                     <legend>Informações sobre o curso</legend>
                     <div class="form-group">
                         <label  for="cursoNome"> 1 - Qual o curso que você fez?</label>
-                        <input type="text" placeholder="Insere o seu curso" required="true" class="form-control" name="curso1" />
+                        <select name="curso1" required="true" class="form-control">
+                            <?php
+                            
+                                foreach ($cursos as $value) 
+                                    {
+                                        echo "<option name='opCurso' value=".$value->getId().">".$value->getNome()."</option>";
+                                    }
+                            
+                            ?>
+                        </select>
                     </div> 
                     <div class="form-group">
                         <label >2 - Qual foi o tipo de curso?</label>
@@ -655,19 +676,39 @@ if(isset($_POST['acao'])){
  
     
     $dao = new DaoFormulario();
-    $dao->inserir($formulario);
+    
+    //ATUALIZAR A QUANTIDADE DE RESPONDIMENTO DO USUARIO
+    $daoUser = new DaoUsuario();
+    $usuarioLogado = $daoUser->buscarPorId((int) $idLogado);
+    
+    //VERIFICA SE O CURSO QUE O USUARIO VEZ É O MESMO QUE ELE ESCOLHEU NO FORMULÁRIO
+    if($usuarioLogado->getIdCurso() === $formulario->getIC1())
+    {
+     
+    $dao->inserir($formulario);   
+    $quantidadeFormulario = $dao->buscarPorIdDoUsuarioEIdDoCurso($usuarioLogado->getId(), $formulario->getIC1());   
+    $usuarioLogado->setQtdResponde(count($quantidadeFormulario));
+    
+    
+    $daoUser->atualizar($usuarioLogado);
 
 
     echo "<script type='text/javascript'>";
-    
-        //echo "alert('Obrigado por responder ao nosso formulário!');";
-        echo "var $ = jQuery.noConflict();
-            $(document).ready(function() {
-            $('#modalMsgSucessoComLoadingFormulario').modal('show');
-                });";
         echo "location.href='http://localhost/questionario/aluno/sair.php';";
-
     echo "</script>";
+    
+    }
+    else
+    {
+        
+        echo "<script type='text/javascript'>";
+            echo "var $ = jQuery.noConflict();
+            $(document).ready(function() {
+            $('#modalMsgErroIdCursoFormulario').modal('show');
+                });";
+        echo "</script>";
+        
+    }
     
     //echo "succes";
 

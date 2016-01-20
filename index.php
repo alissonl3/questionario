@@ -7,11 +7,17 @@ session_start();
 
 
 require_once './template/topo.php';
+
 include_once  './dao/DaoUsuario.php';
 include_once './entidades/Usuario.php';
+
+include_once  './dao/DaoFormulario.php';
+include_once './entidades/Formulario.php';
+
 include_once './banco/Conexao.php';
 
 $daoUsuario = new DaoUsuario();
+$daoFormulario = new DaoFormulario();
 
 ?>
 
@@ -123,33 +129,57 @@ if(isset($_POST['acao'])){
 
                 if($user->getId() != null && $user->getId() != 0)
                 {
+                  
+                  //  $quantidadeFormulario = $daoFormulario->buscarPorIdDoUsuario($user->getId());
+                    $quantidadeFormulario = $user->getQtdResponde();
+                    
+                    if($quantidadeFormulario == null)
+                    {
+                       $quantidadeFormulario = 0; 
+                    }
+                    
+                    if($quantidadeFormulario <= 5)
+                    {
 
-                    //ENVIO DE DADOS PELA SEÇÃO
-                    $_SESSION['nome'] = $user->getNome();
-                    $_SESSION['id'] = $user->getId(); 
-                    $_SESSION['senha'] = $user->getSenha();
-                    $_SESSION['email'] = $user->getEmail();
-                    $_SESSION['cpf'] = $user->getCpf();
-                    $_SESSION['telefone'] = $user->getTelefone();
-                    $_SESSION['liberado'] = $user->getLiberado();
-                   // $_SESSION['tipo'] = $user->getTipo();
-                    $_SESSION['qtdResponde'] = $user->getQtdResponde();
-                    $_SESSION['idCurso'] = $user->getIdCurso();
+                        //ENVIO DE DADOS PELA SEÇÃO
+                        $_SESSION['nome'] = $user->getNome();
+                        $_SESSION['id'] = $user->getId(); 
+                        $_SESSION['senha'] = $user->getSenha();
+                        $_SESSION['email'] = $user->getEmail();
+                        $_SESSION['cpf'] = $user->getCpf();
+                        $_SESSION['telefone'] = $user->getTelefone();
+                        $_SESSION['liberado'] = $user->getLiberado();
+                        $_SESSION['qtdResponde'] = $user->getQtdResponde();
+                        $_SESSION['idCurso'] = $user->getIdCurso();
 
 
 
-                    //VARIAVEL DE VERIFICAÇÃO DO LOGI... saber se é adm ou usuario
-                    $_SESSION['tipo'] = "aluno";
+                        //VARIAVEL DE VERIFICAÇÃO DO LOGI... saber se é adm ou usuario
+                        $_SESSION['tipo'] = "aluno";
 
 
-                   // echo "sucess";
+                       // echo "sucess";
 
-                    echo "<script type='text/javascript'>";
+                        echo "<script type='text/javascript'>";
 
-                    //echo "alert('Cpf valido!');";
-                    echo "location.href='http://localhost/questionario/aluno/formulario.php';";
+                        //echo "alert('Cpf valido!');";
+                        echo "location.href='http://localhost/questionario/aluno/formulario.php';";
 
-                    echo "</script>";
+                        echo "</script>";
+                    
+                    }
+                    else
+                    {
+                       
+                    unset ($_SESSION['email']);
+                    unset ($_SESSION['senha']);
+
+                        echo "<script type='text/javascript'>";
+                            echo "$('#modalMsgErroQtdFormulario').modal('show');";
+                        echo "</script>";
+                        
+                    }
+                    
 
                 }
                 else

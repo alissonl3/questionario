@@ -300,6 +300,38 @@ class DaoFormulario {
         
     }
     
+    public function buscarPorIdDoUsuarioEIdDoCurso($idUsuario, $idCurso){
+        
+         try{
+            
+            $sql = "SELECT * FROM formulario WHERE idUsuario = :idUsuario and ic1 = :idCurso ORDER BY id";
+            $p_sql = $this->pdo->prepare($sql);
+            $p_sql -> bindValue(":idUsuario", $idUsuario);
+            $p_sql -> bindValue(":idCurso", $idCurso);
+            $p_sql->execute();
+            
+            $lista = $p_sql->fetchAll(PDO::FETCH_ASSOC);
+            $f_lista = array();
+            
+            foreach ($lista as $l){
+                $f_lista[] = $this->populaFormulario($l);
+            }
+           
+            return $f_lista;
+            
+            
+             //return $this->populaFormulario($p_sql->fetch(PDO::FETCH_ASSOC));
+           
+              }       
+        catch (Exception $e){
+     
+            print "Ocorreu um erro ao tentar executar esta ação, foi gerado um LOG do mesmo, tente novamente mais tarde."; 
+           
+     
+        }
+        
+    }
+    
 
     
     public function buscarTodos(){
