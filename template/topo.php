@@ -37,32 +37,31 @@
 </div>
 </div> 
 
-<div class="row" style="margin-top: 1%; margin-bottom: 1%;">
+<!--<div class="row" style="margin-top: 1%; margin-bottom: 1%;">
     
     <div class="col-md-12 col-sm-12 col-xs-12">      
     <div id="newbaCorousel" class="carousel slide" data-ride="carousel">
-        <!-- Carousel indicators -->
+         Carousel indicators 
         <ol class="carousel-indicators">
             <li data-target="#newbaCorousel" data-slide-to="0" class="active"></li>
             <li data-target="#newbaCorousel" data-slide-to="1"></li>
             <li data-target="#newbaCorousel" data-slide-to="2"></li>
         </ol>   
-        <!-- Wrapper for carousel items -->
+         Wrapper for carousel items 
         <div class="carousel-inner">
             <div class="item active">
-                <img src="./resources/img/banner1.png" alt="Newba Tutoriais e Dicas" class="img-rounded img-responsive" />
-         
+                <img src="./resources/img/banner1.png" alt="Newba Tutoriais e Dicas"  class="img-rounded img-responsive" />        
             </div>
             <div class="item">
-                <img src="./resources/img/header2.png" alt="Newba Tutoriais e Dicas" class="img-rounded img-responsive" />
+                <img src="./resources/img/header2.png" alt="Newba Tutoriais e Dicas"  class="img-rounded img-responsive" />
 
             </div>
             <div class="item">
-                <img src="./resources/img/header3.png" alt="Newba Tutoriais e Dicas" class="img-rounded img-responsive" />
+                <img src="./resources/img/header3.png" alt="Newba Tutoriais e Dicas"  class="img-rounded img-responsive" />
   
             </div>
         </div>
-        <!-- Carousel controls -->
+         Carousel controls 
         <a class="carousel-control left" href="#newbaCorousel" data-slide="prev">
             <span class="glyphicon glyphicon-chevron-left"></span>
         </a>
@@ -71,5 +70,5 @@
         </a>
     </div>
     </div>
-</div>
+</div>-->
 

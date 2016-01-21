@@ -21,13 +21,105 @@ $daoFormulario = new DaoFormulario();
 
 ?>
 
+<!--<script language="javascript">
+
+function aumenta(obj){
+        obj.height=obj.height*1.2;
+	obj.width=obj.width*1.2;
+}
+ 
+function diminui(obj){
+	obj.height=obj.height/1.2;
+	obj.width=obj.width/1.2;
+}
+//
+</script>-->
+
+<script type="text/javascript">
+    // Use jQuery com a variavel $j(...)
+    var $j = jQuery.noConflict();
+    $j(document).ready(function() {
+        
+    $j('#irParaResponderFormulario').click(function() {
+    //$j('body,html').animate({scrollTop:0},600);
+    });
+        
+        
+    });
+</script>
+    
+    
+    
+<div style="width: 100%; height: 70%;">
+<div class="row" >
+    
+    <div class="col-md-12 col-sm-12 col-xs-12">      
+<!--    <div id="newbaCorousel" class="carousel slide" data-ride="carousel">
+         Carousel indicators 
+        <ol class="carousel-indicators">
+            <li data-target="#newbaCorousel" data-slide-to="0" class="active"></li>
+            <li data-target="#newbaCorousel" data-slide-to="1"></li>
+            <li data-target="#newbaCorousel" data-slide-to="2"></li>
+        </ol>   
+         Wrapper for carousel items 
+        <div class="carousel-inner">
+            <div class="item active">
+                <img src="./resources/img/banner1.png" alt="Newba Tutoriais e Dicas"  class="img-rounded img-responsive" />        
+            </div>
+            <div class="item">
+                <img src="./resources/img/header2.png" alt="Newba Tutoriais e Dicas"  class="img-rounded img-responsive" />
+
+            </div>
+            <div class="item">
+                <img src="./resources/img/header3.png" alt="Newba Tutoriais e Dicas"  class="img-rounded img-responsive" />
+  
+            </div>
+        </div>
+         Carousel controls 
+        <a class="carousel-control left" href="#newbaCorousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="carousel-control right" href="#newbaCorousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>-->
+
+<!--<div id="banner" style="background-color: white; border-radius: 5px; height: 100px; border: 2px #e7e7e7 solid;">
+    
+    </div>-->
+    </div>
+</div>
+</div>    
+    
+<!--<div style="width: 100%; height: 15%;">-->
+<div id="responderFormulario"></div>
+<div class="row" style=" border-bottom: 2px solid #e7e7e7; border-top: 2px solid #e7e7e7;" >
+    <div class="col-md-12 col-sm-12 col-xs-12" style="background-color: #5cb85c; color: white;">
+       <center>
+           <h1><b>RESPONDA O NOSSO FORMULÁRIO</b></h1>          
+       </center> 
+    </div>     
+</div>
+
+<div class="row" >
+    <div class="col-md-12 col-sm-12 col-xs-12">
+       <center>
+           <br/>
+           <button id="irParaResponderFormulario" style="border-radius: 50px;" class="btn btn-info btn-lg"
+                   onclick="$j('html,body').animate({scrollTop: $j('#responderFormulario').offset().top}, 2000);">
+                                <span class="glyphicon glyphicon-arrow-down"> </span>
+            </button>    
+       </center> 
+    </div>     
+</div>
+<!--</div>-->
+
 
 <!-- Pagina do conteudo -->
-<div class="row" style="margin-top: 5%; margin-bottom: 5%; " >
+<div class="row" style="margin-top: 10%; margin-bottom: 5%; " >
     <div class="col-md-2 col-sm-2 col-xs-2"></div>
     
-    <div class="col-md-8 col-sm-8 col-xs-8" style="background-color: white; border: 2px #e7e7e7 solid; border-radius: 10px; padding: 20px; margin-top: 10px;" >
-        
+    <div class="col-md-8 col-sm-8 col-xs-8" style="background-color: white; border: 2px #e7e7e7 solid; border-radius: 10px; padding: 20px; margin-top: 10px;" >   
         <div id="pergunta" style="color: graytext;">
             <center>
                 <div style="float: left;">
@@ -189,7 +281,7 @@ if(isset($_POST['acao'])){
                     unset ($_SESSION['senha']);
 
                     echo "<script type='text/javascript'>";
-
+                    echo "var $ = jQuery.noConflict();";
                     echo "$('#modalMsgErroLoginCpf').modal('show');";
                     //echo "alert('Cpf inválido!');";
 
@@ -203,7 +295,7 @@ if(isset($_POST['acao'])){
                 {
 
                  echo "<script type='text/javascript'>";
-
+                 echo "var $ = jQuery.noConflict();";
                  echo "$('#modalMsgErroException').modal('show');";
                  //echo "alert('Estamos com prblemas, tente mais tarde!');";
 
@@ -219,7 +311,7 @@ if(isset($_POST['acao'])){
                     unset ($_SESSION['senha']);
 
                     echo "<script type='text/javascript'>";
-
+                    echo "var $ = jQuery.noConflict();";
                     echo "$('#modalMsgErroLoginCpf').modal('show');";
                     //echo "alert('Cpf inválido!');";
 
