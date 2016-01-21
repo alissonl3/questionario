@@ -50,46 +50,15 @@ function diminui(obj){
     
     
     
-<div style="width: 100%; height: 70%;">
-<div class="row" >
-    
-    <div class="col-md-12 col-sm-12 col-xs-12">      
-<!--    <div id="newbaCorousel" class="carousel slide" data-ride="carousel">
-         Carousel indicators 
-        <ol class="carousel-indicators">
-            <li data-target="#newbaCorousel" data-slide-to="0" class="active"></li>
-            <li data-target="#newbaCorousel" data-slide-to="1"></li>
-            <li data-target="#newbaCorousel" data-slide-to="2"></li>
-        </ol>   
-         Wrapper for carousel items 
-        <div class="carousel-inner">
-            <div class="item active">
-                <img src="./resources/img/banner1.png" alt="Newba Tutoriais e Dicas"  class="img-rounded img-responsive" />        
-            </div>
-            <div class="item">
-                <img src="./resources/img/header2.png" alt="Newba Tutoriais e Dicas"  class="img-rounded img-responsive" />
 
-            </div>
-            <div class="item">
-                <img src="./resources/img/header3.png" alt="Newba Tutoriais e Dicas"  class="img-rounded img-responsive" />
-  
-            </div>
-        </div>
-         Carousel controls 
-        <a class="carousel-control left" href="#newbaCorousel" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-        </a>
-        <a class="carousel-control right" href="#newbaCorousel" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right"></span>
-        </a>
-    </div>-->
-
-<!--<div id="banner" style="background-color: white; border-radius: 5px; height: 100px; border: 2px #e7e7e7 solid;">
-    
-    </div>-->
-    </div>
+<div class="row" style="margin-bottom: 20px;" >    
+<div class="col-md-12 col-sm-12 col-xs-12">      
+    <center>
+        <img src="./resources/img/teste4.png"  class="img-rounded img-responsive" />
+    </center>
 </div>
-</div>    
+</div>
+ 
     
 <!--<div style="width: 100%; height: 15%;">-->
 <div id="responderFormulario"></div>
