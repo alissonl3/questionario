@@ -12,9 +12,12 @@ $daoCurso = new DaoCurso();
 $daoUsuario = new DaoUsuario();
 $daoFormulario = new DaoFormulario();
 
+
+//BUSCA O ID DO USUARIO SELECIONADO
 if(isset($_GET['id'])){
     $idSelecionado = $_GET['id'];
 }
+//FAZ O PROCESSAMENTO DO CURSO E OS DEMAIS CURSOS
 $usuarioSelecionado = $daoUsuario->buscarPorId($idSelecionado);
 $cursoUsuarioSelecionado = $daoCurso->buscarPorId($usuarioSelecionado->getIdCurso());
 $cursos = $daoCurso->buscarPorCondicao(" id != ".$usuarioSelecionado->getIdCurso());
@@ -51,10 +54,6 @@ $formularioSelecionado = new Formulario();
                         <span class="glyphicon glyphicon-trash"></span>               
                         Deletar                       
                     </button>
-<!--                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modalFormulario">
-                        <span class="glyphicon glyphicon-search"></span>               
-                        Formulário                      
-                    </button>-->
                     <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modalAlterar">
                         <span class="glyphicon glyphicon-pencil"></span>               
                         Alterar                      
@@ -163,7 +162,7 @@ $formularioSelecionado = new Formulario();
         <script src="../resources/js/Chart.js"></script>
         
          
-               <!--script para a busca dos dados -->
+            <!--script para a busca dos dados -->
             <?php 
             
               //VERIFICAR O FORMULÁRIO ATUAL PARA PREENCHER OS GRAFICOS
@@ -241,10 +240,8 @@ $formularioSelecionado = new Formulario();
             {
              echo   '<script type="text/javascript">
                     $j(document).ready(function (){
-
                         $j("#graficosChart").hide();
                         $j("#semGraficosChart").show();
-
                     });
                     </script>';
                 
@@ -253,11 +250,8 @@ $formularioSelecionado = new Formulario();
             {
                 echo   '<script type="text/javascript">
                     $j(document).ready(function (){
-
                         $j("#graficosChart").show();
                         $j("#semGraficosChart").hide();
-
-
                     });
                     </script>';
                 
@@ -1273,13 +1267,13 @@ $formularioSelecionado = new Formulario();
                             </div>
                             <div class="form-group">
                                 <label  for="cursoAlterar">Curso:</label>
-                                <select name="cursoAlterar">
+                                <select name="cursoAlterar" required="true" class="form-control">
                                     <option value="<?php echo $usuarioSelecionado->getIdCurso(); ?>"><?php echo $cursoUsuarioSelecionado->getNome(); ?></option>
                                     <?php
 
                                         foreach ($cursos as $value) 
                                         {
-                                            echo "<option value=".$value->getNome().">".$value->getNome()."</option>";
+                                            echo "<option value=".$value->getId().">".$value->getNome()."</option>";
                                         }
 
                                     ?>
@@ -1396,31 +1390,38 @@ $formularioSelecionado = new Formulario();
 <!-- deletar usuario -->
 <?php 
 
-    
+//VERIFICA A AÇÃO QUE FOI DISPARADA  
 if(isset($_POST['acao'])){
         
+        //EXECUTAR AÇÃO PARA ALTERAR O USUARIO
         if($_POST['acao'] == "alterarUsuario")
         {
           
-            //alterar o aluno
+            //DADOS DE ALTERAÇÃO
             $usuarioSelecionado->setNome($_POST['nomeAlterar']);
             $usuarioSelecionado->setTelefone($_POST['telefoneAlterar']);
             $usuarioSelecionado->setCpf($_POST['cpfAlterar']);
             $usuarioSelecionado->setEmail($_POST['emailAlterar']);
+            $usuarioSelecionado->setIdCurso($_POST['cursoAlterar']);
+            
+            //SE O USUARIO MUDOU DE CURSO, ZERAR A QUANT RESP
+            //USUARIO TERÁ QUE RESPONDER NOVAMENTE 5 FORMULÁRIOS DURANTE 5 ANOS
+            if($cursoUsuarioSelecionado->getId() != $_POST['cursoAlterar'])
+            {
+                $usuarioSelecionado->setQtdResponde(0);
+            }
             
             try
             {
+                
             $daoUsuario->atualizar($usuarioSelecionado);
             
             echo "<script type='text/javascript'>";
-    
-            //echo "alert('Usuario atualizado com sucesso!');";
             echo "var $ = jQuery.noConflict();
             $(document).ready(function() {
             $('#modalMsgSucessoComLoading').modal('show');
                 });";
-            echo "location.href='http://localhost/questionario/adm/dados.php?id=".$idSelecionado."';";
-
+            echo "location.href='http://localhost/questionario/adm/dados.php?id=".$idSelecionado."&idFormulario=Todos';";
             echo "</script>";
             
             }
@@ -1428,14 +1429,11 @@ if(isset($_POST['acao'])){
             {
              
             echo "<script type='text/javascript'>";
-    
-            //echo "alert('Erro ao tentar atualizar usuario!');";
             echo "var $ = jQuery.noConflict();
             $(document).ready(function() {
             $('#modalMsgErro').modal('show');
                 });";
             echo "location.href='http://localhost/questionario/adm/gerenciar.php?id=".$idSelecionado."';";
-
             echo "</script>";
                 
                 
@@ -1449,12 +1447,13 @@ if(isset($_POST['acao'])){
 
 
 
-
+//EXECUTAR AÇÃO PARA DELETAR O USUARIO
 if(isset($_GET['deletar'])){
    if($_GET['deletar'] == "sim"){
       
-       try{
-       //verificar existencia do formulario
+       try
+       {
+       //ALTERAR O ID DO USUARIO NO FORMULÁRIO OU DELETAR OS FORMULÁRIOS RELACIONADOS A ELE
        $idForm = 0;
        
        $daoUsuario->deletar($usuarioSelecionado->getId());
@@ -1465,15 +1464,11 @@ if(isset($_GET['deletar'])){
        }
        
        echo "<script type='text/javascript'>";
-    
-            //echo "alert('Usuario deletado com sucesso!');";
             echo "var $ = jQuery.noConflict();
             $(document).ready(function() {
             $('#modalMsgSucessoComLoading').modal('show');
                 });";
-            //echo "$j('#modalMsgSucesso').modal('show');";   
             echo "location.href='http://localhost/questionario/adm/gerenciar.php';";
-
        echo "</script>";
        
        
@@ -1482,14 +1477,12 @@ if(isset($_GET['deletar'])){
            
        print($erro);  
            
-       echo "<script type='text/javascript'>";
-    
+       echo "<script type='text/javascript'>";  
             echo "var $ = jQuery.noConflict();
             $(document).ready(function() {
             $('#modalMsgErro').modal('show');
                 });";
             echo "location.href='http://localhost/questionario/adm/gerenciar.php';";
-
        echo "</script>";
            
        }

@@ -35,6 +35,7 @@ class Formulario{
     private $sugestao;
     private $semestre;
     private $idUsuario;
+    private $status;
     
     
     
@@ -131,6 +132,9 @@ class Formulario{
     
     public function getIdUsuario() { return $this->idUsuario; } 
     public function setIdUsuario($idUsuario) { $this->idUsuario = $idUsuario; }
+    
+    public function getStatus() { return $this->status; } 
+    public function setStatus($status) { $this->status = $status; }
     
     
     

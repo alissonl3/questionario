@@ -14,6 +14,7 @@ class Usuario{
     private $tipo;
     private $qtdResponde;
     private $idCurso;
+    private $status;
     
     public function getId() { return $this->id; } 
     public function setId($id) { $this->id = $id; }
@@ -44,6 +45,9 @@ class Usuario{
     
     public function getIdCurso() { return $this->idCurso; } 
     public function setIdCurso($idCurso) { $this->idCurso = $idCurso; }
+    
+    public function getStatus() { return $this->status; } 
+    public function setStatus($status) { $this->status = $status; }
     
    
 

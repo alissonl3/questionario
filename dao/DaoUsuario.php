@@ -43,6 +43,7 @@ class DaoUsuario {
                     . "liberado,"
                     . "tipo,"
                     . "qtdResponde,"
+                    . "status,"
                     . "idCurso "
                     . ") VALUES ("
                     . ":nome,"
@@ -53,6 +54,7 @@ class DaoUsuario {
                     . ":liberado,"
                     . ":tipo,"
                     . ":qtdResponde,"
+                    . ":status,"
                     . ":idCurso)";
             
             $p_sql = $this->pdo->prepare($sql);
@@ -65,6 +67,7 @@ class DaoUsuario {
             $p_sql -> bindValue(":liberado", $usuario->getLiberado());
             $p_sql -> bindValue(":tipo", $usuario->getTipo());
             $p_sql -> bindValue(":qtdResponde", $usuario->getQtdResponde());
+            $p_sql -> bindValue(":status", $usuario->getStatus());
             $p_sql -> bindValue(":idCurso", $usuario->getIdCurso());
             
             return $p_sql->execute();
@@ -81,7 +84,7 @@ class DaoUsuario {
     
     public function editarComSenha(Usuario $usuario) { 
         try { 
-            $sql = "UPDATE usuario SET nome = :nome, cpf = :cpf, email = :email, telefone = :telefone, senha = :senha, liberado = :liberado, tipo = :tipo, qtdResponde = :qtdResponde, idCurso = :idCurso WHERE id = :id"; 
+            $sql = "UPDATE usuario SET nome = :nome, cpf = :cpf, email = :email, telefone = :telefone, senha = :senha, liberado = :liberado, tipo = :tipo, qtdResponde = :qtdResponde, status = :status, idCurso = :idCurso WHERE id = :id"; 
             $p_sql = $this->pdo->prepare($sql); 
             $p_sql->bindValue(":nome", $usuario->getNome()); 
             $p_sql -> bindValue(":cpf", $usuario->getCpf());
@@ -92,6 +95,7 @@ class DaoUsuario {
             $p_sql->bindValue(":id", $usuario->getId()); 
             $p_sql -> bindValue(":tipo", $usuario->getTipo());
             $p_sql -> bindValue(":qtdResponde", $usuario->getQtdResponde());
+            $p_sql -> bindValue(":status", $usuario->getStatus());
             $p_sql -> bindValue(":idCurso", $usuario->getIdCurso());
             return $p_sql->execute(); 
             
@@ -140,6 +144,7 @@ class DaoUsuario {
                     . "liberado = :liberado,"
                     . "tipo = :tipo,"
                     . "qtdResponde = :qtdResponde,"
+                    . "status = :status,"
                     . "idCurso = :idCurso "
                     . "WHERE id = :id";
             
@@ -154,6 +159,7 @@ class DaoUsuario {
             $p_sql -> bindValue(":liberado", $usuario->getLiberado());
             $p_sql -> bindValue(":tipo", $usuario->getTipo());
             $p_sql -> bindValue(":qtdResponde", $usuario->getQtdResponde());
+            $p_sql -> bindValue(":status", $usuario->getStatus());
             $p_sql -> bindValue(":idCurso", $usuario->getIdCurso());
             
             return $p_sql->execute();
@@ -172,9 +178,11 @@ class DaoUsuario {
     
     public function deletar($id){
         
-        try{
+        try
+        {
             
-            $sql = "DELETE FROM usuario WHERE id = :id";
+            $sql = "UPDATE usuario SET status = 0 WHERE id = :id";
+            //$sql = "DELETE FROM usuario WHERE id = :id";
             $p_sql  = $this->pdo->prepare($sql);
             $p_sql -> bindValue(":id", $id);
             
@@ -234,7 +242,7 @@ class DaoUsuario {
         
          try{
             
-            $sql = "SELECT * FROM usuario WHERE email = :email AND senha = :senha";
+            $sql = "SELECT * FROM usuario WHERE email = :email AND senha = :senha AND status = 1";
             $p_sql = $this->pdo->prepare($sql);
             $p_sql -> bindValue(":email", $email);
             $p_sql -> bindValue(":senha", $senha);
@@ -254,7 +262,8 @@ class DaoUsuario {
     
     public function buscarPorId($id){
         
-         try{
+         try
+        {
             
             $sql = "SELECT * FROM usuario WHERE id = :id";
             $p_sql = $this->pdo->prepare($sql);
@@ -278,7 +287,7 @@ class DaoUsuario {
         
          try{
             
-            $sql = "SELECT * FROM usuario WHERE cpf = :cpf";
+            $sql = "SELECT * FROM usuario WHERE cpf = :cpf AND status = 1";
             $p_sql = $this->pdo->prepare($sql);
             $p_sql -> bindValue(":cpf", $cpf);
             $p_sql->execute();
@@ -301,7 +310,7 @@ class DaoUsuario {
         
          try{
             
-            $sql = "SELECT * FROM usuario WHERE email = :email";
+            $sql = "SELECT * FROM usuario WHERE email = :email AND status = 1";
             $p_sql = $this->pdo->prepare($sql);
             $p_sql -> bindValue(":email", $email);
             $p_sql->execute();
@@ -324,7 +333,7 @@ class DaoUsuario {
         
            try{
             
-            $sql = "SELECT * FROM usuario WHERE nome LIKE :nome ";
+            $sql = "SELECT * FROM usuario WHERE nome LIKE :nome AND status = 1";
             $p_sql = $this->pdo->prepare($sql);
             $p_sql -> bindValue(":nome", $nome."%");
             $p_sql->execute();
@@ -352,7 +361,7 @@ class DaoUsuario {
         
            try{
             
-            $sql = "SELECT * FROM usuario WHERE ".$condicao." ORDER BY nome";
+            $sql = "SELECT * FROM usuario WHERE ".$condicao." AND status = 1 ORDER BY nome";
             $result = $this->pdo->query($sql);
             $lista = $result->fetchAll(PDO::FETCH_ASSOC);
             $f_lista = array();
@@ -376,7 +385,7 @@ class DaoUsuario {
         
            try{
             
-            $sql = "SELECT * FROM usuario ORDER BY nome";
+            $sql = "SELECT * FROM usuario WHERE status = 1 ORDER BY nome";
             $result = $this->pdo->query($sql);
             $lista = $result->fetchAll(PDO::FETCH_ASSOC);
             $f_lista = array();
@@ -406,6 +415,7 @@ class DaoUsuario {
         $user ->setLiberado($row['liberado']);
         $user ->setTipo($row['tipo']);
         $user ->setQtdResponde($row['qtdResponde']);
+        $user ->setStatus($row['status']);
         $user ->setIdCurso($row['idCurso']);
         
         return $user;

@@ -65,6 +65,7 @@ class DaoFormulario {
                     . "ip3d,"
                     . "sugestao,"
                     . "semestre,"
+                    . "status,"
                     . "idUsuario"
                     . ") VALUES ("
                     . ":anoConclusao,"
@@ -96,6 +97,7 @@ class DaoFormulario {
                     . ":ip3d,"
                     . ":sugestao,"
                     . ":semestre,"
+                    . ":status,"
                     . ":idUsuario"
                     . ")";
             
@@ -130,6 +132,7 @@ class DaoFormulario {
             $p_sql -> bindValue(":ip3d", $formulario->getIP3D());
             $p_sql -> bindValue(":sugestao", $formulario->getSugestao());
             $p_sql -> bindValue(":semestre", $formulario->getSemestre());
+            $p_sql -> bindValue(":status", $formulario->getStatus());
             $p_sql -> bindValue(":idUsuario", $formulario->getIdUsuario());
 
             
@@ -178,6 +181,7 @@ class DaoFormulario {
                     . " ip3d = :ip3d,"
                     . " sugestao = :sugestao,"
                     . " semestre = :semestre,"
+                    . " status = :status,"
                     . " idUsuario = :idUsuario"
                     . " WHERE id = :id"; 
            $p_sql = $this->pdo->prepare($sql);
@@ -212,6 +216,7 @@ class DaoFormulario {
             $p_sql -> bindValue(":ip3d", $formulario->getIP3D());
             $p_sql -> bindValue(":sugestao", $formulario->getSugestao());
             $p_sql -> bindValue(":semestre", $formulario->getSemestre()); 
+            $p_sql -> bindValue(":status", $formulario->getStatus());
             $p_sql -> bindValue(":idUsuario", $formulario->getIdUsuario()); 
             
             return $p_sql->execute(); 
@@ -230,7 +235,8 @@ class DaoFormulario {
         
         try{
             
-            $sql = "DELETE FROM formulario WHERE id = :id";
+            $sql = "UPDATE formulario SET status = 0 WHERE id = :id";
+            //$sql = "DELETE FROM formulario WHERE id = :id";
             $p_sql  = $this->pdo->prepare($sql);
             $p_sql -> bindValue(":id", $id);
             
@@ -251,7 +257,7 @@ class DaoFormulario {
         
          try{
             
-            $sql = "SELECT * FROM formulario WHERE id = :id";
+            $sql = "SELECT * FROM formulario WHERE id = :id AND status = 1";
             $p_sql = $this->pdo->prepare($sql);
             $p_sql -> bindValue(":id", $id);
             $p_sql->execute();
@@ -273,7 +279,7 @@ class DaoFormulario {
         
          try{
             
-            $sql = "SELECT * FROM formulario WHERE idUsuario = :idUsuario ORDER BY id";
+            $sql = "SELECT * FROM formulario WHERE idUsuario = :idUsuario AND status = 1 ORDER BY id";
             $p_sql = $this->pdo->prepare($sql);
             $p_sql -> bindValue(":idUsuario", $idUsuario);
             $p_sql->execute();
@@ -304,7 +310,7 @@ class DaoFormulario {
         
          try{
             
-            $sql = "SELECT * FROM formulario WHERE idUsuario = :idUsuario and ic1 = :idCurso ORDER BY id";
+            $sql = "SELECT * FROM formulario WHERE idUsuario = :idUsuario AND ic1 = :idCurso AND status = 1 ORDER BY id";
             $p_sql = $this->pdo->prepare($sql);
             $p_sql -> bindValue(":idUsuario", $idUsuario);
             $p_sql -> bindValue(":idCurso", $idCurso);
@@ -338,7 +344,7 @@ class DaoFormulario {
         
            try{
             
-            $sql = "SELECT * FROM formulario ORDER BY id";
+            $sql = "SELECT * FROM formulario WHERE status = 1 ORDER BY id";
             $result = $this->pdo->query($sql);
             $lista = $result->fetchAll(PDO::FETCH_ASSOC);
             $f_lista = array();
@@ -362,7 +368,7 @@ class DaoFormulario {
         
           try{
                         
-            $sql = "SELECT COUNT(formulario.id) FROM formulario, usuario WHERE ". $condicao;
+            $sql = "SELECT COUNT(formulario.id) FROM formulario, usuario WHERE ". $condicao ." AND status = 1";
             $result = $this->pdo->query($sql);
             $retorno = $result->fetch(PDO::FETCH_ASSOC);  
     
@@ -382,7 +388,7 @@ class DaoFormulario {
         
           try{
                         
-            $sql = "SELECT COUNT(id) FROM formulario WHERE ". $condicao;
+            $sql = "SELECT COUNT(id) FROM formulario WHERE ". $condicao . " AND status = 1";
             $result = $this->pdo->query($sql);
             $retorno = $result->fetch(PDO::FETCH_ASSOC);  
     
@@ -403,7 +409,7 @@ class DaoFormulario {
         
            try{
             
-            $sql = "SELECT MAX(id) FROM formulario";
+            $sql = "SELECT MAX(id) FROM  WHERE status = 1";
             $result = $this->pdo->query($sql);
             $retorno = $result->fetch(PDO::FETCH_ASSOC);  
             
@@ -453,6 +459,7 @@ class DaoFormulario {
         $formulario ->setIP3D($row['ip3d']);
         $formulario ->setSugestao($row['sugestao']);
         $formulario ->setSemestre($row['semestre']);
+        $formulario->setStatus($row['status']);
         $formulario ->setIdUsuario($row['idUsuario']);
         
  
