@@ -177,7 +177,7 @@ if(isset($_POST['acao'])){
                         {
 
 
-
+                        $user->setSenha(1);
                         $dao->inserir($user);
 
 

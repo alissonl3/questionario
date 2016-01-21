@@ -214,7 +214,7 @@ class DaoFormulario {
             $p_sql -> bindValue(":ip3b", $formulario->getIP3B());
             $p_sql -> bindValue(":ip3c", $formulario->getIP3C());
             $p_sql -> bindValue(":ip3d", $formulario->getIP3D());
-            $p_sql -> bindValue(":sugestao", $formulario->getSugestao());
+            $p_sql  -> bindValue(":sugestao", $formulario->getSugestao());
             $p_sql -> bindValue(":semestre", $formulario->getSemestre()); 
             $p_sql -> bindValue(":status", $formulario->getStatus());
             $p_sql -> bindValue(":idUsuario", $formulario->getIdUsuario()); 

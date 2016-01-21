@@ -685,6 +685,7 @@ if(isset($_POST['acao'])){
     if($usuarioLogado->getIdCurso() === $formulario->getIC1())
     {
      
+    $formulario->setStatus(1);
     $dao->inserir($formulario);   
     $quantidadeFormulario = $dao->buscarPorIdDoUsuarioEIdDoCurso($usuarioLogado->getId(), $formulario->getIC1());   
     $usuarioLogado->setQtdResponde(count($quantidadeFormulario));
