@@ -11,24 +11,24 @@
 </head>
 <body >
     <div class="container-fluid" style="background-color: #f8f8f8;">
-        
+                
 <!-- Pagina do menubar -->
 <div class="row">
 <div class="col-md-12">
     <nav class="navbar navbar-default">
    <div class="container-fluid">
          <div class="navbar-header">
-                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navBarUser">
+<!--                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navBarUser">
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span> 
-                                </button>
+                                </button>-->
              <a class="navbar-brand" style="color: teal;" href="index.php"><img  src="./resources/img/questionario_logo.png" alt="Questionário de Egressos" class="img-resposive" /></a>
                             </div>
                             <div class="collapse navbar-collapse" id="navBarUser">
 
 <!--                                <ul class="nav navbar-nav navbar-right" >
-                                    <li><a href="cadastro.php"><span class="glyphicon glyphicon-pencil" style="color: teal;">Cadastre-se</span></a></li>
+                                    <li><a href="#" data-toggle="popover" data-placement="bottom" ><span class="glyphicon glyphicon-pencil" style="color: teal;"> Responder</span></a></li>
                                 </ul>-->
                             </div>
        

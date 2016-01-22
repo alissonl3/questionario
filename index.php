@@ -21,20 +21,6 @@ $daoFormulario = new DaoFormulario();
 
 ?>
 
-<!--<script language="javascript">
-
-function aumenta(obj){
-        obj.height=obj.height*1.2;
-	obj.width=obj.width*1.2;
-}
- 
-function diminui(obj){
-	obj.height=obj.height/1.2;
-	obj.width=obj.width/1.2;
-}
-//
-</script>-->
-
 <script type="text/javascript">
     // Use jQuery com a variavel $j(...)
     var $j = jQuery.noConflict();
@@ -48,48 +34,41 @@ function diminui(obj){
     });
 </script>
     
-    
+
+<script>
+var $ = jQuery.noConflict();
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover({
+        html: true,
+        content: function() {
+      return $('#pergunta').html();
+    }
+    });   
+});
+</script>   
     
 
-<div class="row" style="margin-bottom: 20px;" >    
+<div class="row" style="margin-bottom: 20px; margin-top: 3%;" >    
 <div class="col-md-12 col-sm-12 col-xs-12">      
     <center>
         <img src="./resources/img/teste4.png"  class="img-rounded img-responsive" />
     </center>
 </div>
 </div>
- 
-    
-<!--<div style="width: 100%; height: 15%;">-->
-<div id="responderFormulario"></div>
-<div class="row" style=" border-bottom: 2px solid #e7e7e7; border-top: 2px solid #e7e7e7;" >
-    <div class="col-md-12 col-sm-12 col-xs-12" style="background-color: #5cb85c; color: white;">
-       <center>
-           <h1><b>RESPONDA O NOSSO FORMULÁRIO</b></h1>          
-       </center> 
-    </div>     
+
+<div style="clear: both;"></div>
+<div class="email" style="float: right; margin-right: 50px;">
+ <a href="email.php" title="Recuperar sua senha" class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-envelope"></span>
+                                E-mail</a></div>
+<div class="responder" style="float: right; margin-right: 5px;">
+  <a href="#" class="btn btn-success btn-sm" data-toggle="popover" data-placement="top" >Responder Questionário</a>                              
 </div>
-
-<div class="row" >
-    <div class="col-md-12 col-sm-12 col-xs-12">
-       <center>
-           <br/>
-           <button id="irParaResponderFormulario" style="border-radius: 50px;" class="btn btn-info btn-lg"
-                   onclick="$j('html,body').animate({scrollTop: $j('#responderFormulario').offset().top}, 2000);">
-                                <span class="glyphicon glyphicon-arrow-down"> </span>
-            </button>    
-       </center> 
-    </div>     
-</div>
-<!--</div>-->
+<div style="clear: both;"></div>
 
 
-<!-- Pagina do conteudo -->
-<div class="row" style="margin-top: 10%; margin-bottom: 5%; " >
-    <div class="col-md-2 col-sm-2 col-xs-2"></div>
-    
-    <div class="col-md-8 col-sm-8 col-xs-8" style="background-color: white; border: 2px #e7e7e7 solid; border-radius: 10px; padding: 20px; margin-top: 10px;" >   
-        <div id="pergunta" style="color: graytext;">
+<div style="display: none;">
+   <div id="pergunta" style="color: graytext; min-width: 500px;">
             <center>
                 <div style="float: left;">
                 <button  title="Ajuda" class="btn btn-info btn-sm" style="border-radius: 30px;">
@@ -119,54 +98,10 @@ function diminui(obj){
                     </form>
             </center>
             
-        </div>
-        
-        <div id="modalResponder" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-
-              <!-- Modal corpo-->
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">VALIDAÇÃO</h4>
-                </div>
-                <div class="modal-body">
-                    
-                 
-                    
-          
-                    
-                    
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        
-        
-        <br />
+        </div> 
+</div>
 
 
-        <hr />
-        
-        <div id="email" style="color: graytext; float: right;"  >
-            
-            <div style="float: left;">
-            <a href="email.php" title="Recuperar sua senha" class="btn btn-info btn-sm">
-                                <span class="glyphicon glyphicon-envelope"></span>
-                                E-mail</a>
-            </div>
-           
-        
-        </div>
-        
-
-    </div>
-    
-    <div class="col-md-2 col-sm-2 col-xs-2"></div>
-</div> 
 
 <?php
 
