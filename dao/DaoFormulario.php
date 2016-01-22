@@ -368,7 +368,7 @@ class DaoFormulario {
         
           try{
                         
-            $sql = "SELECT COUNT(formulario.id) FROM formulario, usuario WHERE ". $condicao ." AND status = 1";
+            $sql = "SELECT COUNT(formulario.id) FROM formulario, usuario WHERE ". $condicao ." AND formulario.status = 1";
             $result = $this->pdo->query($sql);
             $retorno = $result->fetch(PDO::FETCH_ASSOC);  
     
