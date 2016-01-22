@@ -34,21 +34,61 @@ $(document).ready(function ()
 </script>
            
     <!-- Pagina do conteudo -->
-    <div class="row" style="margin-top: 7%; margin-bottom: 5%;">
+    <div class="row" style="margin-top: 5%; margin-bottom: 5%;">
     <div class="col-md-2 col-sm-2 col-xs-2"></div>
     <div class="col-md-8 col-sm-8 col-xs-8" >
 
         <div  class="jumbotron" style=" background: white; border: 2px #e7e7e7 solid; ">
-         <div style="float: right;">
-                <button  title="Ajuda" class="btn btn-info btn-sm" style="border-radius: 30px;">
+         <div style="float: left;">
+                <button  title="Ajuda" class="btn btn-info btn-sm" style="border-radius: 30px;" data-toggle="modal" data-target="#modalAjuda">
                                 <span class="glyphicon glyphicon-comment"></span>
                                  </button>
          </div>
-         <div style="clear: both;"></div>   
+         <div style="clear: both;"></div> 
+         
+         <!--MODAL DE AJUDA-->
+            <div id="modalAjuda" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                  <!-- Modal corpo-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">
+                                   <button type="button" style="border-radius: 20px;" disabled="true" class="btn btn-lg btn-info"><span class="glyphicon glyphicon-comment"></span></button>                                  
+                      </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                          <div class="col-md-12 col-sm-12 col-xs-12">      
+                               <center>
+                                   <img src="../resources/img/ajuda.png" style="max-height: 100px;"  class="img-rounded img-responsive" />
+                               </center>
+                              <hr />
+                              <p>Cadastrar:</p>
+                              <ul>
+                                  <li>No cadastro do administrador é requisitado uma senha</li>
+                              </ul>
+                              
+                          </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-success" data-dismiss="modal">Entendi</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+         
+         <center>
+                <center>
+                    <img src="../resources/img/cadastrar.png" style="max-height: 100px;"  class="img-rounded img-responsive" />
+                </center>
+                <br />
+         </center>
             
         <div id="cadastroAluno">   
-            <fieldset>
-                <legend>Cadastrar Usuario</legend>
+            
                 <h5 style="color: graytext; color: red;">
                     * Campos obrigatórios
                 </h5>
@@ -110,7 +150,6 @@ $(document).ready(function ()
                         </div>
                     </center>
         </form>
-                </fieldset>
         </div>
         
             

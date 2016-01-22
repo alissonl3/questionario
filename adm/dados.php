@@ -39,6 +39,13 @@ $formularioSelecionado = new Formulario();
             
         <!-- DIV PARA VOLTAR NO TOPO -->
         <div id="voltarTopo"></div>
+        
+        <center>
+                <center>
+                    <img src="../resources/img/dados.png" style="max-height: 100px;"  class="img-rounded img-responsive" />
+                </center>
+                <br />
+         </center>
             
             <div style="color: graytext;">
                 <div style="float: left;">

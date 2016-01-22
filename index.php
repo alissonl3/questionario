@@ -46,9 +46,9 @@ $(document).ready(function(){
     });   
 });
 </script>   
-    
+ 
 
-<div class="row" style="margin-bottom: 20px; margin-top: 3%;" >    
+<div class="row" style="margin-bottom: 20px; margin-top: 3%;" >     
 <div class="col-md-12 col-sm-12 col-xs-12">      
     <center>
         <img src="./resources/img/teste4.png"  class="img-rounded img-responsive" />
@@ -58,7 +58,7 @@ $(document).ready(function(){
 
 <div style="clear: both;"></div>
 <div class="email" style="float: right; margin-right: 50px;">
- <a href="email.php" title="Recuperar sua senha" class="btn btn-info btn-sm">
+ <a href="#" title="Email" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modalEmail">
                                 <span class="glyphicon glyphicon-envelope"></span>
                                 E-mail</a></div>
 <div class="responder" style="float: right; margin-right: 5px;">
@@ -66,17 +66,59 @@ $(document).ready(function(){
 </div>
 <div style="clear: both;"></div>
 
+<div id="modalEmail" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal corpo-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">
+                     <button type="button" style="border-radius: 20px;" disabled="true" class="btn btn-lg btn-info"><span class="glyphicon glyphicon-envelope"></span></button>                                  
+        </h4>
+      </div>
+      <div class="modal-body">
+          <div class="jumbotron" style=" background: white; color: graytext;">
+              
+        <form action="email.php" method="POST" role="form" >
+            <div class="form-group">
+                <label  for="remetente">De:</label>
+                <input type="text" placeholder="Infome seu email" required="true" class="form-control" name="remetente" />
+            </div>   
+            <div class="form-group">
+                <label  for="assunto">Assunto:</label>
+                <input type="text" placeholder="Informe o assunto" required="true" class="form-control" name="assunto" />
+            </div>  
+            <div class="form-group">
+                <label  for="msg">Menssagem:</label>
+                <textarea  placeholder="Escreva a menssagem aqui" required="true" class="form-control" name="msg" ></textarea>
+            </div>
+            <center>
+                <div class="btn-group">
+                <button type="submit" class="btn btn-success btn-lg">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    Enviar</button>
+                <a href="index.php" class="btn btn-danger btn-lg">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    Cancelar</a>
+                </div>
+            </center>
+        </form>
+          
+          </div>         
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <div style="display: none;">
    <div id="pergunta" style="color: graytext; min-width: 500px;">
             <center>
-                <div style="float: left;">
-                <button  title="Ajuda" class="btn btn-info btn-sm" style="border-radius: 30px;">
-                                <span class="glyphicon glyphicon-comment"></span>
-                                 </button>
-         </div>
-         <div style="clear: both;"></div>
-         <br />
+                
                 <p style="color: red;">
                     Para desbloquear o acesso ao formulário informe seu cpf abaixo
                 </p>

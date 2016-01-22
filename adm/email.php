@@ -128,17 +128,14 @@ else
                                   <li>A pesquisa pode ser feita informando o nome do estudante ou/e curso do estudante</li>
                                   <li>Pode voltar a buscar normal clicando em "Restaurar"</li>
                               </ul>
-                              <p>Visualizar:</p>
+                              <p>Enviar:</p>
                               <ul>
-                                  <li>Pode visualizar os dados do estudante clicando na ação da "Lupa" na última coluna</li>
-                              </ul>
-                              <p>Verificar:</p>
-                              <ul>
-                                  <li>Sempre que possivel verifique se o estudante está liberado para o envio do email e liberamento do formulário</li>
+                                  <li>Selecione os alunos que deseja enviar o email e depois clica em "Enviar"</li>
                               </ul>
                               <p>Obsevações:</p>
                               <ul>
-                                  <li>Quando o usuario estiver liberado, quer dizer que o email foi enviado e ele já poderá acessar a paginá para responder o formulário</li>
+                                  <li>Só aparecerão na tabela os alunos que a data de envio seja igual ou menor que a data atual</li>
+                                  <li>Para atualizar a lista vá na tela principal e clique em "Verificar"</li>                           
                               </ul>
                           </div>
                         </div>
@@ -151,41 +148,12 @@ else
               </div>
             
             
+            <center>
                 <center>
-                   <img src="../resources/img/principal.png" style="max-height: 100px;"  class="img-rounded img-responsive" />
+                    <img src="../resources/img/email.png" style="max-height: 100px;"  class="img-rounded img-responsive" />
                 </center>
                 <br />
-
-
-            <form action="gerenciar.php" method="GET">
-                <div class="form-group">
-                    <label for="textoPesquisa">Nome:</label>
-                    <input type="text" class="form-control" id="textoPesquisa" name="texto">
-                </div>
-                <div class="form-group">
-                    <label for="curso">Curso:</label>
-                    <select id="cursoPesquisa" name="curso" class="form-control">
-                            <option value="0">Selecione</option>
-                            <?php
-                            
-                                foreach ($cursos as $value) 
-                                    {
-                                    echo "<option value=".$value->getId().">".$value->getNome()."</option>";
-                                    }
-                            
-                            ?>
-                          </select>
-                </div>
-                <button type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-search"></span> Pesquisar</button>                 
-                <a href="gerenciar.php" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-refresh"></span> Restaurar</a>                 
-          
-            </form>
-            
-            <br />
-            <center>
-                <button type="button" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-repeat"></span> Verificar</button>                                  
-            </center>           
-            <br />
+            </center>
           
             
             
@@ -196,8 +164,7 @@ else
         <th>Id</th>
         <th>Nome</th>
         <th>Curso</th>
-        <th>Liberado</th>
-        <th>Ação</th>
+        <th>Data de Envio</th>
       </tr>
     </thead>
     <tbody>
@@ -222,28 +189,16 @@ else
                   {
                      echo "Não existe curso!"; 
                   }
-            echo '</td>';
-            echo '<td align="center">';
-                 if($usuario->getLiberado() === "" || $usuario->getLiberado() === null)
-                 {
-                    
-                    echo   '<button class="btn btn-danger btn-sm" disabled="true" >';
-                    echo   '<span class="glyphicon glyphicon-remove"></span>';                
-                    echo   '</button>';
-                 }
-                 else
-                 {
-                    echo   '<button class="btn btn-success btn-sm" disabled="true" >';
-                    echo   '<span class="glyphicon glyphicon-ok"></span>';                
-                    echo   '</button>'; 
-                 }
-            echo '</td>';
+            echo '</td>'; 
             echo '<td>';
-            echo "<div class='btn-group'>";
-                echo   '<a href="dados.php?id='.$usuario->getId().'&idFormulario=Todos" class="btn btn-info btn-sm"  >';
-                echo   '<span class="glyphicon glyphicon-search"></span>';                
-                echo   '</a>';
-            echo "</div>";
+                if(count($daoEmail->buscarPorUsuario($usuario->getId()) === 0)                         )
+                {
+                 echo 'Indefinida';   
+                }
+                else
+                {
+                    echo $daoEmail->buscarPorUsuario($usuario->getId())->getDataEnvio();
+                }           
             echo '</td>';
         echo '</tr>';
     }
@@ -259,42 +214,6 @@ else
     </center>
   </div>
 
-<!-- PAGINAÇÃO TABELA -->
-
-            
-            
-            
-<!-- Modal de visualiziação  -->
-<div id="modalVisualizar" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal corpo-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"><b>Nome:</b><?php echo "Nome" ?></h4>
-      </div>
-      <div class="modal-body">
-          <div class="jumbotron" style=" background: white;">
-          <fieldset>
-              <legend>Dados</legend>
-
-                <label><b>Email:</b></label>
-                <label style="color: graytext;"><?php echo "Email" ?></label><br />
-                <label><b>Telefone:</b></label>
-                <label style="color: graytext;"> <?php echo "Telefone" ?></label><br />
-              
-          </fieldset>
-          </div>
-          
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
             
             
             

@@ -61,6 +61,7 @@
                         <li role="presentation"><a href="../adm/gerenciar.php"><span class="glyphicon glyphicon-home"> </span> Principal</a></li>
                         <li role="presentation"><a href=../adm/cadastro.php><span class="glyphicon glyphicon-pencil"></span> Cadastrar</a></li>                   
                         <li role="presentation"><a href="../adm/respostas.php"><span class="glyphicon glyphicon-search"> </span>  Visualizar</a></li>
+                       <li role="presentation"><a href="../adm/email.php"><span class="glyphicon glyphicon-envelope"> </span>  Email</a></li>                 
                     </ul>
                     
                 </div>

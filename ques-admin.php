@@ -14,38 +14,6 @@ include_once './banco/Conexao.php';
 
 <script type="text/javascript">
     
-//    function logar()
-//    {
-//        
-//                    $.ajax({
-//                     url: 'visao/login.php',
-//                     data: {$('#frmLogin').serialize()}, //pegar dados do formulario
-//                     method: "POST",
-//                     async: true
-//                     }).done(function (r){
-//                         
-//                         
-//                         
-//                         if(r === "erro")
-//                         {
-//                            $('#messageError').html("<b>Login invalido!</b>");
-//                         }
-//                         else if(r === "sucess")
-//                         {
-//                             location.href="http://localhost/questionario/adm/gerenciar.php";
-//                             
-//                         }
-//                         else if(r === "erroException")
-//                         {
-//                               $('#messageError').html("<b>Estamos com problemas no momento, tente mais tarde!</b>");
-//                         }
-//                         
-//                         
-//                     }); 
-//        
-//        
-//    }
-    
     function teste()
     {
         
@@ -73,12 +41,7 @@ include_once './banco/Conexao.php';
     <div class="col-md-8 col-sm-8 col-xs-8" style="margin-top: 1%; margin-bottom: 5%;" >
 
         <div class="jumbotron" style=" background: white; border: 2px #e7e7e7 solid;" >
-            <div style="float: right;">
-                <button  title="Ajuda" class="btn btn-info btn-sm" style="border-radius: 30px;">
-                                <span class="glyphicon glyphicon-comment"></span>
-                                 </button>
-         </div>
-         <div style="clear: both;"></div>
+            
             <fieldset>
                 <legend><h3 style="color: graytext;">Login</h3></legend>
                 <center>
