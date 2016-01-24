@@ -177,13 +177,15 @@ else
                           </select>
                 </div>
                 <button type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-search"></span> Pesquisar</button>                 
-                <a href="gerenciar.php" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-refresh"></span> Restaurar</a>                 
-          
+                <a href="gerenciar.php" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-refresh"></span> Restaurar</a>                         
             </form>
             
             <br />
             <center>
-                <button type="button" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-repeat"></span> Verificar</button>                                  
+                <form action="gerenciar.php" method="POST">
+                    <input type="hidden" name="acao" value="verificar" />
+                    <button type="submit" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-repeat"></span> Verificar</button> 
+                </form>
             </center>           
             <br />
           
@@ -313,4 +315,57 @@ else
     
 </div>  
 
-<?php require '../template/rodape.php'; ?>
+<?php
+
+require_once '../visao/componentes.php';
+
+//VERIFICAR OS ALUNOS QUE PODEM RESPONDER O EMAIL
+//ATUALIZAR A LISTA DE EMAIL
+if(isset($_POST['acao']))
+{
+    
+    if($_POST['acao'] == 'verificar')
+    {
+        
+        $dataAtual = date("Y-m-d");
+        
+        $emailDataAtual = $daoEmail->buscarTodos();
+        
+        $houveLiberamento = false;
+        if(count($emailDataAtual > 0))
+        {
+            foreach ($emailDataAtual as $value) {
+                if(strtotime($value->getDataEnvio()) <= strtotime($dataAtual))
+                {
+                    //LIBERANDO O USUARIO
+                    $usuarioLiberar = $daoUsuario->buscarPorId($value->getIdUsuario());
+                    
+                    if($usuarioLiberar->getId() != null && $usuarioLiberar->getId() != 0 && ($usuarioLiberar->getLiberado() == null || $usuarioLiberar->getLiberado() == ''))
+                    {
+                        $usuarioLiberar->setLiberado("sim");
+                        $daoUsuario->atualizar($usuarioLiberar);
+                        $houveLiberamento = true;
+                    }
+                }
+                
+            }
+            
+            
+        }
+        
+            echo "<script type='text/javascript'>";
+            echo "var $ = jQuery.noConflict();
+            $(document).ready(function() {
+            $('#modalMsgLiberamento').modal('show');
+                });";
+            echo "</script>";
+        
+
+        
+    }
+    
+}
+
+
+
+require_once '../template/rodape.php'; ?>

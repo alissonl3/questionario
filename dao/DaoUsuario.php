@@ -379,6 +379,29 @@ class DaoUsuario {
  }
         
     }
+    
+    public function buscarPorCondicaoLiberados($condicao){
+        
+           try{
+            
+            $sql = "SELECT * FROM usuario WHERE ".$condicao." AND status = 1 AND liberado = 'sim' ORDER BY nome";
+            $result = $this->pdo->query($sql);
+            $lista = $result->fetchAll(PDO::FETCH_ASSOC);
+            $f_lista = array();
+            
+            foreach ($lista as $l){
+                $f_lista[] = $this->populaUsuario($l);
+            }
+           
+            return $f_lista;
+              }       
+        catch (Exception $e){
+     
+     print "Ocorreu um erro ao tentar executar esta ação, foi gerado um LOG do mesmo, tente novamente mais tarde."; 
+         
+ }
+        
+    }
      
     
     public function buscarTodos(){
@@ -386,6 +409,29 @@ class DaoUsuario {
            try{
             
             $sql = "SELECT * FROM usuario WHERE status = 1 ORDER BY nome";
+            $result = $this->pdo->query($sql);
+            $lista = $result->fetchAll(PDO::FETCH_ASSOC);
+            $f_lista = array();
+            
+            foreach ($lista as $l){
+                $f_lista[] = $this->populaUsuario($l);
+            }
+           
+            return $f_lista;
+              }       
+        catch (Exception $e){
+     
+     print "Ocorreu um erro ao tentar executar esta ação, foi gerado um LOG do mesmo, tente novamente mais tarde."; 
+         
+ }
+        
+    }
+    
+    public function buscarTodosLiberados(){
+        
+           try{
+            
+            $sql = "SELECT * FROM usuario WHERE status = 1 AND liberado = 'sim' ORDER BY nome";
             $result = $this->pdo->query($sql);
             $lista = $result->fetchAll(PDO::FETCH_ASSOC);
             $f_lista = array();

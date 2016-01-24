@@ -2,11 +2,17 @@
 
 include_once  '../dao/DaoUsuario.php';
 include_once '../entidades/Usuario.php';
+
 include_once '../banco/Conexao.php';
+
 include_once '../dao/DaoFormulario.php';
 include_once '../entidades/Formulario.php';
+
 include_once  '../dao/DaoCurso.php';
 include_once '../entidades/Curso.php';
+
+include_once '../dao/DaoEmail.php';
+include_once '../entidades/Email.php';
   
 $daoCurso = new DaoCurso();
 $daoUsuario = new DaoUsuario();
@@ -25,6 +31,9 @@ $cursos = $daoCurso->buscarPorCondicao(" id != ".$usuarioSelecionado->getIdCurso
 $verificacaoFormulario = false;
 $formulariosUsuario = $daoFormulario->buscarPorIdDoUsuario($usuarioSelecionado->getId());
 $formularioSelecionado = new Formulario();
+
+$daoEmail = new DaoEmail();
+$emailUsuario = $daoEmail->buscarPorUsuario($usuarioSelecionado->getId());
 
 ?>
 
@@ -54,6 +63,7 @@ $formularioSelecionado = new Formulario();
                     <h4>Email: <?php echo $usuarioSelecionado->getEmail() ?> </h4>
                     <h4>Telefone: <?php echo $usuarioSelecionado->getTelefone() ?> </h4>
                     <h4>Curso: <?php echo $cursoUsuarioSelecionado->getNome() ?> </h4>
+                    <h4>Data de Envio: <?php echo $emailUsuario->getDataEnvio()  ?> </h4>
                     
                 </div>
                 <div style="float: right;">
@@ -1298,6 +1308,10 @@ $formularioSelecionado = new Formulario();
                                 <label  for="telefoneAlterar">Telefone:</label>
                                 <input type="tel" placeholder="Insere o telefone" value="<?php echo $usuarioSelecionado->getTelefone(); ?>" required="true" class="form-control" name="telefoneAlterar" />
                             </div>
+                            <div class="form-group">
+                                <label  for="dataEnvioAlterar">Telefone:</label>
+                                <input type="date" placeholder="Escolha a data" value="<?php echo $emailUsuario->getDataEnvio(); ?>" required="true" class="form-control" name="dataEnvioAlterar" />
+                            </div>
                             <center>
                                 <div class="btn-group">
                                     <button  type="submit" class="btn btn-success btn-lg">
@@ -1411,6 +1425,9 @@ if(isset($_POST['acao'])){
             $usuarioSelecionado->setEmail($_POST['emailAlterar']);
             $usuarioSelecionado->setIdCurso($_POST['cursoAlterar']);
             
+            $emailUsuario->setDataEnvio($_POST['dataEnvioAlterar']);
+            $emailUsuario->setEnviado(0);
+            
             //SE O USUARIO MUDOU DE CURSO, ZERAR A QUANT RESP
             //USUARIO TERÁ QUE RESPONDER NOVAMENTE 5 FORMULÁRIOS DURANTE 5 ANOS
             if($cursoUsuarioSelecionado->getId() != $_POST['cursoAlterar'])
@@ -1422,6 +1439,7 @@ if(isset($_POST['acao'])){
             {
                 
             $daoUsuario->atualizar($usuarioSelecionado);
+            $daoEmail->atualizar($emailUsuario);
             
             echo "<script type='text/javascript'>";
             echo "var $ = jQuery.noConflict();

@@ -36,15 +36,18 @@ class DaoEmail {
             
             $sql = "INSERT INTO email("
                     . "dataEnvio,"
-                    . "idUsuario"         
+                    . "idUsuario,"
+                    . "enviado"
                     . ") VALUES ("
                     . ":dataEnvio,"
-                    . ":idUsuario)";
+                    . ":idUsuario,"
+                    . ":enviado)";
             
             $p_sql = $this->pdo->prepare($sql);
             
             $p_sql -> bindValue(":dataEnvio", $email->getDataEnvio());
             $p_sql -> bindValue(":idUsuario", $email->getIdUsuario());
+            $p_sql -> bindValue(":enviado", $email->getEnviado());
             
             
             return $p_sql->execute();
@@ -61,10 +64,11 @@ class DaoEmail {
     
     public function editarComSenha(Email $email) { 
         try { 
-            $sql = "UPDATE email SET dataEnvio = :dataEnvio, idUsuario = :idUsuario WHERE id = :id"; 
+            $sql = "UPDATE email SET dataEnvio = :dataEnvio, idUsuario = :idUsuario, enviado = :enviado WHERE id = :id"; 
             $p_sql = $this->pdo->prepare($sql); 
             $p_sql->bindValue(":dataEnvio", $email->getDataEnvio()); 
-             $p_sql -> bindValue(":idUsuario", $email->getIdUsuario());
+            $p_sql -> bindValue(":idUsuario", $email->getIdUsuario());
+            $p_sql -> bindValue(":enviado", $email->getEnviado());
             $p_sql->bindValue(":id", $email->getId()); 
             return $p_sql->execute(); 
             
@@ -84,7 +88,8 @@ class DaoEmail {
             
             $sql = "UPDATE email SET "
                     . "dataEnvio = :dataEnvio,"
-                    . "IdUsuario = :idUsuario "
+                    . "IdUsuario = :idUsuario,"
+                    . "enviado = :enviado "
                     . "WHERE id = :id";
             
             $p_sql = $this->pdo->prepare($sql);
@@ -92,6 +97,7 @@ class DaoEmail {
             $p_sql -> bindValue(":id", $email->getId());
             $p_sql -> bindValue(":dataEnvio", $email->getDataEnvio());
             $p_sql -> bindValue(":idUsuario", $email->getIdUsuario());
+            $p_sql -> bindValue(":enviado", $email->getEnviado());
             
             return $p_sql->execute();
             
@@ -229,6 +235,7 @@ class DaoEmail {
         $email ->setId($row['id']);
         $email ->setDataEnvio($row['dataEnvio']);
         $email ->setIdUsuario($row['idUsuario']);
+        $email ->setEnviado($row['enviado']);
         
         return $email;
     }

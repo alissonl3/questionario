@@ -6,7 +6,7 @@
   
   include_once  '../dao/DaoUsuario.php';
   include_once '../entidades/Usuario.php';
-  
+    
   $daoCurso = new DaoCurso();
   
   $cursos = $daoCurso->buscarTodos();
@@ -216,7 +216,7 @@ if(isset($_POST['acao'])){
                         {
 
 
-                        $user->setSenha(1);
+                        $user->setStatus(1);
                         $dao->inserir($user);
 
 

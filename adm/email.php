@@ -53,16 +53,17 @@ if(isset($_GET['texto']) || isset($_GET['curso'])){
             
         }
         
+        $queryBusca = $queryBusca. " AND liberado = 'sim'";
         //buscar
         if($control)
-           $listaUsuarios = $daoUsuario->buscarTodos();
+           $listaUsuarios = $daoUsuario->buscarTodosLiberados();
         else
-           $listaUsuarios = $daoUsuario->buscarPorCondicao($queryBusca);
+           $listaUsuarios = $daoUsuario->buscarPorCondicaoLiberados($queryBusca);
         
 }
 else
 {
-    $listaUsuarios = $daoUsuario->buscarTodos();
+    $listaUsuarios = $daoUsuario->buscarTodosLiberados();
 }
 
 ?>
@@ -76,7 +77,7 @@ else
         <script type="text/javascript">
         // Use jQuery com a variavel $j(...)
         var $j = jQuery.noConflict();      
-        $j(document).ready(function() {          
+        $j(document).ready(function() {
         $j("#btnVoltarTopo").hide();
         $j(function () {
         $j(window).scroll(function () {
@@ -154,10 +155,68 @@ else
                 </center>
                 <br />
             </center>
-          
+            
+            <form action="email.php" method="GET">
+                <div class="form-group">
+                    <label for="textoPesquisa">Nome:</label>
+                    <input type="text" class="form-control" id="textoPesquisa" name="texto">
+                </div>
+                <div class="form-group">
+                    <label for="curso">Curso:</label>
+                    <select id="cursoPesquisa" name="curso" class="form-control">
+                            <option value="0">Selecione</option>
+                            <?php
+                            
+                                foreach ($cursos as $value) 
+                                    {
+                                    echo "<option value=".$value->getId().">".$value->getNome()."</option>";
+                                    }
+                            
+                            ?>
+                          </select>
+                </div>
+                <button type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-search"></span> Pesquisar</button>                 
+                <a href="email.php" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-refresh"></span> Restaurar</a>                         
+            </form>
+            
+            <br />
+            <center>
+                <form action="email.php" method="POST">
+                    <input type="hidden" name="acao" value="verificar" />
+                    <button type="submit" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-envelope"></span> Enviar para todos</button> 
+                </form>
+            </center>           
+            <br />
+
+<?php
+//FAZ A BUSCA DOS ALUNOS LIBERADOS
+if(count($listaUsuarios) > 0)
+{
+            echo "<script type='text/javascript'>";
+            echo "var $ = jQuery.noConflict();
+            $(document).ready(function() {
+            $('#comResultado').show();
+            $('#semResultado').hide();
+                });";
+            echo "</script>";
+}
+else
+{
+            echo "<script type='text/javascript'>";
+            echo "var $ = jQuery.noConflict();
+            $(document).ready(function() {
+            $('#comResultado').hide();
+            $('#semResultado').show();
+                });";
+            echo "</script>";
+    
+}
+
+            
+?>
             
             
-            
+<div id="comResultado">      
     <table class="table table-striped">
     <thead>
       <tr>
@@ -165,6 +224,7 @@ else
         <th>Nome</th>
         <th>Curso</th>
         <th>Data de Envio</th>
+        <th>Enviado</th>
       </tr>
     </thead>
     <tbody>
@@ -190,15 +250,37 @@ else
                      echo "Não existe curso!"; 
                   }
             echo '</td>'; 
+            $emailAEnviar = $daoEmail->buscarPorUsuario($usuario->getId());
             echo '<td>';
-                if(count($daoEmail->buscarPorUsuario($usuario->getId()) === 0)                         )
+                if($emailAEnviar == null)                       
                 {
                  echo 'Indefinida';   
                 }
                 else
                 {
-                    echo $daoEmail->buscarPorUsuario($usuario->getId())->getDataEnvio();
+                    echo $emailAEnviar->getDataEnvio();
                 }           
+            echo '</td>';
+            echo '<td align="center">';
+                if($emailAEnviar->getEnviado() == null || $emailAEnviar->getEnviado() == 0)                       
+                {
+                 echo   '<button class="btn btn-danger btn-sm" disabled="true" >';
+                 echo   '<span class="glyphicon glyphicon-remove"></span>';                
+                 echo   '</button>';  
+                }
+                else
+                {
+                 echo   '<button class="btn btn-success btn-sm" disabled="true" >';
+                 echo   '<span class="glyphicon glyphicon-ok"></span>';                
+                 echo   '</button>';       
+                }           
+            echo '</td>';
+            echo '<td>';
+            echo "<div class='btn-group'>";
+                echo   '<a href="email.php?id='.$usuario->getId().'&enviar=Sim" class="btn btn-info btn-sm"  >';
+                echo   '<span class="glyphicon glyphicon-envelope"></span>';                
+                echo   '</a>';
+            echo "</div>";
             echo '</td>';
         echo '</tr>';
     }
@@ -213,7 +295,13 @@ else
         <button id="proximo" class="btn btn-success " disabled><span class="glyphicon glyphicon-chevron-right"></span></button>
     </center>
   </div>
-
+</div> <!-- FIM DIV COM RESULTADO-->
+<div id="semResultado" style="color: red;">
+    <br />
+    <center>
+        <h4>Não foram encontrado nenhum estudante liberado para o envio do email!</h4>
+    </center>  
+</div>
             
             
             
