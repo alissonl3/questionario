@@ -80,7 +80,8 @@ $(document).ready(function(){
       <div class="modal-body">
           <div class="jumbotron" style=" background: white; color: graytext;">
               
-        <form action="email.php" method="POST" role="form" >
+        <form method="POST" role="form" >
+            <input type="hidden" name="acao" value="enviarEmail" />
             <div class="form-group">
                 <label  for="remetente">De:</label>
                 <input type="text" placeholder="Infome seu email" required="true" class="form-control" name="remetente" />
@@ -148,6 +149,7 @@ $(document).ready(function(){
 <?php
 
 require_once './visao/componentes.php';
+require_once './email/EmailEnviar.php';
 
 
 
@@ -264,6 +266,57 @@ if(isset($_POST['acao'])){
                     echo "</script>";
                 
             }
+            
+        }
+        
+        
+        if($_POST['acao'] == "enviarEmail")
+        {
+            
+          try
+          {
+          
+          $enviar =  new EmailEnviar($_POST['remetente'], "youteacher2015@gmail.com", $_POST['assunto'], $_POST['msg']);
+          //VERIFICAR SE O EMAIL FOI ENVIADO
+          if($enviar->send())
+          {
+              
+               echo "<script type='text/javascript'>";
+                    
+                    echo "var $ = jQuery.noConflict();
+                     $(document).ready(function() {
+                     $('#modalMsgSucessoEmail').modal('show');
+                         });";
+
+                echo "</script>";
+      
+              
+          }
+          else
+          {
+               
+              echo "<script type='text/javascript'>";
+                   echo "var $ = jQuery.noConflict();
+                     $(document).ready(function() {
+                     $('#modalMsgErroEmail').modal('show');
+                         });";
+
+
+                echo "</script>";
+              
+          }
+          }catch (Exception $ex) {
+
+              echo "<script type='text/javascript'>";
+                   echo "var $ = jQuery.noConflict();
+                     $(document).ready(function() {
+                     $('#modalMsgErroException').modal('show');
+                         });";
+
+
+                echo "</script>";
+              
+          }
             
         }
         

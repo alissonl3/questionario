@@ -139,7 +139,6 @@ else
                               <p>Obsevações:</p>
                               <ul>
                                   <li>Só aparecerão na tabela os alunos que a data de envio seja igual ou menor que a data atual</li>
-                                  <li>Para atualizar a lista vá na tela principal e clique em "Verificar"</li>                           
                               </ul>
                           </div>
                         </div>

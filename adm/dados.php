@@ -1517,49 +1517,4 @@ if(isset($_GET['deletar'])){
 
 ?>
 
- <!-- Enviar email -->
-    <?php 
-    
-    require_once '../email/Email.php';
-    
-    if(isset($_POST['emailEnviar'])){
-        
-        $emailEnviar = $_POST['emailEnviar'];
-        
-        if($emailEnviar != null && $emailEnviar != ""){
-            
-                       
-          $enviar =  new Email("administrador@questionariodeegressos.16mb.com", $emailEnviar, "Teste22", "Apenas um teste22!");
-          
-        
-          
-          //VERIFICAR SE O EMAIL FOI ENVIADO
-          if($enviar->send()){
-              
-               echo "<script type='text/javascript'>";
-    
-                    echo "alert('Verifique sua caixa de entrada!');";
-                    echo "location.href='http://localhost/questionario/index.php';";
-
-                echo "</script>";
-      
-              
-          }else{
-               
-              echo "<script type='text/javascript'>";
-    
-                    echo "alert('Houve um erro ao enviar o email... Tente mais tarde!);";
-                    echo "location.href='http://localhost/questionario/index.php';";
-
-                echo "</script>";
-              
-          }
-            
-        }
-        
-        
-    }
-    
-    
-    ?>
 

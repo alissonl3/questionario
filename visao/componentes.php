@@ -143,6 +143,65 @@
             </div>
 
 
+           <div id="modalMsgSucessoEmail" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Modal corpo-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">
+                        <button type="button" style="border-radius: 20px;" disabled="true" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-ok-sign"></span></button>          
+                    </h4>
+                  </div>
+                  <div class="modal-body">
+                      <div style="color: graytext;"> 
+                          <br />
+                          <center>
+                            <p>Email enviado com sucesso!</p>
+                          </center>
+                      </div>
+                       
+                  </div>
+                  <div class="modal-footer">
+                      <div style="float: right;">
+                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+        <div id="modalMsgErroEmail" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Modal corpo-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">
+                        <button type="button" style="border-radius: 20px;" disabled="true" class="btn btn-lg btn-info"><span class="glyphicon glyphicon-info-sign"></span></button>          
+                    </h4>
+                  </div>
+                  <div class="modal-body">
+                      <div style="color: graytext;"> 
+                          <br />
+                          <center>
+                            <p>Houve um erro ao enviar o email!</p>
+                          </center>
+                      </div>
+                       
+                  </div>
+                  <div class="modal-footer">
+                      <div style="float: right;">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
 
 
         <div id="modalMsgSucessoComLoadingFormulario" class="modal fade" role="dialog">
