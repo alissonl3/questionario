@@ -6,7 +6,7 @@
  * @author Orlando Xavier (ox@orlandoxavier.com)
  *
  */
-class Email
+class EmailEnviar
 {
     /**
      * 

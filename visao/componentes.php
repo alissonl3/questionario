@@ -28,7 +28,7 @@
               </div>
             </div>
 
-<div id="modalMsgLiberamento" class="modal fade" role="dialog">
+        <div id="modalMsgLiberamento" class="modal fade" role="dialog">
               <div class="modal-dialog">
 
                 <!-- Modal corpo-->
@@ -83,6 +83,66 @@
                 </div>
               </div>
             </div>
+
+            <div id="modalMsgSucessoComLoadingEmail" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Modal corpo-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">
+                        <button type="button" style="border-radius: 20px;" disabled="true" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-ok-sign"></span></button>          
+                    </h4>
+                  </div>
+                  <div class="modal-body">
+                      <div style="color: graytext;"> 
+                          <br />
+                          <center>
+                            <p>Email enviado com sucesso!</p>
+                          </center>
+                      </div>
+                       
+                  </div>
+                  <div class="modal-footer">
+                      <div style="float: right;">
+                        <img src="../resources/img/carregamento.gif" width="100px" height="100px" class="img-responsive" />
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="modalMsgErroComLoadingEmail" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Modal corpo-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">
+                        <button type="button" style="border-radius: 20px;" disabled="true" class="btn btn-lg btn-info"><span class="glyphicon glyphicon-info-sign"></span></button>          
+                    </h4>
+                  </div>
+                  <div class="modal-body">
+                      <div style="color: graytext;"> 
+                          <br />
+                          <center>
+                            <p>Houve um erro ao enviar o email!</p>
+                          </center>
+                      </div>
+                       
+                  </div>
+                  <div class="modal-footer">
+                      <div style="float: right;">
+                        <img src="../resources/img/carregamento.gif" width="100px" height="100px" class="img-responsive" />
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
 
 
         <div id="modalMsgSucessoComLoadingFormulario" class="modal fade" role="dialog">

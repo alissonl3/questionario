@@ -15,6 +15,9 @@ include_once '../entidades/Curso.php';
 //conexao
 include_once '../banco/Conexao.php';
 
+//email
+include_once '../email/EmailEnviar.php';
+
 $daoUsuario = new DaoUsuario();
 $daoEmail = new DaoEmail();
 
@@ -182,7 +185,7 @@ else
             <br />
             <center>
                 <form action="email.php" method="POST">
-                    <input type="hidden" name="acao" value="verificar" />
+                    <input type="hidden" name="acao" value="enviarTodos" />
                     <button type="submit" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-envelope"></span> Enviar para todos</button> 
                 </form>
             </center>           
@@ -277,9 +280,18 @@ else
             echo '</td>';
             echo '<td>';
             echo "<div class='btn-group'>";
-                echo   '<a href="email.php?id='.$usuario->getId().'&enviar=Sim" class="btn btn-info btn-sm"  >';
+                if($emailAEnviar->getEnviado() == null || $emailAEnviar->getEnviado() == 0)                       
+                {
+                echo   '<a href="email.php?id='.$usuario->getId().'&enviar=Singular" class="btn btn-info btn-sm"  >';
                 echo   '<span class="glyphicon glyphicon-envelope"></span>';                
-                echo   '</a>';
+                echo   '</a>'; 
+                }
+                else
+                {
+                echo   '<a href="#" class="btn btn-danger btn-sm"  >';
+                echo   '<span class="glyphicon glyphicon-envelope"></span>';                
+                echo   '</a>';       
+                }  
             echo "</div>";
             echo '</td>';
         echo '</tr>';
@@ -320,4 +332,211 @@ else
     
 </div>  
 
-<?php require '../template/rodape.php'; ?>
+<?php
+
+include_once '../visao/componentes.php';
+
+//FAZ A VERIFICAÇÃO PARA ENVIAR OS EMAIL
+if(isset($_POST['acao']))
+{
+    
+    if($_POST['acao'] == 'enviarTodos')
+    {
+        
+       if(count($listaUsuarios))
+       {
+           $isErro = false;
+           foreach ($listaUsuarios as $usuario) {
+               
+               $emailAEnviarTodos = $daoEmail->buscarPorUsuario($usuario->getId());
+               if($emailAEnviarTodos->getEnviado() == null || $emailAEnviarTodos->getEnviado() == 0)                       
+               {
+                   try
+                   {
+                   //ENVIAR EMAIL PARA O USUARIO
+                   $enviar =  new EmailEnviar("youteacher2015@gmail.com", "alissonlopes3@gmail.com", "Teste22", "Apenas um teste22!");
+                    //VERIFICAR SE O EMAIL FOI ENVIADO
+                    if($enviar->send()){
+
+                       $isErro = false;
+                       continue;
+
+
+                    }
+                    else
+                    {
+                        
+                        $isErro = true;
+                        break;
+                        
+
+                    }
+                   
+                   }
+                   catch (Exception $erro)
+                   {
+                   //HOUVE UM ERRO AO ENVIA EMAIL
+                    echo "<script type='text/javascript'>";
+                   echo "var $ = jQuery.noConflict();
+                     $(document).ready(function() {
+                     $('#modalMsgErroExceptionComLoading').modal('show');
+                         });";
+                   echo "location.href='http://localhost/questionario/adm/email.php';";
+
+                echo "</script>";   
+                       
+                   }
+                   
+               }
+               
+           }
+           
+           //SE NÃO HOUVE
+           if(!$isErro)
+           {
+               $isErroAtualizarEmail = false;
+               foreach ($listaUsuarios as $usuario) {
+               $emailAEnviarTodos = $daoEmail->buscarPorUsuario($usuario->getId());
+               if($emailAEnviarTodos->getEnviado() == null || $emailAEnviarTodos->getEnviado() == 0)                       
+               {
+                   try
+                   {
+
+                        //ATUALIZANDO O ENVIADO DO EMAIL
+                        $emailAEnviarTodos->setEnviado(1);
+                        $daoEmail->atualizar($emailAEnviarTodos);
+                   
+                   }
+                   catch (Exception $erro)
+                   {
+                    $isErroAtualizarEmail = true;
+                   //HOUVE UM ERRO AO ENVIA EMAIL
+                    echo "<script type='text/javascript'>";
+                    echo "var $ = jQuery.noConflict();
+                     $(document).ready(function() {
+                     $('#modalMsgErroExceptionComLoading').modal('show');
+                         });";
+                    echo "location.href='http://localhost/questionario/adm/email.php';";
+
+                    echo "</script>";
+                    break;
+                       
+                   }
+                   
+               }
+               
+           }
+           
+           //SE ENVIO TODOS OS EMAILS COM SUCESSO: MOSTRAR MENSSAGEM
+           if(!$isErroAtualizarEmail)
+           {
+               
+               echo "<script type='text/javascript'>";
+                    
+                    echo "var $ = jQuery.noConflict();
+                     $(document).ready(function() {
+                     $('#modalMsgSucessoComLoadingEmail').modal('show');
+                         });";
+                    echo "location.href='http://localhost/questionario/adm/email.php';";
+
+                echo "</script>";
+               
+           }
+               
+           }
+           else
+           {
+               
+               echo "<script type='text/javascript'>";
+                   echo "var $ = jQuery.noConflict();
+                     $(document).ready(function() {
+                     $('#modalMsgErroComLoadingEmail').modal('show');
+                         });";
+                   echo "location.href='http://localhost/questionario/adm/email.php';";
+
+                echo "</script>";
+               
+               
+           }
+           
+       } 
+
+    }
+    
+}
+elseif (isset ($_GET['id']) && isset ($_GET['enviar'])) {
+
+   $id = $_GET['id'];
+   $enviar = $_GET['enviar'];
+   
+   //ENVIAR EMAIL PARA DETERMINADO USUARIO
+   if($id != 0 && $id != null && $enviar == "Singular")
+   {
+          $usuarioEmail = $daoUsuario->buscarPorId($id);
+          
+          if($usuarioEmail->getId() != null)
+          {
+
+          try
+          {
+          
+          $enviar =  new EmailEnviar("youteacher2015@gmail.com", "alissonlopes3@gmail.com", "Teste22", "Apenas um teste22!");
+          //VERIFICAR SE O EMAIL FOI ENVIADO
+          if($enviar->send()){
+              
+                            
+          $emailAEnviarTodos = $daoEmail->buscarPorUsuario($usuarioEmail->getId());
+          //ATUALIZANDO O ENVIADO DO EMAIL
+          $emailAEnviarTodos->setEnviado(1);
+          $daoEmail->atualizar($emailAEnviarTodos);
+              
+               echo "<script type='text/javascript'>";
+                    
+                    echo "var $ = jQuery.noConflict();
+                     $(document).ready(function() {
+                     $('#modalMsgSucessoComLoadingEmail').modal('show');
+                         });";
+                    echo "location.href='http://localhost/questionario/adm/email.php';";
+
+                echo "</script>";
+      
+              
+          }
+          else
+          {
+               
+              echo "<script type='text/javascript'>";
+                   echo "var $ = jQuery.noConflict();
+                     $(document).ready(function() {
+                     $('#modalMsgErroComLoadingEmail').modal('show');
+                         });";
+                   echo "location.href='http://localhost/questionario/adm/email.php';";
+
+                echo "</script>";
+              
+          }
+          }catch (Exception $ex) {
+
+              echo "<script type='text/javascript'>";
+                   echo "var $ = jQuery.noConflict();
+                     $(document).ready(function() {
+                     $('#modalMsgErroExceptionComLoading').modal('show');
+                         });";
+                   echo "location.href='http://localhost/questionario/adm/email.php';";
+
+                echo "</script>";
+              
+          }
+          
+          }
+   }
+
+
+}
+
+
+
+
+
+
+require '../template/rodape.php'; ?>
