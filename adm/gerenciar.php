@@ -202,7 +202,7 @@ else
         <th>Ação</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="tablePaginar">
     <?php 
 
     
@@ -250,18 +250,26 @@ else
         echo '</tr>';
     }
     
-    ?>
+    ?> 
     </tbody>
-  </table>
-  <div>
-      <center>
-        <button id="anterior" class="btn btn-success" disabled><span class="glyphicon glyphicon-chevron-left"></span></button>
-        <span id="numeracao"></span>
-        <button id="proximo" class="btn btn-success " disabled><span class="glyphicon glyphicon-chevron-right"></span></button>
+    <center>
+    <!--   PAGINAÇÃO DA TABELA -->
+    <ul id="ulPaginacao" class="pagination">
+    </ul>
     </center>
-  </div>
+  
+  </table>
+    <script type="text/javascript">
+      
+       var $ = jQuery.noConflict();      
+        $(document).ready(function() {
+        PAGINACAO.init(["tablePaginar", "ulPaginacao", 10, 1, true, true]);
+        PAGINACAO.execscript();
+        });
+        
+     </script>
 
-<!-- PAGINAÇÃO TABELA -->
+
 
             
             

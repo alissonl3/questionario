@@ -230,7 +230,7 @@ else
         <th>Enviado</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="tablePaginar">
     <?php 
 
     
@@ -299,14 +299,19 @@ else
     
     ?>
     </tbody>
-  </table>
-  <div>
-      <center>
-        <button id="anterior" class="btn btn-success" disabled><span class="glyphicon glyphicon-chevron-left"></span></button>
-        <span id="numeracao"></span>
-        <button id="proximo" class="btn btn-success " disabled><span class="glyphicon glyphicon-chevron-right"></span></button>
+    <!--   PAGINAÇÃO DA TABELA -->
+    <center>
+        <ul id="ulPaginacao" class="pagination">
+        </ul>
     </center>
-  </div>
+  </table>
+    <script type="text/javascript">
+        
+        PAGINACAO.init(["tablePaginar", "ulPaginacao", 10, 1, true, true]);
+
+        PAGINACAO.execscript();
+     </script>
+    
 </div> <!-- FIM DIV COM RESULTADO-->
 <div id="semResultado" style="color: red;">
     <br />
