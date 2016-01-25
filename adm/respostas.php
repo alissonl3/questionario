@@ -124,6 +124,15 @@ if(isset($_GET['anoConclusao']) || isset($_GET['curso'])){
          
         <!-- DIV PARA VOLTAR NO TOPO -->
         <div id="voltarTopo"></div>
+        <style>
+           
+            .quadrado
+            {
+                border: 2px #e7e7e7 solid;
+                width: 20px;
+                height: 20px;              
+            }
+        </style>
         
         <div class="jumbotron" style=" background: white; border: 2px #e7e7e7 solid;">
              <div style="float: left;">
@@ -245,7 +254,21 @@ if(isset($_GET['anoConclusao']) || isset($_GET['curso'])){
             <br />
             <canvas id="resp1" style="width:100%;"></canvas>
             <br />
-            <hr />           
+            <br />
+            <div style="color: graytext;">
+                <div style="margin: 5px; float: left;">
+                <label>Legenda: </label>
+                </div>
+                <div style="margin: 5px; float: left;">
+                <div class="quadrado" style="background-color: #F7464A;"> </div> Sim
+                </div>
+                <div style="margin: 5px; float: left;">
+                <div class="quadrado" style="background-color: #46BFBD;"> </div> Não
+                </div>
+            </div>
+            <br />
+            <div style="clear: both;"></div>    
+            <hr />
             <br />
             <label>Você teria interesse em cursar uma Pós-Graduação ou cursos de qualificação profissional ofertados pelo IFPR?</label>
             <br />
@@ -253,7 +276,21 @@ if(isset($_GET['anoConclusao']) || isset($_GET['curso'])){
             <br />
             <canvas id="resp2" style="width:100%;"></canvas>
             <br />
-            <hr />           
+            <br /> 
+            <div style="color: graytext;">
+                <div style="margin: 5px; float: left;">
+                <label>Legenda: </label>
+                </div>
+                <div style="margin: 5px; float: left;">
+                <div class="quadrado" style="background-color: #F7464A;"> </div> Sim
+                </div>
+                <div style="margin: 5px; float: left;">
+                <div class="quadrado" style="background-color: #46BFBD;"> </div> Não
+                </div>
+            </div>
+            <br />
+            <div style="clear: both;"></div> 
+            <hr />
             <br />
             <label>Você está trabalhando na area atualmente?</label>
             <br />
@@ -261,7 +298,21 @@ if(isset($_GET['anoConclusao']) || isset($_GET['curso'])){
             <br />
             <canvas id="resp3" style="width:100%;"></canvas>
             <br />
-            <hr />           
+            <br /> 
+            <div style="color: graytext;">
+                <div style="margin: 5px; float: left;">
+                <label>Legenda: </label>
+                </div>
+                <div style="margin: 5px; float: left;">
+                <div class="quadrado" style="background-color: #F7464A;"> </div> Sim
+                </div>
+                <div style="margin: 5px; float: left;">
+                <div class="quadrado" style="background-color: #46BFBD;"> </div> Não
+                </div>
+            </div>
+            <br />
+            <div style="clear: both;"></div>    
+            <hr />
             <br />
             <label>Na contratação de um egresso da sua area, o que é importante para a seleção?</label>
             <br />
@@ -269,7 +320,27 @@ if(isset($_GET['anoConclusao']) || isset($_GET['curso'])){
             <br />
             <canvas id="resp4" style="width:100%;"></canvas>
             <br />
-            <hr />           
+            <br />    
+            <div style="color: graytext;">
+                <div style="margin: 5px; float: left;">
+                <label>Legenda: </label>
+                </div>
+                <div style="clear: both;"></div>   
+                <center>
+                <div class="quadrado" style="background-color: #F7464A;"> </div> O nome da Instituição de Ensino onde estudou
+
+                <div class="quadrado" style="background-color: #46BFBD;"> </div> As respostas ao teste de seleção, ao qual foi submetido
+                
+                <div class="quadrado" style="background-color: #0000FF;"> </div> A formação teórica
+                
+                <div class="quadrado" style="background-color: #98FB98;"> </div> A experiência prática
+                
+                <div class="quadrado" style="background-color: #FFD700;"> </div> A experiência prática
+                </center>
+            </div>
+            <br />
+            <div style="clear: both;"></div>    
+            <hr />
             <br />
             <label> O que tem faltado aos recém-formados em sua area?</label>
             <br />
@@ -277,7 +348,29 @@ if(isset($_GET['anoConclusao']) || isset($_GET['curso'])){
             <br />
             <canvas id="resp5" style="width:100%;"></canvas>
             <br />
-            <hr />           
+            <br />  
+            <div style="color: graytext;">
+                <div style="margin: 5px; float: left;">
+                <label>Legenda: </label>
+                </div>
+                <div style="clear: both;"></div>   
+                <center>
+                <div class="quadrado" style="background-color: #F7464A;"> </div> Maior embasamento conceitual
+
+                <div class="quadrado" style="background-color: #46BFBD;"> </div> Maior embasamento técnico
+                
+                <div class="quadrado" style="background-color: #0000FF;"> </div> Maior embasamento prático
+                
+                <div class="quadrado" style="background-color: #98FB98;"> </div> Maior aproximação com as necessidades da indústria
+                
+                <div class="quadrado" style="background-color: #FFD700;"> </div> Maior capacidade de liderança
+                
+                <div class="quadrado" style="background-color: #E9967A;"> </div> Maior visão sistêmica
+                </center>
+            </div>
+            <br />
+            <div style="clear: both;"></div>    
+            <hr />
             <br />
             <label>Os conhecimentos adquiridos durante o curso foram importantes para formação profissional?</label>
             <br />
@@ -285,15 +378,53 @@ if(isset($_GET['anoConclusao']) || isset($_GET['curso'])){
             <br />
             <canvas id="resp6" style="width:100%;"></canvas>
             <br />
-            <hr />           
-            <br />               
+            <br />  
+            <div style="color: graytext;">
+                <div style="margin: 5px; float: left;">
+                <label>Legenda: </label>
+                </div>
+                <div style="clear: both;"></div>   
+                <center>
+                <div class="quadrado" style="background-color: #F7464A;"> </div> Muito Satisfatório
+
+                <div class="quadrado" style="background-color: #46BFBD;"> </div> Satisfatório
+                
+                <div class="quadrado" style="background-color: #0000FF;"> </div> Insatisfatório
+                
+                <div class="quadrado" style="background-color: #98FB98;"> </div> Não sei responder
+                
+                </center>
+            </div>
+            <br />
+            <div style="clear: both;"></div>    
+            <hr />
+            <br />                 
             <label>Qual foi a principal contribuição do curso?</label>
             <br />
             <br />
             <br />
             <canvas id="resp7" style="width:100%;"></canvas>
             <br />
-            <hr />           
+            <br />
+            <div style="color: graytext;">
+                <div style="margin: 5px; float: left;">
+                <label>Legenda: </label>
+                </div>
+                <div style="clear: both;"></div>   
+                <center>
+                <div class="quadrado" style="background-color: #F7464A;"> </div> A obtenção de diploma de nível técnico
+
+                <div class="quadrado" style="background-color: #46BFBD;"> </div> A aquisição de cultura geral
+                
+                <div class="quadrado" style="background-color: #0000FF;"> </div> A aquisição de formação profissional e teórica
+                
+                <div class="quadrado" style="background-color: #98FB98;"> </div> Melhores perspectivas de ganhos materiais
+                
+                </center>
+            </div>
+            <br />
+            <div style="clear: both;"></div>    
+            <hr />
             <br />
             <label>Quais foram suas principais dificuldades logo após a conclusÃ£o do curso?</label>
             <br />
@@ -301,7 +432,29 @@ if(isset($_GET['anoConclusao']) || isset($_GET['curso'])){
             <br />
             <canvas id="resp8" style="width:100%;"></canvas>
             <br />
-            <hr />           
+            <br />  
+            <div style="color: graytext;">
+                <div style="margin: 5px; float: left;">
+                <label>Legenda: </label>
+                </div>
+                <div style="clear: both;"></div>   
+                <center>
+                <div class="quadrado" style="background-color: #F7464A;"> </div> Encontrar emprego na área
+
+                <div class="quadrado" style="background-color: #46BFBD;"> </div> Adequação salarial
+                
+                <div class="quadrado" style="background-color: #0000FF;"> </div> Continuar na mesma empresa
+                
+                <div class="quadrado" style="background-color: #98FB98;"> </div> Ser promovido
+                
+                <div class="quadrado" style="background-color: #FFD700;"> </div> Adaptação ao ambiente de trabalho
+                
+                <div class="quadrado" style="background-color: #E9967A;"> </div> Tempo para se dedicar a uma qualificação
+                </center>
+            </div>
+            <br />
+            <div style="clear: both;"></div>    
+            <hr />
             <br />
             </center>
          </div>

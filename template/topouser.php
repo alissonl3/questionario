@@ -39,17 +39,17 @@
                 <div class="col-md-12">
                     <nav class="navbar navbar-default">
                         <div class="container-fluid">
-                            <div class="navbar-header">
+                            <div class="navbar-header" style="min-height: 100px;">
                                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navBarUser">
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span> 
                                 </button>
-                                <a class="navbar-brand" style="color: teal;" href="#"><img  src="../resources/img/questionario_logo.png" alt="Questionário de Egressos" class="img-resposive" /></a>
+                                <a class="navbar-brand" style="color: teal;" href="#"><img  src="../resources/img/questionario_logo.png" alt="Questionário de Egressos" style="max-height: 64px;" class="img-responsive" /></a>
                             </div>
                             <div class="collapse navbar-collapse" id="navBarUser">
 
-                                <ul class="nav navbar-nav navbar-right" >
+                                <ul class="nav navbar-nav navbar-right" style="margin-top: 50px;" >
                                     <li><a href="#"><span class="label" style="color: black;"><?php echo "Seja Bem vindo $logado"; ?></span></a></li>
                                     <li><a href="../visao/logout.php"><span class="glyphicon glyphicon-log-out" style="color: teal;">Sair</span></a></li>            
                                 </ul>
@@ -59,4 +59,4 @@
                     </nav>       
                 </div>
             </div>  
-
+            

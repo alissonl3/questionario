@@ -207,6 +207,10 @@ else
 
     
     foreach ($listaUsuarios as $usuario) {
+        
+        if($usuario->getTipo() == "adm")
+            continue;
+            
         echo '<tr>';
             echo '<td>';
                 echo  $usuario->getId();
