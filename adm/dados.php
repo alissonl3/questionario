@@ -75,10 +75,10 @@ $emailUsuario = $daoEmail->buscarPorUsuario($usuarioSelecionado->getId());
                         <span class="glyphicon glyphicon-pencil"></span>               
                         Alterar                      
                     </button>
-                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modalEmail">
+<!--                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modalEmail">
                         <span class="glyphicon glyphicon-envelope"></span>               
                         Email                      
-                    </button>
+                    </button>-->
                 </div>
             </div>
         
@@ -1309,7 +1309,7 @@ $emailUsuario = $daoEmail->buscarPorUsuario($usuarioSelecionado->getId());
                                 <input type="tel" placeholder="Insere o telefone" value="<?php echo $usuarioSelecionado->getTelefone(); ?>" required="true" class="form-control" name="telefoneAlterar" />
                             </div>
                             <div class="form-group">
-                                <label  for="dataEnvioAlterar">Telefone:</label>
+                                <label  for="dataEnvioAlterar">Data de Envio:</label>
                                 <input type="date" placeholder="Escolha a data" value="<?php echo $emailUsuario->getDataEnvio(); ?>" required="true" class="form-control" name="dataEnvioAlterar" />
                             </div>
                             <center>

@@ -130,9 +130,9 @@ $(document).ready(function ()
                             <button type="submit" class="btn btn-success btn-lg">
                              <span class="glyphicon glyphicon-ok"></span>
                             Alterar</button>
-                        <button type="reset" class="btn btn-danger btn-lg">
+                            <a href="gerenciar.php" class="btn btn-danger btn-lg">
                              <span class="glyphicon glyphicon-remove"></span>
-                            Cancelar</button>
+                            Cancelar</a>
                         </div>
                     </center>
         </form>
