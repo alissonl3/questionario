@@ -62,7 +62,7 @@ $(document).ready(function(){
                                 <span class="glyphicon glyphicon-envelope"></span>
                                 E-mail</a></div>
 <div class="responder" style="float: right; margin-right: 5px;">
-  <a href="#" class="btn btn-success btn-sm" data-toggle="popover" data-placement="top" >Responder Questionário</a>                              
+    <button class="btn btn-success btn-sm" data-toggle="popover" data-placement="top" >Responder Questionário</button>                              
 </div>
 <div style="clear: both;"></div>
 
